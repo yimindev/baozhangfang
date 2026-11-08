@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "updated_at": "2026-10-29",
+  "default_city": "shenzhen",
+  "cities": [
+    {
+      "city_id": "shenzhen",
+      "city_name": "深圳市",
+      "province": "广东省",
+      "admin_code": "440300",
+      "enabled": true,
+      "metadata": {
+        "platform_primary": "gkmlpt",
+        "currency": "CNY",
+        "housing_types": ["面向人才配售住房", "安居型商品房", "共有产权住房", "公共租赁住房", "保障性租赁住房"]
+      },
+      "sources": [
+        {
+          "source_id": "sz_municipal",
+          "level": "municipal",
+          "district": "市直属",
+          "name": "深圳市住房保障署（市住建局）",
+          "type": "topic_html",
+          "enabled": true,
+          "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/index.html",
+          "page_pattern": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/index_{page}.html",
+          "description": "全市统筹人才房、安居房配售、市级公租房轮候与摇号"
+        },
+        {
+          "source_id": "sz_luohu",
+          "level": "district",
+          "district": "罗湖区",
+          "name": "罗湖区住房和建设局",
+          "type": "gkmlpt",
+          "cat_id": 12588,
+          "enabled": true,
+          "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/index#12588",
+          "api": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/api/all/12588?page={page}&m=5",
+          "description": "罗湖区属人才房、保障性住房配租配售"
+        },
+        {
+          "source_id": "sz_futian",
+          "level": "district",
+          "district": "福田区",
+          "name": "福田区住房和建设局",
+          "type": "gkmlpt",
+          "cat_id": 9084,
+          "enabled": true,
+          "url": "https://www.szft.gov.cn/ftqjsj/gkmlpt/index#9084",
+          "api": "https://www.szft.gov.cn/ftqjsj/gkmlpt/api/all/9084?page={page}&m=5",
+          "description": "福田区属人才房、公租房配租配售"
+        },
+        {
+          "source_id": "sz_nanshan",
+          "level": "district",
+          "district": "南山区",
+          "name": "南山区住房和建设局",
+          "type": "gkmlpt",
+          "cat_id": 15162,
+          "enabled": true,
+          "url": "https://www.szns.gov.cn/nsqzjj/gkmlpt/index#15162",
+          "api": "https://www.szns.gov.cn/nsqzjj/gkmlpt/api/all/15162?page={page}&m=5",
+          "description": "南山区属人才房、保租房配租配售"
+        },
+        {
+          "source_id": "sz_baoan",
+          "level": "district",
+          "district": "宝安区",
+          "name": "宝安区住房保障通知公告（区政务集约化）",
+          "type": "gkmlpt",
+          "cat_id": 20503,
+          "enabled": true,
+          "url": "https://www.baoan.gov.cn/gkmlpt/index#20503",
+          "api": "https://www.baoan.gov.cn/gkmlpt/api/all/20503?page={page}&m=5",
+          "description": "宝安区人才房配售（区政务集约化住房保障专栏）"
+        },
+        {
+          "source_id": "sz_longgang",
+          "level": "district",
+          "district": "龙岗区",
+          "name": "龙岗区住房和建设局",
+          "type": "gkmlpt",
+          "cat_id": 6622,
+          "enabled": true,
+          "url": "https://www.lg.gov.cn/lgzjj/gkmlpt/index#6622",
+          "api": "https://www.lg.gov.cn/lgzjj/gkmlpt/api/all/6622?page={page}&m=5",
+          "description": "龙岗区属人才房、保障房配租配售"
+        },
+        {
+          "source_id": "sz_longhua",
+          "level": "district",
+          "district": "龙华区",
+          "name": "龙华区住房和建设局",
+          "type": "gkmlpt",
+          "cat_id": 14151,
+          "enabled": true,
+          "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/index#14151",
+          "api": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/api/all/14151?page={page}&m=5",
+          "description": "龙华区属人才房、定向配租住房"
+        },
+        {
+          "source_id": "sz_pingshan",
+          "level": "district",
+          "district": "坪山区",
+          "name": "坪山区住房和建设局",
+          "type": "gkmlpt",
+          "cat_id": 16322,
+          "enabled": true,
+          "url": "https://www.szpsq.gov.cn/pszfhjsj/gkmlpt/index#16322",
+          "api": "https://www.szpsq.gov.cn/pszfhjsj/gkmlpt/api/all/16322?page={page}&m=5",
+          "description": "坪山区属人才房、保障房配租配售"
+        },
+        {
+          "source_id": "sz_guangming",
+          "level": "district",
+          "district": "光明区",
+          "name": "光明区住房和建设局（城市更新局）",
+          "type": "gkmlpt",
+          "cat_id": 11184,
+          "enabled": true,
+          "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/index#11184",
+          "api": "https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/api/all/11184?page={page}&m=5",
+          "description": "光明区属人才房、保租房配租配售"
+        },
+        {
+          "source_id": "sz_yantian",
+          "level": "district",
+          "district": "盐田区",
+          "name": "盐田区住房和建设局",
+          "type": "gkmlpt",
+          "cat_id": 17753,
+          "enabled": true,
+          "url": "https://www.yantian.gov.cn/ytjsj/gkmlpt/index#17753",
+          "api": "https://www.yantian.gov.cn/ytjsj/gkmlpt/api/all/17753?page={page}&m=5",
+          "description": "盐田区属人才房、保障房配租配售"
+        },
+        {
+          "source_id": "sz_dapeng",
+          "level": "district",
+          "district": "大鹏新区",
+          "name": "大鹏新区住房和建设局（住房保障专栏）",
+          "type": "topic_html",
+          "enabled": true,
+          "url": "https://www.dpxq.gov.cn/xxgk/zdly/bzxzf/tzgg/",
+          "page_pattern": "https://www.dpxq.gov.cn/xxgk/zdly/bzxzf/tzgg/index_{page}.html",
+          "description": "大鹏新区人才住房与保障性住房专栏"
+        },
+        {
+          "source_id": "sz_shenshan",
+          "level": "district",
+          "district": "深汕合作区",
+          "name": "深汕特别合作区住建水务局",
+          "type": "topic_html",
+          "enabled": true,
+          "url": "https://www.szss.gov.cn/sstbhzq/ssw/jrss/ggtz/index.html",
+          "page_pattern": "https://www.szss.gov.cn/sstbhzq/ssw/jrss/ggtz/index_{page}.html",
+          "description": "深汕合作区保障房与人才租金减免公示"
+        }
+      ]
+    }
+  ]
+}

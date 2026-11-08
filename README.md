@@ -1,0 +1,107 @@
+# 保障房数据同步与分析助手 (Baozhangfang)
+
+深圳市保障性住房数据同步、生命周期状态追踪、政策法规库管理与 AI 交互查询助手。
+
+本项目提供了一整套保障性住房公告数据的抓取、解析、状态机流转维护机制，并封装了符合 Antigravity 规范的独立 Agent Skill (`skills/baozhangfang`)，支持纯 SQLite 离线运行与多城市数据源扩展。
+
+---
+
+## 核心特性
+
+- 🏛️ **多级公告增量抓取**：覆盖深圳市住建局及福田、南山、罗湖、宝安、龙岗、龙华、光明、坪山、盐田、大鹏等全区住建局公告源。
+- 🔄 **生命周期状态机追踪**：自动追踪认购批次从「认购通告 -> 认购名单 -> 选房通告 -> 选房结果」的全生命周期流转。
+- 📚 **政策法规库管理**：结构化抓取并归档配租配售、申请门槛、补贴标准等核心政策文件。
+- 🔍 **开箱即用 SQLite 数据集**：内置纯 SQLite 嵌入式数据库，免外部数据库依赖，包含 83+ 房源项目、19+ 认购批次、1200+ 公告索引与最新政策法规。
+- 🤖 **自包含 Antigravity Skill**：位于 `skills/baozhangfang/`，具备独立的配置、数据、脚本与参考文档，支持作为大模型工具即插即用。
+
+---
+
+## 目录结构
+
+```text
+baozhangfang/
+├── skills/
+│   └── baozhangfang/             # 自包含 Antigravity Skill
+│       ├── SKILL.md              # Skill 规范说明与大模型指引
+│       ├── config/
+│       │   └── sources.json      # 多城市数据源与抓取规则配置
+│       ├── data/
+│       │   └── housing.db        # 纯 SQLite 嵌入式数据库 (~5MB)
+│       ├── scripts/
+│       │   ├── schema.py         # SQLite 数据库表结构初始化
+│       │   ├── sync_incremental.py # 增量数据抓取与状态机引擎
+│       │   ├── sync_policies.py  # 政策法规抓取
+│       │   ├── sync_historical.py# 历史公告基线抓取
+│       │   └── query_housing.py  # CLI 查询与统计工具
+│       └── references/           # 数据库设计、数据源与查询文档
+├── config/                       # 项目级全局配置
+│   ├── database.json.example     # 外部 MySQL 配置模版 (可选)
+│   └── sources.json              # 官方数据源列表
+├── scripts/                      # 数据处理、报表与可视化工具
+│   ├── build_dashboard.py        # 可视化大屏构建脚本
+│   ├── parse_pdf.py              # PDF 名单结构化提取
+│   ├── sync_to_mysql.py          # 阿里云 RDS MySQL 同步工具 (可选)
+│   └── ...
+├── data/                         # 本地数据存储
+├── dashboard.html                # 可视化统计看板
+└── README.md
+```
+
+---
+
+## 快速上手
+
+### 1. 安装依赖
+
+```bash
+pip install requests beautifulsoup4
+```
+
+*(如需使用 PDF 名单解析功能，可按需安装 `pypdf` 或 `pdfplumber`)*
+
+### 2. 本地 CLI 查询
+
+直接使用内置的纯 SQLite 查询工具：
+
+```bash
+# 查看数据库整体统计看板
+python3 skills/baozhangfang/scripts/query_housing.py --stats
+
+# 按项目名称模糊搜索
+python3 skills/baozhangfang/scripts/query_housing.py --project "华越龙苑"
+
+# 查询处于认购中或选房中的活跃批次
+python3 skills/baozhangfang/scripts/query_housing.py --active
+
+# 查询最新政策法规
+python3 skills/baozhangfang/scripts/query_housing.py --policies --limit 5
+
+# 查询常态化申购项目
+python3 skills/baozhangfang/scripts/query_housing.py --regular
+```
+
+### 3. 数据增量同步
+
+执行增量同步，自动比对水位线（Watermark）并抓取最新公告：
+
+```bash
+# 增量抓取最新公告与批次状态
+python3 skills/baozhangfang/scripts/sync_incremental.py
+
+# 更新政策法规库
+python3 skills/baozhangfang/scripts/sync_policies.py
+```
+
+---
+
+## 作为 Skill 使用
+
+本项目的 `skills/baozhangfang` 符合标准 Agent Skill 协议，可通过 Antigravity 或大模型框架加载：
+1. 拷贝或链接 `skills/baozhangfang` 到 Agent 技能目录。
+2. 技能内置纯 SQLite 数据与查询工具，无需配置数据库账号即可回答用户关于保障房批次、项目进度、政策要求的各种提问。
+
+---
+
+## 许可证
+
+MIT License

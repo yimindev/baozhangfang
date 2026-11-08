@@ -1,0 +1,18 @@
+{
+  "host": "your-rds-host.mysql.rds.aliyuncs.com",
+  "port": 3306,
+  "database": "baozhangfang",
+  "charset": "utf8mb4",
+  "reader": {
+    "user": "baozhangfang",
+    "password": "your_reader_password",
+    "privileges": "SELECT, SHOW VIEW, CREATE TEMPORARY TABLES",
+    "description": "专用于报表查询、BI分析的只读账号"
+  },
+  "admin": {
+    "user": "admin_user",
+    "password": "your_admin_password",
+    "privileges": "ALL",
+    "description": "用于数据抓取与增量同步的管理员账号"
+  }
+}
