@@ -43,7 +43,6 @@ baozhangfang/
 │   ├── sync_to_mysql.py          # 阿里云 RDS MySQL 同步工具 (可选)
 │   └── ...
 ├── data/                         # 本地数据存储
-├── dashboard.html                # 可视化统计看板
 └── README.md
 ```
 
@@ -102,6 +101,6 @@ python3 skills/baozhangfang/scripts/sync_policies.py
 
 ---
 
-## 许可证
+## 开源协议
 
-MIT License
+MIT 协议

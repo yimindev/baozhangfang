@@ -1,103 +1,103 @@
 # AGENTS.md
 
-This file guides agentic coding assistants working on the **baozhangfang** repository.
+本文件为在此 **baozhangfang（保障房助手）** 代码库上工作的 AI 编程助手（Agent）提供操作与协作规范指引。
 
 ---
 
-## Project Overview
+## 项目概述
 
-**baozhangfang (保障房助手)** is an end-to-end data synchronization, batch lifecycle tracking, policy management, and intelligent assistant platform for government-subsidized / affordable housing (人才房, 安居房, 共有产权房, 保租房).
+**baozhangfang（保障房助手）** 是一个专注于政府保障性住房（人才配售房、安居型商品房、共有产权房、配售型保障房、公共租赁住房）的全流程数据同步、批次生命周期状态追踪、政策法规库管理与智能交互查询平台。
 
-- **Primary Asset**: A self-contained, portable Agent Skill located under `skills/baozhangfang/`.
-- **Core Capabilities**:
-  1. Multi-source incremental scraping from municipal and district housing bureaus.
-  2. Batch lifecycle state machine tracking (`认购中` -> `认购名单已出` -> `选房中` -> `已选房/已完结`).
-  3. Structured policy & regulation repository indexing.
-  4. Instant CLI & natural language queries against an embedded SQLite database.
-  5. Multi-city readiness via declarative JSON source configuration.
-
----
-
-## General Principles
-
-1. **Self-Contained Skill Principle (CRITICAL)**:
-   - The skill at `skills/baozhangfang/` **MUST** remain 100% self-contained and portable.
-   - All skill scripts must use the embedded pure SQLite database (`skills/baozhangfang/data/housing.db`).
-   - The skill must **NEVER** depend on external MySQL databases, cloud RDS, or credentials outside its own directory.
-   - External MySQL syncing scripts (for BI / Aliyun RDS) live exclusively in the root `scripts/sync_to_mysql.py` and are optional utility tools, not part of the skill runtime.
-
-2. **Security & Credential Protection (ABSOLUTE)**:
-   - **NEVER** commit `config/database.json` or any file containing real database passwords, API keys, or access tokens.
-   - Only committed configuration templates (such as `config/database.json.example`) with sanitized dummy values are permitted.
-   - Verify with `git status` and `git check-ignore` before staging any configuration files.
-
-3. **No Over-Engineering & Minimal Dependencies**:
-   - Prefer Python standard library (`sqlite3`, `json`, `pathlib`, `re`, `argparse`, `datetime`).
-   - Keep external dependencies minimal: only `requests` and `beautifulsoup4` for web scraping, and `pdfplumber` / `pypdf` for PDF parsing.
-
-4. **Multi-City Extensibility**:
-   - Do not hardcode Shenzhen in architecture or data models.
-   - Data sources are declaratively defined in `config/sources.json` (city, district, source URLs, CSS selectors, category rules).
-   - Ensure table schemas include `city` and `district` partition fields.
-
-5. **Clean Working Tree**:
-   - Temporary PDF downloads, sample spreadsheets (`*.xlsx`), and intermediate JSON caches must remain gitignored.
-   - Do not leave ad-hoc test scripts or scratch output files in the repository root.
+- **核心资产**：位于 `skills/baozhangfang/` 目录下的独立、自包含 Agent Skill。
+- **核心能力**：
+  1. 多源增量爬取：覆盖市级住建局及各区级住建局政务公开通告。
+  2. 批次生命周期状态机追踪：自动推进 `认购中` -> `认购名单已出` -> `选房中` -> `已选房/已完结` 全流程流转。
+  3. 结构化政策法规库：归档配租配售、申请门槛、补贴标准等核心政策规约。
+  4. 纯 SQLite 开箱即用检索：内置嵌入式 SQLite 数据库，支持毫秒级 CLI 与大模型自然语言交互查询。
+  5. 多城市扩展架构：通过声明式 JSON 配置（`sources.json`）实现零代码侵入扩展新城市。
 
 ---
 
-## Repository Structure
+## 通用开发原则
+
+1. **Skill 自包含原则（核心绝对原则）**：
+   - 位于 `skills/baozhangfang/` 的技能**必须保持 100% 自包含与可移植**。
+   - 所有 Skill 内的脚本和逻辑必须使用内部纯嵌入式 SQLite 数据库（`skills/baozhangfang/data/housing.db`）。
+   - Skill **严禁**依赖外部 MySQL 数据库、云端 RDS 或 Skill 目录之外的私有凭据。
+   - 外部 MySQL 同步脚本（如用于 BI / 阿里云 RDS 的数据桥接）仅作为根目录 `scripts/sync_to_mysql.py` 的可选扩展工具，绝不属于 Skill 运行时的依赖项。
+
+2. **凭据安全与隐私保护（绝对红线）**：
+   - **严禁**提交 `config/database.json` 或任何包含真实数据库密码、API 密钥、Token 凭证的文件到 Git。
+   - 仓库仅允许提交脱敏配置模版（如 `config/database.json.example`）。
+   - 在暂存或提交任何配置之前，务必使用 `git status` 和 `git check-ignore` 严格复核。
+
+3. **极简主义与最小依赖原则**：
+   - 优先采用 Python 标准库（`sqlite3`、`json`、`pathlib`、`re`、`argparse`、`datetime`）。
+   - 外部依赖保持最少：网络抓取仅依赖 `requests` 和 `beautifulsoup4`，PDF 名单解析仅在需要时选用 `pypdf` 或 `pdfplumber`。
+   - 杜绝过度封装与复杂抽象。
+
+4. **原生支持多城市扩展**：
+   - 架构与数据模型中禁止对深圳进行硬编码。
+   - 数据源统一在 `config/sources.json` 中声明式定义（包含城市代码、区县划分、数据源 URL、CSS 选择器、分类规则等）。
+   - 确保数据表结构中包含 `city` 和 `district` 分区字段。
+
+5. **保持干净的工作区**：
+   - 临时下载的 PDF 文件、测试表格（`*.xlsx`、`*.xls`、`*.csv`）以及中间 JSON 缓存必须在 `.gitignore` 中被忽略。
+   - 不要在仓库根目录下残留临时测试脚本或临时输出产物。
+
+---
+
+## 仓库目录结构
 
 ```text
 baozhangfang/
-├── AGENTS.md                     # Agent guidelines and operating instructions (this file)
-├── README.md                     # Project documentation & quick start
-├── .gitignore                    # Git exclusion rules (sensitive configs, temporary files)
+├── AGENTS.md                     # Agent 协作指南与操作规约（本文件）
+├── README.md                     # 项目介绍与快速入门文档
+├── .gitignore                    # Git 忽略规则（敏感配置、临时文件）
 ├── skills/
-│   └── baozhangfang/             # Portable Agent Skill (self-contained)
-│       ├── SKILL.md              # Skill specification & prompt instructions for LLMs
+│   └── baozhangfang/             # 自包含 Agent Skill（可独立分发与运行）
+│       ├── SKILL.md              # Skill 规范说明与大模型调度指引
 │       ├── config/
-│       │   └── sources.json      # Multi-city data source configurations
+│       │   └── sources.json      # 多城市数据源与抓取规则配置
 │       ├── data/
-│       │   └── housing.db        # Embedded SQLite database (projects, batches, notices, policies)
+│       │   └── housing.db        # 嵌入式 SQLite 数据库（项目、批次、通告、政策台账）
 │       ├── scripts/
-│       │   ├── schema.py         # SQLite DDL & table initialization
-│       │   ├── sync_incremental.py # Incremental notice scraper & batch state machine
-│       │   ├── sync_policies.py  # Housing policy scraper & categorizer
-│       │   ├── sync_historical.py# Historical notice & batch baseline builder
-│       │   └── query_housing.py  # CLI search & statistical query tool
+│       │   ├── schema.py         # SQLite 表结构初始化与重置脚本
+│       │   ├── sync_incremental.py # 增量通告抓取与状态机流转引擎
+│       │   ├── sync_policies.py  # 政策法规库全量/增量同步脚本
+│       │   ├── sync_historical.py# 历史通告与批次数据基准建档脚本
+│       │   └── query_housing.py  # 纯 SQLite 命令行交互与统计工具
 │       └── references/
-│           ├── database_schema.md# Detailed table structures & ER diagrams
-│           ├── query_cheatsheet.md# Common SQL snippets & query examples
-│           └── sources_guide.md  # Guide for adding new city data sources
-├── config/
-│   ├── database.json.example     # Sanitized Aliyun RDS MySQL configuration template
-│   └── sources.json              # Source configuration for root utilities
-├── scripts/                      # Root developer utilities & data pipelines
-│   ├── build_dashboard.py        # Dashboard HTML generator
-│   ├── parse_pdf.py              # PDF applicant qualification list parser
-│   ├── sync_to_mysql.py          # Aliyun RDS MySQL bridge (optional)
+│           ├── database_schema.md# 完整数据库表字典与枚举定义
+│           ├── query_cheatsheet.md# 常用 SQL 与业务巡检速查手册
+│           └── sources_guide.md  # 新增城市与区县数据源接入指南
+├── config/                       # 根目录全局配置
+│   ├── database.json.example     # 阿里云 RDS MySQL 配置脱敏模版（可选）
+│   └── sources.json              # 官方数据源配置
+├── scripts/                      # 根目录开发者数据处理与管道脚本
+│   ├── build_dashboard.py        # 数据看板生成脚本
+│   ├── parse_pdf.py              # PDF 申购人员资格名单解析工具
+│   ├── sync_to_mysql.py          # 阿里云 RDS MySQL 同步桥接工具（可选）
 │   └── ...
-├── data/
-│   └── housing.db                # Local working SQLite copy
-└── dashboard.html                # Interactive data visualizer & statistics dashboard
+└── data/
+    └── housing.db                # 本地工作 SQLite 数据库副本
 ```
 
 ---
 
-## Database Architecture & Tables
+## 数据库架构与核心数据表
 
-Both `skills/baozhangfang/data/housing.db` and the root `data/housing.db` share the same schema:
+`skills/baozhangfang/data/housing.db` 与根目录 `data/housing.db` 遵循同一套数据规范：
 
-| Table | Purpose | Key Columns |
+| 数据表名 | 用途说明 | 核心字段 |
 |---|---|---|
-| `housing_projects` | Housing project master table | `project_id`, `project_name`, `city`, `district`, `project_type`, `total_units`, `record_price`, `status` |
-| `subscription_batches` | Subscription batch lifecycle | `batch_id`, `batch_title`, `batch_code`, `project_id`, `batch_status`, `apply_start`, `apply_end` |
-| `official_notices` | Scraped official government notices | `notice_id`, `title`, `url`, `publish_date`, `notice_type`, `city`, `district`, `batch_code` |
-| `policies` | Housing policies & regulations | `policy_id`, `title`, `url`, `publish_date`, `department`, `category`, `summary`, `content` |
-| `sync_watermark` | Incremental sync tracking | `city`, `source_id`, `last_sync_time`, `last_notice_date`, `total_synced` |
+| `housing_projects` | 物理项目大盘基础台账 | `project_id`, `project_name`, `city`, `district`, `project_type`, `total_units`, `record_price`, `status` |
+| `subscription_batches` | 房源推售与认购批次生命周期台账 | `batch_id`, `batch_title`, `batch_code`, `project_id`, `batch_status`, `apply_start`, `apply_end` |
+| `official_notices` | 抓取的政务公开通告事件流水 | `notice_id`, `title`, `url`, `publish_date`, `notice_type`, `city`, `district`, `batch_code` |
+| `policies` | 住房政策、法规与办事指南库 | `policy_id`, `title`, `url`, `publish_date`, `department`, `category`, `summary`, `content` |
+| `sync_watermark` | 增量采集水位线记录表 | `city`, `source_id`, `last_sync_time`, `last_notice_date`, `total_synced` |
 
-### Batch State Machine Transitions
+### 批次生命周期状态机流转
 ```text
 [认购通告发布] -> 认购中 (subscribing)
      ↓
@@ -110,53 +110,55 @@ Both `skills/baozhangfang/data/housing.db` and the root `data/housing.db` share 
 
 ---
 
-## Commands & Workflows
+## 常用命令与工作流
 
-### 1. Skill CLI Queries (SQLite)
+### 1. Skill 命令行检索（纯 SQLite）
 ```bash
-# Display overall statistics dashboard
+# 查看全库资产整体统计看板
 python3 skills/baozhangfang/scripts/query_housing.py --stats
 
-# Fuzzy search housing projects by name
+# 按项目名称模糊搜索（如：华越龙苑、深铁熙府）
 python3 skills/baozhangfang/scripts/query_housing.py --project "华越龙苑"
 
-# Query active batches (subscribing / selecting)
+# 查询处于认购中或选房中的活跃批次
 python3 skills/baozhangfang/scripts/query_housing.py --active
 
-# Query latest housing policies
+# 查询最新发布的政策法规
 python3 skills/baozhangfang/scripts/query_housing.py --policies --limit 5
 
-# Query open regular subscription projects (常态化申购)
+# 查询常态化申购（现场即时配售）项目
 python3 skills/baozhangfang/scripts/query_housing.py --regular
 ```
 
-### 2. Incremental Synchronization
+### 2. 增量数据同步
 ```bash
-# Run incremental sync across official sources (updates notices & batches)
+# 执行多源增量通告抓取与批次状态自动流转
 python3 skills/baozhangfang/scripts/sync_incremental.py
 
-# Scrape and update policy database
+# 同步与更新政策法规库
 python3 skills/baozhangfang/scripts/sync_policies.py
 ```
 
-### 3. Adding a New City or District
-1. Open `skills/baozhangfang/config/sources.json`.
-2. Add a new source entry under the target city with:
-   - `id`: unique source identifier.
-   - `name`: government department name.
-   - `city` / `district`: administrative division.
-   - `list_url`: official notice list page URL.
-   - `selectors`: CSS selectors for title, link, date, and pagination.
-3. Test scraper compatibility with `python3 skills/baozhangfang/scripts/sync_incremental.py`.
+### 3. 新增城市或区县数据源
+1. 打开 `skills/baozhangfang/config/sources.json`。
+2. 在目标城市节点下新增数据源条目，配置以下要素：
+   - `id`：全局唯一数据源标识符。
+   - `name`：政务部门全称（如 `深圳市龙华区住房和建设局`）。
+   - `city` / `district`：对应行政区划代码及名称。
+   - `list_url`：政务通告列表页入口 URL。
+   - `selectors`：标题、链接、发布日期和分页的 CSS 提取规则。
+3. 执行 `python3 skills/baozhangfang/scripts/sync_incremental.py` 验证抓取解析是否正常。
 
 ---
 
-## Agent Operational Rules
+## Agent 操作规范与守则
 
-1. **Verify Before Modifying**:
-   - When modifying scrapers or database schemas, test against a copy or run `query_housing.py --stats` to confirm data integrity.
-2. **Synchronize Skill and Root Assets**:
-   - If updates are made to `skills/baozhangfang/config/sources.json`, keep root `config/sources.json` aligned if applicable.
-3. **Commit Cleanly**:
-   - Write clear, conventional commit messages (`feat: ...`, `fix: ...`, `docs: ...`, `refactor: ...`).
-   - Run `git status` to ensure no unwanted files or secrets are staged.
+1. **修改前必验证**：
+   - 凡涉及爬虫规则调整或数据库表结构变更，应先在本地执行测试或运行 `query_housing.py --stats` 确保历史数据无损坏。
+2. **保持 Skill 与根目录配置同步**：
+   - 若对 `skills/baozhangfang/config/sources.json` 进行了更新，需同步检查并维护根目录 `config/sources.json`（若存在对应文件）。
+3. **内容一律使用中文**：
+   - 本项目的所有文档、注释说明、提示信息统一使用规范中文编写。
+4. **规范提交 Git 记录**：
+   - 遵循清晰的 Conventional Commits 规范（`feat: ...`, `fix: ...`, `docs: ...`, `refactor: ...`）。
+   - 每次提交前运行 `git status` 确保没有任何密码凭证或临时测试文件被误暂存。
