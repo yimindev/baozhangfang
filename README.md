@@ -31,8 +31,7 @@ baozhangfang/
 │       │   ├── schema.py         # SQLite 数据库表结构初始化
 │       │   ├── sync_incremental.py # 增量数据抓取与状态机引擎
 │       │   ├── sync_policies.py  # 政策法规抓取
-│       │   ├── sync_historical.py# 历史公告基线抓取
-│       │   └── query_housing.py  # CLI 查询与统计工具
+│       │   └── sync_historical.py# 历史公告基线抓取
 │       └── references/           # 数据库设计、数据源与查询文档
 ├── config/                       # 项目级全局配置
 │   ├── database.json.example     # 外部 MySQL 配置模版 (可选)
@@ -58,25 +57,32 @@ pip install requests beautifulsoup4
 
 *(如需使用 PDF 名单解析功能，可按需安装 `pypdf` 或 `pdfplumber`)*
 
-### 2. 本地 CLI 查询
+### 2. 数据库检索与查询
 
-直接使用内置的纯 SQLite 查询工具：
+数据库采用纯 SQLite 存储，结构简洁透明。Agent 或开发者可直接执行 SQL，无固定参数约束（详细 SQL 模板见 `skills/baozhangfang/references/query_cheatsheet.md`）：
 
 ```bash
 # 查看数据库整体统计看板
-python3 skills/baozhangfang/scripts/query_housing.py --stats
+sqlite3 -header -column skills/baozhangfang/data/housing.db "
+SELECT 'projects', count(*) FROM projects UNION ALL
+SELECT 'batches', count(*) FROM batches UNION ALL
+SELECT 'notices', count(*) FROM notices UNION ALL
+SELECT 'policies', count(*) FROM policies;
+"
 
-# 按项目名称模糊搜索
-python3 skills/baozhangfang/scripts/query_housing.py --project "华越龙苑"
+# 按项目名称模糊搜索（如：华越龙苑）
+sqlite3 -header -column skills/baozhangfang/data/housing.db "
+SELECT p.project_name, p.district, b.batch_id, b.total_units, b.average_price, b.current_stage
+FROM projects p LEFT JOIN batches b ON p.id = b.project_id
+WHERE p.project_name LIKE '%华越龙苑%';
+"
 
-# 查询处于认购中或选房中的活跃批次
-python3 skills/baozhangfang/scripts/query_housing.py --active
-
-# 查询最新政策法规
-python3 skills/baozhangfang/scripts/query_housing.py --policies --limit 5
-
-# 查询常态化申购项目
-python3 skills/baozhangfang/scripts/query_housing.py --regular
+# 查询常态化申购（现场即时配售）项目
+sqlite3 -header -column skills/baozhangfang/data/housing.db "
+SELECT p.project_name, p.district, b.total_units, b.average_price, b.current_stage, b.reception_location
+FROM batches b JOIN projects p ON b.project_id = p.id
+WHERE b.has_regular_sales_exit = 1 OR b.current_stage = '常态化配售中';
+"
 ```
 
 ### 3. 数据增量同步

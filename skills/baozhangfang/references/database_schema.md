@@ -98,8 +98,26 @@
 
 ---
 
-### 5. `applications`：申购家庭与状态机台账
-用于记录认购家庭在单次批次中的全生命周期流转。
+### 5. `applications` 与 `households`：申购家庭与名单台账
+
+#### 5.1 `households`：PDF 认购公示名单导入台账
+记录从官方认购名单 PDF 附件中提取并结构化的合格家庭清单。
+
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `code` | TEXT PRIMARY KEY | 申购编号（如 `SQ2026...`） |
+| `batch` | TEXT | 所属批次文号 |
+| `house_type` | TEXT | 意向房型（`两房` / `三房`） |
+| `queue` | TEXT | 审核队列（第一队列至第四队列） |
+| `main_applicant` | TEXT | 主申请人姓名（脱敏） |
+| `main_id_card` | TEXT | 主申请人身份证（脱敏） |
+| `talent_type` | TEXT | 人才认定类型 |
+| `intention` | TEXT | 认购意向项目 |
+| `family_size` | INTEGER | 共同申请家庭总人数 |
+| `member_names` | TEXT | 共同申请人姓名列表 |
+
+#### 5.2 `applications`：批次全生命周期流转状态台账
+用于记录认购家庭在单次批次中的全生命周期流转（初审/复核/摇号序号/选房签约）。
 
 | 字段名 | 类型 | 说明 |
 | :--- | :--- | :--- |

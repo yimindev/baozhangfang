@@ -65,8 +65,7 @@ baozhangfang/
 │       │   ├── schema.py         # SQLite 表结构初始化与重置脚本
 │       │   ├── sync_incremental.py # 增量通告抓取与状态机流转引擎
 │       │   ├── sync_policies.py  # 政策法规库全量/增量同步脚本
-│       │   ├── sync_historical.py# 历史通告与批次数据基准建档脚本
-│       │   └── query_housing.py  # 纯 SQLite 命令行交互与统计工具
+│       │   └── sync_historical.py# 历史通告与批次数据基准建档脚本
 │       └── references/
 │           ├── database_schema.md# 完整数据库表字典与枚举定义
 │           ├── query_cheatsheet.md# 常用 SQL 与业务巡检速查手册
@@ -87,47 +86,65 @@ baozhangfang/
 
 ## 数据库架构与核心数据表
 
-`skills/baozhangfang/data/housing.db` 与根目录 `data/housing.db` 遵循同一套数据规范：
+`skills/baozhangfang/data/housing.db` 包含以下 5 大核心业务表与 1 张同步水位线表：
 
 | 数据表名 | 用途说明 | 核心字段 |
 |---|---|---|
-| `housing_projects` | 物理项目大盘基础台账 | `project_id`, `project_name`, `city`, `district`, `project_type`, `total_units`, `record_price`, `status` |
-| `subscription_batches` | 房源推售与认购批次生命周期台账 | `batch_id`, `batch_title`, `batch_code`, `project_id`, `batch_status`, `apply_start`, `apply_end` |
-| `official_notices` | 抓取的政务公开通告事件流水 | `notice_id`, `title`, `url`, `publish_date`, `notice_type`, `city`, `district`, `batch_code` |
-| `policies` | 住房政策、法规与办事指南库 | `policy_id`, `title`, `url`, `publish_date`, `department`, `category`, `summary`, `content` |
+| `projects` | 物理项目大盘基础台账 | `id`, `project_name`, `city`, `district`, `housing_type`, `total_planned_units`, `address`, `status` |
+| `batches` | 房源推售与认购批次生命周期台账 | `batch_id`, `project_id`, `housing_type`, `total_units`, `two_bedroom_units`, `three_bedroom_units`, `average_price`, `current_stage`, `has_regular_sales_exit` |
+| `notices` | 抓取的政务公开通告事件流水 | `id`, `city`, `district`, `batch_id`, `category`, `title`, `publish_date`, `url`, `content_text` |
+| `policies` | 住房政策、法规与办事指南库 | `id`, `city`, `category`, `title`, `publisher`, `publish_date`, `status`, `url`, `content_text` |
+| `households` | 认购公示合格家庭清单 (PDF解析导入) | `code`, `batch`, `house_type`, `queue`, `main_applicant`, `family_size` |
 | `sync_watermark` | 增量采集水位线记录表 | `city`, `source_id`, `last_sync_time`, `last_notice_date`, `total_synced` |
 
 ### 批次生命周期状态机流转
 ```text
 [认购通告发布] -> 认购中 (subscribing)
      ↓
-[认购名单公布] -> 认购名单已出 (list_published)
+[认购名单公布] -> 认购名单已出 / 初审终审公示
      ↓
-[选房通告发布] -> 选房中 (selecting)
+[选房通告发布] -> 选房签约中 (selecting)
      ↓
-[选房结果公告] -> 已选房 / 已完结 (completed)
+[常态化通告/选房结束] -> 常态化配售中 (regular) / 已完成选房 (completed)
 ```
 
 ---
 
 ## 常用命令与工作流
 
-### 1. Skill 命令行检索（纯 SQLite）
+### 1. 业务数据检索（SQL 直接探索，无脚本限制）
+系统**不封装固定脚本**，Agent 应依据用户需求直接对 SQLite 数据库编写 SQL 查询（参考 `references/query_cheatsheet.md`）：
+
 ```bash
-# 查看全库资产整体统计看板
-python3 skills/baozhangfang/scripts/query_housing.py --stats
+# 1. 查看全库资产健康指标与批次阶段分布
+sqlite3 -header -column skills/baozhangfang/data/housing.db "
+SELECT 'projects', count(*) FROM projects UNION ALL
+SELECT 'batches', count(*) FROM batches UNION ALL
+SELECT 'notices', count(*) FROM notices UNION ALL
+SELECT 'policies', count(*) FROM policies;
+"
 
-# 按项目名称模糊搜索（如：华越龙苑、深铁熙府）
-python3 skills/baozhangfang/scripts/query_housing.py --project "华越龙苑"
+# 2. 模糊查询具体楼盘（如：华越龙苑、深铁熙府、缙熙园）
+sqlite3 -header -column skills/baozhangfang/data/housing.db "
+SELECT p.project_name, p.district, b.batch_id, b.total_units, b.average_price, b.current_stage
+FROM projects p LEFT JOIN batches b ON p.id = b.project_id
+WHERE p.project_name LIKE '%华越龙苑%';
+"
 
-# 查询处于认购中或选房中的活跃批次
-python3 skills/baozhangfang/scripts/query_housing.py --active
+# 3. 筛选所有“常态化现场即时配售”房源（现场可直接认购）
+sqlite3 -header -column skills/baozhangfang/data/housing.db "
+SELECT p.project_name, p.district, b.total_units, b.average_price, b.current_stage, b.reception_location
+FROM batches b JOIN projects p ON b.project_id = p.id
+WHERE b.has_regular_sales_exit = 1 OR b.current_stage = '常态化配售中';
+"
 
-# 查询最新发布的政策法规
-python3 skills/baozhangfang/scripts/query_housing.py --policies --limit 5
-
-# 查询常态化申购（现场即时配售）项目
-python3 skills/baozhangfang/scripts/query_housing.py --regular
+# 4. 全文检索政策法规（如：单身年龄限制、本科申请门槛）
+sqlite3 -header -column skills/baozhangfang/data/housing.db "
+SELECT title, publisher, publish_date, url
+FROM policies
+WHERE content_text LIKE '%全日制本科%' OR content_text LIKE '%单身%'
+LIMIT 5;
+"
 ```
 
 ### 2. 增量数据同步
@@ -154,7 +171,7 @@ python3 skills/baozhangfang/scripts/sync_policies.py
 ## Agent 操作规范与守则
 
 1. **修改前必验证**：
-   - 凡涉及爬虫规则调整或数据库表结构变更，应先在本地执行测试或运行 `query_housing.py --stats` 确保历史数据无损坏。
+   - 凡涉及爬虫规则调整或数据库表结构变更，应先在本地执行测试或运行 `sqlite3 skills/baozhangfang/data/housing.db "SELECT count(*) FROM projects;"` 确保历史数据无损坏。
 2. **保持 Skill 与根目录配置同步**：
    - 若对 `skills/baozhangfang/config/sources.json` 进行了更新，需同步检查并维护根目录 `config/sources.json`（若存在对应文件）。
 3. **内容一律使用中文**：
