@@ -54,3 +54,11 @@ venv.bak/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Temporary document downloads and data dumps
+*.pdf
+*.xlsx
+*.xls
+*.csv
+data/dashboard_data.json
+
