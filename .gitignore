@@ -61,4 +61,5 @@ Thumbs.db
 *.xls
 *.csv
 data/dashboard_data.json
+*-workspace/
 

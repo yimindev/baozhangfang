@@ -37,8 +37,8 @@ skills/baozhangfang/
 
 数据库只有 5 张核心表，结构高度清晰规范。**Agent 无需调用封装死板的固定脚本，应根据用户问题直接探索表并编写 SQL 查询**。
 
-- **数据库路径**：`skills/baozhangfang/data/housing.db`
-- **执行方式**：通过终端命令 `sqlite3 -header -column skills/baozhangfang/data/housing.db "<SQL>"` 或 Python `sqlite3` 模块执行。
+- **数据库路径**：`<SKILL_DIR>/data/housing.db`（全局技能路径为 `~/.agents/skills/baozhangfang/data/housing.db` 或 `~/.gemini/config/skills/baozhangfang/data/housing.db`；在本项目工作区内为 `skills/baozhangfang/data/housing.db`）
+- **执行方式**：通过终端命令 `sqlite3 -header -column <SKILL_DIR>/data/housing.db "<SQL>"` 或 Python `sqlite3` 模块执行。
 - **参考文档**：
   - 表结构与字段字典：[database_schema.md](file://references/database_schema.md)
   - 常用 SQL 查询模板：[query_cheatsheet.md](file://references/query_cheatsheet.md)
@@ -81,7 +81,7 @@ skills/baozhangfang/
 
 ```bash
 # 默认刷新深圳（或通过 --city 指定其他城市）
-python3 skills/baozhangfang/scripts/sync_incremental.py [--city 深圳]
+python3 <SKILL_DIR>/scripts/sync_incremental.py [--city 深圳]
 ```
 
 ### 内部执行逻辑：
@@ -113,7 +113,7 @@ python3 skills/baozhangfang/scripts/sync_incremental.py [--city 深圳]
    ```
 2. **需要拉取最新政策时**：
    ```bash
-   python3 skills/baozhangfang/scripts/sync_policies.py [--city 深圳]
+   python3 <SKILL_DIR>/scripts/sync_policies.py [--city 深圳]
    ```
 - 数据库 `policies` 表存储了从《深圳市保障性住房条例》到最新《配售型保障性住房管理办法》全部 35 部现行法规全文；
 - 直接从 `content_text` 中检索确切条款解答用户的户籍、社保、单身年龄限制（30周岁/35周岁）、房产转让年限等政策要求。
@@ -127,7 +127,7 @@ python3 skills/baozhangfang/scripts/sync_incremental.py [--city 深圳]
 2. **配置数据源**：在 `config/sources.json` 中配置该城市住建局或政务公开平台（支持标准 `gkmlpt` API 或 `topic_html` 页面）；
 3. **执行针对该城市的初始化与增量刷新**：
    ```bash
-   python3 skills/baozhangfang/scripts/sync_incremental.py --city 广州
+   python3 <SKILL_DIR>/scripts/sync_incremental.py --city 广州
    ```
 
 ---
