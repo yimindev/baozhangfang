@@ -13,7 +13,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-DB_SQLITE = SKILL_ROOT / "data" / "housing.db"
+from db import get_db_path  # 运行库路径（首次使用时自动由 seed.sql 自举）
 
 BASE_URL = "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/"
 
@@ -79,7 +79,7 @@ def parse_policy_detail(url: str):
 
 def sync_policies(city: str = "深圳"):
     print(f"[*] 正在拉取政策法规库 ({city})...")
-    conn = sqlite3.connect(DB_SQLITE)
+    conn = sqlite3.connect(get_db_path())
     cur = conn.cursor()
 
     pages = [f"{BASE_URL}index.html", f"{BASE_URL}index_2.html"]

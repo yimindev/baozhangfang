@@ -19,8 +19,12 @@ description: >-
 skills/baozhangfang/
 ├── SKILL.md                  # 核心技能说明书（当前文件）
 ├── config/sources.json       # 多城市政务采集源配置（预设深圳12个源，支持扩展）
-├── data/housing.db           # 嵌入式 SQLite 数据库（自带全量历史基线）
+├── data/
+│   ├── seed.sql              # 脱敏种子基线（SQL 文本，纳入版本管理，仅发版时刷新）
+│   └── housing.db            # 运行时工作库（首次使用由 seed.sql 自动生成，不纳入版本管理）
 ├── scripts/                  # 纯 SQLite 驱动的数据维护脚本
+│   ├── db.py                 # 运行库路径解析与种子自举（python3 scripts/db.py）
+│   ├── export_seed.py        # 由运行库导出脱敏种子 seed.sql（发版时使用）
 │   ├── sync_incremental.py   # 增量刷新引擎（水位线逆向探测与状态机流转）
 │   ├── sync_policies.py      # 政策法规库全文同步工具
 │   ├── sync_historical.py    # 历史物理大盘项目建档脚本
@@ -38,6 +42,8 @@ skills/baozhangfang/
 数据库只有 5 张核心表，结构高度清晰规范。**Agent 无需调用封装死板的固定脚本，应根据用户问题直接探索表并编写 SQL 查询**。
 
 - **数据库路径**：`<SKILL_DIR>/data/housing.db`（全局技能路径为 `~/.agents/skills/baozhangfang/data/housing.db` 或 `~/.gemini/config/skills/baozhangfang/data/housing.db`；在本项目工作区内为 `skills/baozhangfang/data/housing.db`）
+- **首次使用（必做检查）**：若 `<SKILL_DIR>/data/housing.db` 不存在，**必须先执行** `python3 <SKILL_DIR>/scripts/db.py` 由种子 `seed.sql` 生成运行库。切勿直接对不存在的路径执行 `sqlite3`，否则会创建一个空库。
+- **隐私说明**：种子库不含 `households` / `members` / `applications` 的数据行（含个人信息），这几张表需在本地通过 PDF 名单解析自行导入。
 - **执行方式**：通过终端命令 `sqlite3 -header -column <SKILL_DIR>/data/housing.db "<SQL>"` 或 Python `sqlite3` 模块执行。
 - **参考文档**：
   - 表结构与字段字典：[database_schema.md](file://references/database_schema.md)
@@ -97,6 +103,8 @@ python3 <SKILL_DIR>/scripts/sync_incremental.py [--city 深圳]
    - 若选房通告明确“选房结束后如有剩余房源，实行常态化配售”，标记 `has_regular_sales_exit = 1`；
    - 若通告启动现场即时选房，阶段转为 `常态化配售中`；
 6. **新政策规约捕获**：新印发的管理办法与规范性公文自动全文沉淀入 `policies` 表。
+
+> 增量同步只写入运行库 `housing.db`，不会改动纳入版本管理的 `seed.sql`。仅当需要发布新的数据基线时，才执行 `python3 <SKILL_DIR>/scripts/export_seed.py` 刷新种子并提交。
 
 ---
 

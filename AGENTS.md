@@ -30,6 +30,7 @@
    - **严禁**提交 `config/database.json` 或任何包含真实数据库密码、API 密钥、Token 凭证的文件到 Git。
    - 仓库仅允许提交脱敏配置模版（如 `config/database.json.example`）。
    - 在暂存或提交任何配置之前，务必使用 `git status` 和 `git check-ignore` 严格复核。
+   - **严禁**提交 `housing.db` 等二进制数据库文件；数据基线只能以 `seed.sql` 形式提交，且必须经由 `export_seed.py` 导出（自动剔除 `households` / `members` / `applications` 中的个人姓名、证件号等隐私数据）。
 
 3. **极简主义与最小依赖原则**：
    - 优先采用 Python 标准库（`sqlite3`、`json`、`pathlib`、`re`、`argparse`、`datetime`）。
@@ -38,7 +39,7 @@
 
 4. **原生支持多城市扩展**：
    - 架构与数据模型中禁止对深圳进行硬编码。
-   - 数据源统一在 `config/sources.json` 中声明式定义（包含城市代码、区县划分、数据源 URL、CSS 选择器、分类规则等）。
+   - 数据源统一在 `skills/baozhangfang/config/sources.json` 中声明式定义（包含城市代码、区县划分、数据源 URL、CSS 选择器、分类规则等）。
    - 确保数据表结构中包含 `city` 和 `district` 分区字段。
 
 5. **保持干净的工作区**：
@@ -60,8 +61,11 @@ baozhangfang/
 │       ├── config/
 │       │   └── sources.json      # 多城市数据源与抓取规则配置
 │       ├── data/
-│       │   └── housing.db        # 嵌入式 SQLite 数据库（项目、批次、通告、政策台账）
+│       │   ├── seed.sql          # 脱敏种子基线（SQL 文本，纳入版本管理，仅发版时由 export_seed.py 刷新）
+│       │   └── housing.db        # 运行时工作库（由 seed.sql 自举，Git 忽略；全项目唯一数据库）
 │       ├── scripts/
+│       │   ├── db.py             # 运行库路径解析与种子自举
+│       │   ├── export_seed.py    # 导出脱敏种子（剔除 households/members/applications 数据）
 │       │   ├── schema.py         # SQLite 表结构初始化与重置脚本
 │       │   ├── sync_incremental.py # 增量通告抓取与状态机流转引擎
 │       │   ├── sync_policies.py  # 政策法规库全量/增量同步脚本
@@ -71,15 +75,11 @@ baozhangfang/
 │           ├── query_cheatsheet.md# 常用 SQL 与业务巡检速查手册
 │           └── sources_guide.md  # 新增城市与区县数据源接入指南
 ├── config/                       # 根目录全局配置
-│   ├── database.json.example     # 阿里云 RDS MySQL 配置脱敏模版（可选）
-│   └── sources.json              # 官方数据源配置
-├── scripts/                      # 根目录开发者数据处理与管道脚本
-│   ├── build_dashboard.py        # 数据看板生成脚本
-│   ├── parse_pdf.py              # PDF 申购人员资格名单解析工具
-│   ├── sync_to_mysql.py          # 阿里云 RDS MySQL 同步桥接工具（可选）
-│   └── ...
-└── data/
-    └── housing.db                # 本地工作 SQLite 数据库副本
+│   └── database.json.example     # 阿里云 RDS MySQL 配置脱敏模版（可选）
+└── scripts/                      # 根目录开发者扩展工具（统一读写 Skill 运行库，不再维护重复的同步脚本）
+    ├── build_dashboard.py        # 数据看板生成脚本
+    ├── parse_pdf.py              # PDF 申购人员资格名单解析工具
+    └── sync_to_mysql.py          # 阿里云 RDS MySQL 同步桥接工具（可选）
 ```
 
 ---
@@ -154,7 +154,12 @@ python3 skills/baozhangfang/scripts/sync_incremental.py
 
 # 同步与更新政策法规库
 python3 skills/baozhangfang/scripts/sync_policies.py
+
+# （仅发版时）由运行库导出脱敏种子并提交，日常同步无需执行
+python3 skills/baozhangfang/scripts/export_seed.py
 ```
+
+> 运行库 `housing.db` 不存在时，同步脚本会自动由 `seed.sql` 自举；直接用 `sqlite3` 查询前请先执行 `python3 skills/baozhangfang/scripts/db.py`。
 
 ### 3. 新增城市或区县数据源
 1. 打开 `skills/baozhangfang/config/sources.json`。
@@ -172,8 +177,9 @@ python3 skills/baozhangfang/scripts/sync_policies.py
 
 1. **修改前必验证**：
    - 凡涉及爬虫规则调整或数据库表结构变更，应先在本地执行测试或运行 `sqlite3 skills/baozhangfang/data/housing.db "SELECT count(*) FROM projects;"` 确保历史数据无损坏。
-2. **保持 Skill 与根目录配置同步**：
-   - 若对 `skills/baozhangfang/config/sources.json` 进行了更新，需同步检查并维护根目录 `config/sources.json`（若存在对应文件）。
+2. **单一数据源与单一脚本实现**：
+   - 数据源配置只维护 `skills/baozhangfang/config/sources.json`，同步脚本只维护 `skills/baozhangfang/scripts/` 下的版本；根目录不得再新增重复的配置、同步脚本或数据库副本。
+   - 根目录 `scripts/` 下的扩展工具如需读写数据，统一指向 `skills/baozhangfang/data/housing.db`。
 3. **内容一律使用中文**：
    - 本项目的所有文档、注释说明、提示信息统一使用规范中文编写。
 4. **规范提交 Git 记录**：

@@ -10,7 +10,7 @@ import argparse
 from pathlib import Path
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-DB_PATH = SKILL_ROOT / "data" / "housing.db"
+from db import DB_PATH  # 运行库路径（schema.py 不做种子自举，--reset 时得到空库）
 
 SQL_TABLES = [
     # 1. projects: 物理资产大盘台账 (一个实际地理建筑实体)

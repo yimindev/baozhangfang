@@ -13,7 +13,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-DB_SQLITE = SKILL_ROOT / "data" / "housing.db"
+from db import get_db_path  # 运行库路径（首次使用时自动由 seed.sql 自举）
 CONFIG_SOURCES = SKILL_ROOT / "config" / "sources.json"
 
 CUTOFF_DATE = "2026-10-01"
@@ -168,7 +168,7 @@ def sync_projects_master(conn: sqlite3.Connection, city: str = "深圳"):
     print(f"[SUCCESS] 物理项目大盘初始化完成，当前库内项目数: {inserted + len(classic_projects)}")
 
 def sync_historical(city: str = "深圳"):
-    conn = sqlite3.connect(DB_SQLITE)
+    conn = sqlite3.connect(get_db_path())
     sync_projects_master(conn, city)
     conn.close()
 

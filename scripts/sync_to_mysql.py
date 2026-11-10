@@ -10,7 +10,7 @@ import pymysql
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DB_SQLITE = PROJECT_ROOT / "data" / "housing.db"
+DB_SQLITE = PROJECT_ROOT / "skills" / "baozhangfang" / "data" / "housing.db"  # 统一使用 Skill 运行库
 CONFIG_FILE = PROJECT_ROOT / "config" / "database.json"
 
 def get_db_config(role="admin"):

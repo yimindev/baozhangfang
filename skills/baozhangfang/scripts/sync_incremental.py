@@ -26,7 +26,7 @@ from bs4 import BeautifulSoup
 from typing import Tuple, Dict, Any, List
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
-DB_SQLITE = SKILL_ROOT / "data" / "housing.db"
+from db import get_db_path  # 运行库路径（首次使用时自动由 seed.sql 自举）
 CONFIG_SOURCES = SKILL_ROOT / "config" / "sources.json"
 
 STAGE_RANKS = {
@@ -363,7 +363,7 @@ def reconcile_all_batches(conn: sqlite3.Connection):
 
 def sync_incremental(target_city: str = "深圳"):
     """增量刷新调度核心"""
-    conn = sqlite3.connect(DB_SQLITE)
+    conn = sqlite3.connect(get_db_path())
     watermark = get_watermark(conn, target_city)
     print(f"==========================================================")
     print(f"  保障房增量刷新机制启动 (城市: {target_city})")

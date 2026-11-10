@@ -26,22 +26,22 @@ baozhangfang/
 │       ├── config/
 │       │   └── sources.json      # 多城市数据源与抓取规则配置
 │       ├── data/
-│       │   └── housing.db        # 纯 SQLite 嵌入式数据库 (~5MB)
+│       │   ├── seed.sql          # 脱敏种子基线 (SQL 文本，纳入版本管理)
+│       │   └── housing.db        # 运行时工作库 (由 seed.sql 自举，Git 忽略)
 │       ├── scripts/
+│       │   ├── db.py             # 运行库路径解析与种子自举
+│       │   ├── export_seed.py    # 导出脱敏种子 (发版时使用)
 │       │   ├── schema.py         # SQLite 数据库表结构初始化
 │       │   ├── sync_incremental.py # 增量数据抓取与状态机引擎
 │       │   ├── sync_policies.py  # 政策法规抓取
 │       │   └── sync_historical.py# 历史公告基线抓取
 │       └── references/           # 数据库设计、数据源与查询文档
 ├── config/                       # 项目级全局配置
-│   ├── database.json.example     # 外部 MySQL 配置模版 (可选)
-│   └── sources.json              # 官方数据源列表
-├── scripts/                      # 数据处理、报表与可视化工具
+│   └── database.json.example     # 外部 MySQL 配置模版 (可选)
+├── scripts/                      # 开发者扩展工具 (统一读写 Skill 运行库)
 │   ├── build_dashboard.py        # 可视化大屏构建脚本
 │   ├── parse_pdf.py              # PDF 名单结构化提取
-│   ├── sync_to_mysql.py          # 阿里云 RDS MySQL 同步工具 (可选)
-│   └── ...
-├── data/                         # 本地数据存储
+│   └── sync_to_mysql.py          # 阿里云 RDS MySQL 同步工具 (可选)
 └── README.md
 ```
 
@@ -57,7 +57,16 @@ pip install requests beautifulsoup4
 
 *(如需使用 PDF 名单解析功能，可按需安装 `pypdf` 或 `pdfplumber`)*
 
-### 2. 数据库检索与查询
+### 2. 初始化运行库
+
+```bash
+# 由脱敏种子 seed.sql 生成 skills/baozhangfang/data/housing.db（同步脚本首次运行时也会自动执行）
+python3 skills/baozhangfang/scripts/db.py
+```
+
+> 种子库不含 `households` / `members` / `applications` 的数据行（含个人信息），需要时请用 `scripts/parse_pdf.py --sqlite skills/baozhangfang/data/housing.db` 在本地导入。
+
+### 3. 数据库检索与查询
 
 数据库采用纯 SQLite 存储，结构简洁透明。Agent 或开发者可直接执行 SQL，无固定参数约束（详细 SQL 模板见 `skills/baozhangfang/references/query_cheatsheet.md`）：
 
@@ -85,7 +94,7 @@ WHERE b.has_regular_sales_exit = 1 OR b.current_stage = '常态化配售中';
 "
 ```
 
-### 3. 数据增量同步
+### 4. 数据增量同步
 
 执行增量同步，自动比对水位线（Watermark）并抓取最新公告：
 
@@ -95,6 +104,12 @@ python3 skills/baozhangfang/scripts/sync_incremental.py
 
 # 更新政策法规库
 python3 skills/baozhangfang/scripts/sync_policies.py
+```
+
+增量同步只写 `housing.db`（Git 忽略），工作区保持干净。需要发布新数据基线时再执行：
+
+```bash
+python3 skills/baozhangfang/scripts/export_seed.py   # 刷新 seed.sql（自动剔除个人信息）后提交
 ```
 
 ---

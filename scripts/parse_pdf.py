@@ -335,7 +335,7 @@ def main():
     parser = argparse.ArgumentParser(description="保障房认购公示名单 PDF 结构化解析工具")
     parser.add_argument("input", nargs="*", help="PDF 文件路径或通配符（默认当前目录下所有 .pdf）")
     parser.add_argument("-o", "--output", help="导出文件路径 (支持 .xlsx, .csv, .json)")
-    parser.add_argument("--sqlite", help="存储到 SQLite 数据库文件路径 (如: data/housing.db)")
+    parser.add_argument("--sqlite", help="存储到 SQLite 数据库文件路径 (如: skills/baozhangfang/data/housing.db)")
     parser.add_argument("--json", action="store_true", help="以 JSON 格式输出至标准输出")
     parser.add_argument("--summary", action="store_true", default=True, help="打印统计摘要 (默认开启)")
 

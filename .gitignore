@@ -33,6 +33,10 @@ ENV/
 env.bak/
 venv.bak/
 
+# SQLite 运行库（由 skills/baozhangfang/data/seed.sql 自举生成，不纳入版本管理）
+housing.db
+*.db.tmp
+
 # SQLite journal/temp files
 *.sqlite-journal
 *.sqlite-shm
