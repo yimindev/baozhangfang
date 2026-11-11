@@ -42,11 +42,28 @@
           "enabled": true,
           "api": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/api/all/12588?page={page}&m=5"
         }
+      ],
+      "policy_sources": [
+        {
+          "source_id": "sz_policy_zjj",
+          "level": "municipal",
+          "district": "市直属",
+          "name": "深圳市住建局住房保障政策法规专栏",
+          "type": "topic_html",
+          "enabled": true,
+          "url": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/index.html",
+          "page_pattern": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/index_{page}.html"
+        }
       ]
     }
   ]
 }
 ```
+
+> 两个列表相互独立：`sources` 供 `fetch_list.py --channel notices`（默认）使用，
+> `policy_sources` 供 `--channel policies` 使用。`enabled: false` 的源会被跳过。
+> 某个源抓不出条目时，`fetch_list.py` 会在 `empty_sources` 里报出来——**这类源要单独排查**（改版 / 反爬 / 选择器失效），
+> 不要默认它"今天没公告"。
 
 ---
 
@@ -84,8 +101,23 @@
      ]
    }
    ```
-3. **运行针对该城市的同步命令**：
+3. **抓取该城市的列表并入库**：
    ```bash
-   python3 scripts/sync_incremental.py --city 广州
+   python3 <SKILL_DIR>/scripts/fetch_list.py --city 广州 --pages 1 --format table
+   python3 <SKILL_DIR>/scripts/fetch_list.py --city 广州 --channel policies --format table
+   # 之后的判断与写库按 references/sync_playbook.md 执行，写入时统一带 --city 广州
    ```
    数据将天然写入带 `city='广州'` 标记的记录，与已有数据隔离互不干扰。
+
+---
+
+## 4. 源不可用时的处置
+
+| 现象 | 排查方向 | 处理 |
+| :--- | :--- | :--- |
+| 长期出现在 `empty_sources` | 栏目改版 / 接口参数变化 / 反爬 | 更新 `url` / `api` / `page_pattern`，或改 `enabled: false` |
+| 抓到的页面是导航页（条目日期陈旧） | 配置的 `url` 不是真正的列表页 | 换成实际列表页，或摘除该源 |
+| 返回条目缺日期或标题 | 页面结构不符合 `<li><a><span>` | 属 `topic_html` 适配问题，需按站点调整解析或改用 gkmlpt 接口 |
+
+> 脚本不做关键词过滤，抓到的条目一律原样输出，由 Agent 决定取舍；
+> 因此"抓到但没用上"是正常的，"抓不到"才是配置问题。

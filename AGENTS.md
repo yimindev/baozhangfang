@@ -64,13 +64,14 @@ baozhangfang/
 │       │   ├── seed.sql          # 脱敏种子基线（SQL 文本，纳入版本管理，仅发版时由 export_seed.py 刷新）
 │       │   └── housing.db        # 运行时工作库（由 seed.sql 自举，Git 忽略；全项目唯一数据库）
 │       ├── scripts/
+│       │   ├── fetch_list.py     # 抓列表 → JSON（不做任何业务判断）
+│       │   ├── fetch_detail.py   # 抓正文 → 纯文本/附件直链/可选表格
+│       │   ├── db_io.py          # 参数化单记录读写（项目/批次/公文/政策 upsert 及时间线追加）
 │       │   ├── db.py             # 运行库路径解析与种子自举
-│       │   ├── export_seed.py    # 导出脱敏种子（剔除 households/members/applications 数据）
 │       │   ├── schema.py         # SQLite 表结构初始化与重置脚本
-│       │   ├── sync_incremental.py # 增量通告抓取与状态机流转引擎
-│       │   ├── sync_policies.py  # 政策法规库全量/增量同步脚本
-│       │   └── sync_historical.py# 历史通告与批次数据基准建档脚本
+│       │   └── export_seed.py    # 导出脱敏种子（剔除 households/members/applications 数据）
 │       └── references/
+│           ├── sync_playbook.md  # ★ 同步作业手册（Agent 抓取、判断与写库的标准流程规范）
 │           ├── database_schema.md# 完整数据库表字典与枚举定义
 │           ├── query_cheatsheet.md# 常用 SQL 与业务巡检速查手册
 │           └── sources_guide.md  # 新增城市与区县数据源接入指南
@@ -147,29 +148,36 @@ LIMIT 5;
 "
 ```
 
-### 2. 增量数据同步
+### 2. 增量数据同步与录入（Agent 主导）
+采用**原子工具 + Agent 作业手册**架构（详见 `skills/baozhangfang/references/sync_playbook.md`），脚本不做任何业务白名单或硬编码过滤：
+
 ```bash
-# 执行多源增量通告抓取与批次状态自动流转
-python3 skills/baozhangfang/scripts/sync_incremental.py
+# 1. 探测最新公告发布水位线
+python3 skills/baozhangfang/scripts/db_io.py watermark --city 深圳
 
-# 同步与更新政策法规库
-python3 skills/baozhangfang/scripts/sync_policies.py
+# 2. 宽松抓取政务公开列表（支持 --channel notices 或 policies）
+python3 skills/baozhangfang/scripts/fetch_list.py --city 深圳 --pages 1 --format json
 
-# （仅发版时）由运行库导出脱敏种子并提交，日常同步无需执行
+# 3. 抓取需入库的公文正文纯文本与附件
+python3 skills/baozhangfang/scripts/fetch_detail.py <url> --text-only
+
+# 4. Agent 解析要素并参数化写入（upsert-project / upsert-batch / upsert-notice / upsert-policy / append-timeline）
+python3 skills/baozhangfang/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-10
+
+# 5. （仅发版时）由运行库导出脱敏种子并提交，日常同步无需执行
 python3 skills/baozhangfang/scripts/export_seed.py
 ```
 
-> 运行库 `housing.db` 不存在时，同步脚本会自动由 `seed.sql` 自举；直接用 `sqlite3` 查询前请先执行 `python3 skills/baozhangfang/scripts/db.py`。
+> 运行库 `housing.db` 不存在时，脚本会自动由 `seed.sql` 自举；直接用 `sqlite3` 查询前请先执行 `python3 skills/baozhangfang/scripts/db.py`。
 
 ### 3. 新增城市或区县数据源
 1. 打开 `skills/baozhangfang/config/sources.json`。
 2. 在目标城市节点下新增数据源条目，配置以下要素：
-   - `id`：全局唯一数据源标识符。
+   - `source_id`：全局唯一数据源标识符。
    - `name`：政务部门全称（如 `深圳市龙华区住房和建设局`）。
    - `city` / `district`：对应行政区划代码及名称。
-   - `list_url`：政务通告列表页入口 URL。
-   - `selectors`：标题、链接、发布日期和分页的 CSS 提取规则。
-3. 执行 `python3 skills/baozhangfang/scripts/sync_incremental.py` 验证抓取解析是否正常。
+   - `url` / `api`：政务通告列表页入口 URL 或 gkmlpt 接口。
+3. 执行 `python3 skills/baozhangfang/scripts/fetch_list.py --city 目标城市 --pages 1 --format table` 验证抓取解析是否正常。
 
 ---
 

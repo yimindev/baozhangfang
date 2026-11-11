@@ -29,13 +29,13 @@ baozhangfang/
 │       │   ├── seed.sql          # 脱敏种子基线 (SQL 文本，纳入版本管理)
 │       │   └── housing.db        # 运行时工作库 (由 seed.sql 自举，Git 忽略)
 │       ├── scripts/
+│       │   ├── fetch_list.py     # 列表抓取（原子工具）
+│       │   ├── fetch_detail.py   # 正文与附件抽取（原子工具）
+│       │   ├── db_io.py          # 数据库单记录读写原语（原子工具）
 │       │   ├── db.py             # 运行库路径解析与种子自举
 │       │   ├── export_seed.py    # 导出脱敏种子 (发版时使用)
-│       │   ├── schema.py         # SQLite 数据库表结构初始化
-│       │   ├── sync_incremental.py # 增量数据抓取与状态机引擎
-│       │   ├── sync_policies.py  # 政策法规抓取
-│       │   └── sync_historical.py# 历史公告基线抓取
-│       └── references/           # 数据库设计、数据源与查询文档
+│       │   └── schema.py         # SQLite 数据库表结构初始化
+│       └── references/           # 同步作业手册、数据库设计、数据源与查询速查
 ├── config/                       # 项目级全局配置
 │   └── database.json.example     # 外部 MySQL 配置模版 (可选)
 ├── scripts/                      # 开发者扩展工具 (统一读写 Skill 运行库)
@@ -94,19 +94,25 @@ WHERE b.has_regular_sales_exit = 1 OR b.current_stage = '常态化配售中';
 "
 ```
 
-### 4. 数据增量同步
+### 4. 数据同步（Agent 作业手册驱动）
 
-执行增量同步，自动比对水位线（Watermark）并抓取最新公告：
+系统采用**原子工具 + Agent 作业手册**架构（详见 `skills/baozhangfang/references/sync_playbook.md`），不依赖僵化的关键词白名单或硬编码正则：
 
 ```bash
-# 增量抓取最新公告与批次状态
-python3 skills/baozhangfang/scripts/sync_incremental.py
+# 1. 查询目标城市最新公文日期
+python3 skills/baozhangfang/scripts/db_io.py watermark --city 深圳
 
-# 更新政策法规库
-python3 skills/baozhangfang/scripts/sync_policies.py
+# 2. 抓取政务公开列表
+python3 skills/baozhangfang/scripts/fetch_list.py --city 深圳 --pages 1 --format table
+
+# 3. 抓取正文及附件
+python3 skills/baozhangfang/scripts/fetch_detail.py <url> --text-only
+
+# 4. Agent 解析后参数化写入
+python3 skills/baozhangfang/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-10
 ```
 
-增量同步只写 `housing.db`（Git 忽略），工作区保持干净。需要发布新数据基线时再执行：
+增量写入只修改 `housing.db`（Git 忽略），工作区保持干净。需要发布新数据基线时执行：
 
 ```bash
 python3 skills/baozhangfang/scripts/export_seed.py   # 刷新 seed.sql（自动剔除个人信息）后提交

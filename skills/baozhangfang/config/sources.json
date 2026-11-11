@@ -157,6 +157,19 @@
           "page_pattern": "https://www.szss.gov.cn/sstbhzq/ssw/jrss/ggtz/index_{page}.html",
           "description": "深汕合作区保障房与人才租金减免公示"
         }
+      ],
+      "policy_sources": [
+        {
+          "source_id": "sz_policy_zjj",
+          "level": "municipal",
+          "district": "市直属",
+          "name": "深圳市住建局住房保障政策法规专栏",
+          "type": "topic_html",
+          "enabled": true,
+          "url": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/index.html",
+          "page_pattern": "https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/index_{page}.html",
+          "description": "保障性住房相关条例、办法、实施细则全文"
+        }
       ]
     }
   ]

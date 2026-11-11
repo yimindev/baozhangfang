@@ -59,7 +59,7 @@ INSERT INTO "batches" VALUES('住保售〔2026〕077号批次',155,'深圳','市
 INSERT INTO "batches" VALUES('住保售〔2026〕072号批次',233,'深圳','市住建局',2,'安居型商品房',246,NULL,163,83,NULL,NULL,21950.0,NULL,'公证摇号',0,'光明区公明街道伟城贤德瑞府展示中心','0755-88631666','住建局官网预约','2026-09-22','2026-10-08','选房签约中','[{"stage": "认购通告", "title": "深圳市住房保障署安居型商品房配售通告（住保售〔2026〕072号）", "date": "2026-09-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12995217.html"}, {"stage": "综合公告", "title": "关于安居型商品房配售有关事项的通知（2026072-1）", "date": "2026-09-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12995212.html"}, {"stage": "初审名单", "title": "深圳市住房保障署关于安居型商品房认购资格审核结果公示的通告（住保售〔2026〕072号批次）", "date": "2026-10-12", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13016793.html"}, {"stage": "摇号结果", "title": "深圳市住房保障署关于安居型商品房配售公证摇号的通告（住保售〔2026〕072号批次）", "date": "2026-10-20", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13031343.html"}, {"stage": "终审结果", "title": "深圳市住房保障署关于安居型商品房认购资格终审结果的通告（住保售〔2026〕072号批次）", "date": "2026-10-20", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13031339.html"}, {"stage": "选房通知", "title": "关于安居型商品房选房有关事项的通知（2026072-1批次）", "date": "2026-10-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13034909.html"}, {"stage": "综合公告", "title": "深圳市住房保障署关于安居型商品房选房的通告（住保售〔2026〕072号批次）", "date": "2026-10-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13034904.html"}, {"stage": "摇号结果", "title": "深圳市住房保障署关于安居型商品房配售公证摇号结果的通告（住保售〔2026〕072号批次）", "date": "2026-10-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13034901.html"}]','2026-11-07 03:28:50','2026-11-07 03:28:50');
 INSERT INTO "batches" VALUES('住保售〔2026〕068号批次',37,'深圳','市住建局',1,'安居型商品房',198,NULL,101,101,NULL,NULL,22800.0,NULL,'公证摇号',0,'龙岗区宝龙街道瑞璟公馆营销中心','0755-88631666','现场选房签约','2026-08-15','2026-08-25','公证摇号','[{"stage": "综合公告", "title": "关于安居型商品房配售有关事项的通知（2026068-1）", "date": "2026-09-04", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12968028.html"}, {"stage": "认购通告", "title": "深圳市住房保障署安居型商品房配售通告（住保售〔2026〕068号）", "date": "2026-09-04", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12968023.html"}, {"stage": "综合公告", "title": "深圳市住房保障署关于安居型商品房认购资格审核结果公示的通告（住保售〔2026〕068号批次）", "date": "2026-09-14", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12980873.html"}, {"stage": "摇号结果", "title": "深圳市住房保障署关于安居型商品房配售公证摇号的通告（住保售〔2026〕068号批次）", "date": "2026-09-21", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12992962.html"}, {"stage": "终审结果", "title": "深圳市住房保障署关于安居型商品房认购资格终审结果的通告（住保售〔2026〕068号批次）", "date": "2026-09-21", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12992951.html"}, {"stage": "综合公告", "title": "深圳市住房保障署关于安居型商品房选房的通告（住保售〔2026〕068号批次）", "date": "2026-09-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12995184.html"}, {"stage": "摇号结果", "title": "深圳市住房保障署关于安居型商品房配售公证摇号结果的通告（住保售〔2026〕068号批次）", "date": "2026-09-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12995173.html"}]','2026-11-07 03:28:50','2026-11-07 03:28:50');
 INSERT INTO "batches" VALUES('住保售〔2026〕069号批次',35,'深圳','市住建局',NULL,'人才配售房',3327,NULL,2289,1038,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,'0755-88631666',NULL,NULL,NULL,'选房签约中','[{"stage": "综合公告", "title": "关于安居型商品房配售有关事项的通知（2026069-1）", "date": "2026-09-14", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12980825.html"}, {"stage": "认购通告", "title": "深圳市住房保障署安居型商品房配售通告（住保售〔2026〕069号）", "date": "2026-09-14", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_12980811.html"}, {"stage": "初审名单", "title": "深圳市住房保障署关于安居型商品房认购资格审核结果公示的通告（住保售〔2026〕069号批次）", "date": "2026-10-12", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13016781.html"}, {"stage": "摇号结果", "title": "深圳市住房保障署关于安居型商品房配售公证摇号的通告（住保售〔2026〕069号批次）", "date": "2026-10-20", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13031355.html"}, {"stage": "终审结果", "title": "深圳市住房保障署关于安居型商品房认购资格终审结果的通告（住保售〔2026〕069号批次）", "date": "2026-10-20", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13031346.html"}, {"stage": "选房通知", "title": "关于安居型商品房选房有关事项的通知（2026069-1批次）", "date": "2026-10-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13034874.html"}, {"stage": "综合公告", "title": "深圳市住房保障署关于安居型商品房选房的通告（住保售〔2026〕069号批次）", "date": "2026-10-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13034864.html"}, {"stage": "摇号结果", "title": "深圳市住房保障署关于安居型商品房配售公证摇号结果的通告（住保售〔2026〕069号批次）", "date": "2026-10-22", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13034855.html"}]','2026-11-07 03:34:26','2026-11-07 03:34:26');
-INSERT INTO "batches" VALUES('住保售〔2026〕083号批次',228,'深圳','市住建局',NULL,'人才配售房',433,NULL,NULL,433,NULL,NULL,39600.0,NULL,'常态化即时配售',1,NULL,'0755-86266999',NULL,NULL,NULL,'常态化配售中','[{"stage": "综合公告", "title": "关于面向人才配售住房有关事项的通知（2026083-1）", "date": "2026-10-21", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13032525.html"}, {"stage": "认购通告", "title": "深圳市住房保障署面向人才配售住房通告（住保售〔2026〕083号）", "date": "2026-10-21", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13032428.html"}]','2026-11-07 03:34:27','2026-11-07 03:34:27');
+INSERT INTO "batches" VALUES('住保售〔2026〕083号批次',228,'深圳','市住建局',NULL,'人才配售房',433,NULL,NULL,433,NULL,NULL,39600.0,NULL,'常态化即时配售',1,NULL,'0755-86266999',NULL,NULL,NULL,'初审名单公示','[{"stage": "综合公告", "title": "关于面向人才配售住房有关事项的通知（2026083-1）", "date": "2026-10-21", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13032525.html"}, {"stage": "认购通告", "title": "深圳市住房保障署面向人才配售住房通告（住保售〔2026〕083号）", "date": "2026-10-21", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13032428.html"}, {"stage": "初审名单", "title": "深圳市住房保障署关于面向人才配售住房认购资格审核结果公示的通告（住保售〔2026〕083号批次）", "date": "2026-11-09", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13059379.html"}]','2026-11-07 03:34:27','2026-11-10 14:11:36');
 INSERT INTO "batches" VALUES('〔2026〕131号',1,'深圳','市住建局',NULL,'人才配售房',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,NULL,NULL,NULL,NULL,'认购中','[{"stage": "综合公告", "title": "深圳市住房和建设局 深圳市规划和自然资源局 国家金融监督管理总局深圳监管局关于贯彻落实《关于完善商品住房销售制度的通知》的实施意见", "date": "2026-10-15", "url": "https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13021748.html"}]','2026-11-07 03:34:29','2026-11-07 03:34:29');
 INSERT INTO "batches" VALUES('住保售〔2026〕081号批次',227,'深圳','罗湖区',NULL,'人才配售房',954,NULL,2,NULL,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,'0755-82197232',NULL,NULL,NULL,'选房签约中','[{"stage": "综合公告", "title": "关于面向人才配售住房有关事项的通知（2026081-3）", "date": "2026-09-30", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13005/post_13005457.html"}, {"stage": "认购通告", "title": "深圳市罗湖区住房和建设局面向人才配售住房通告（住保售〔2026〕081号）", "date": "2026-09-30", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13005/post_13005334.html"}, {"stage": "初审名单", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房认购资格审核结果公示的通告（住保售〔2026〕081号批次）", "date": "2026-10-22", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13034/post_13034281.html"}, {"stage": "摇号结果", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房配售公证摇号的通告（住保售〔2026〕081号批次）", "date": "2026-10-29", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13045/post_13045077.html"}, {"stage": "终审结果", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房认购资格终审结果的通告（住保售〔2026〕081号批次）", "date": "2026-10-29", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13045/post_13045065.html"}, {"stage": "选房通知", "title": "关于面向人才配售住房选房有关事项的通知（2026081批次）", "date": "2026-10-30", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13046/post_13046802.html"}, {"stage": "综合公告", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕081号批次）", "date": "2026-10-30", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13046/post_13046779.html"}, {"stage": "摇号结果", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房配售公证摇号结果的通告（住保售〔2026〕081号批次）", "date": "2026-10-30", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13046/post_13046704.html"}, {"stage": "选房通知", "title": "住保售〔2026〕081号（畔溪悦府项目）选房结果公示", "date": "2026-11-02", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13050/post_13050251.html"}]','2026-11-07 03:34:31','2026-11-07 03:34:31');
 INSERT INTO "batches" VALUES('住保售〔2026〕075号批次',1,'深圳','罗湖区',NULL,'人才配售房',31,NULL,2,NULL,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,'0755-86266999',NULL,NULL,NULL,'选房签约中','[{"stage": "综合公告", "title": "关于面向人才配售住房有关事项的通知（2026075-3）", "date": "2026-09-29", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13001/post_13001842.html"}, {"stage": "认购通告", "title": "深圳市罗湖区住房和建设局面向人才配售住房通告（住保售〔2026〕075号）", "date": "2026-09-29", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13001/post_13001826.html"}, {"stage": "初审名单", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房认购资格审核结果公示的通告（住保售〔2026〕075号批次）", "date": "2026-10-13", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13018/post_13018566.html"}, {"stage": "摇号结果", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房配售公证摇号的通告（住保售〔2026〕075号批次）", "date": "2026-10-20", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13031/post_13031288.html"}, {"stage": "终审结果", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房认购资格终审结果的通告（住保售〔2026〕075号批次）", "date": "2026-10-20", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13030/post_13030685.html"}, {"stage": "综合公告", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕075号批次）", "date": "2026-10-22", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13036/post_13036131.html"}, {"stage": "选房通知", "title": "关于面向人才配售住房选房有关事项的通知（2026075批次）", "date": "2026-10-22", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13035/post_13035741.html"}, {"stage": "摇号结果", "title": "深圳市罗湖区住房和建设局关于面向人才配售住房配售公证摇号结果的通告（住保售〔2026〕075号批次）", "date": "2026-10-22", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13035/post_13035704.html"}, {"stage": "选房通知", "title": "住保售〔2026〕075号（景福花园项目）选房结果公示", "date": "2026-10-26", "url": "https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/13/13040/post_13040396.html"}]','2026-11-07 03:34:33','2026-11-07 03:34:33');
@@ -69,6 +69,8 @@ INSERT INTO "batches" VALUES('住保售〔2026〕078号批次',1,'深圳','宝�
 INSERT INTO "batches" VALUES('〔2026〕042号',1,'深圳','龙华区',NULL,'人才配售房',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,NULL,NULL,NULL,NULL,'认购中','[{"stage": "综合公告", "title": "深圳市龙华区住房和建设局关于2026年第一批面向龙华区重点企业定向配租住房的通告（住保租〔2026〕042号）", "date": "2026-10-22", "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/13/13034/post_13034992.html"}]','2026-11-07 03:34:46','2026-11-07 03:34:46');
 INSERT INTO "batches" VALUES('〔2026〕040号',1,'深圳','龙华区',NULL,'人才配售房',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,NULL,NULL,NULL,NULL,'认购中','[{"stage": "轮候公示", "title": "深圳市龙华区住房和建设局关于2026年面向龙华区户籍在册轮候人配租住房有关事项的通告（住保租〔2026〕040号）", "date": "2026-10-20", "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/13/13030/post_13030776.html"}]','2026-11-07 03:34:46','2026-11-07 03:34:46');
 INSERT INTO "batches" VALUES('〔2026〕038号',1,'深圳','光明区',NULL,'人才配售房',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,NULL,NULL,NULL,NULL,'选房签约中','[{"stage": "综合公告", "title": "光明区住房和建设局关于2026年第一批次面向个人配租保障性租赁住房的通告（住保租〔2026〕038号）", "date": "2026-09-30", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13006/post_13006599.html"}, {"stage": "摇号结果", "title": "光明区住房和建设局关于2026年第一批次面向个人配租保障性租赁住房公证摇号的通告", "date": "2026-10-15", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13021/post_13021105.html"}, {"stage": "摇号结果", "title": "光明区住房和建设局关于2026年第一批次面向个人配租保障性租赁住房公证摇号结果的通告", "date": "2026-10-16", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13024/post_13024218.html"}, {"stage": "选房通知", "title": "光明区住房和建设局关于2026年第一批次面向个人配租保障性租赁住房选房签约等有关事项的通告", "date": "2026-11-03", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13050/post_13050911.html"}]','2026-11-07 03:34:47','2026-11-07 03:34:47');
+INSERT INTO "batches" VALUES('住保售〔2026〕066号批次',235,'深圳','福田区',NULL,'保障性住房',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,'0755-83836666',NULL,NULL,NULL,'选房签约中','[{"stage": "初审名单", "title": "深圳市福田区住房和建设局关于面向人才配售住房认购资格审核结果公示的通告（住保售〔2026〕066号批次）", "date": "2026-09-04", "url": "https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12967/post_12967170.html"}, {"stage": "摇号结果", "title": "深圳市福田区住房和建设局关于面向人才配售住房配售公证摇号的通告（住保售〔2026〕066号批次）", "date": "2026-09-14", "url": "https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12979/post_12979197.html"}, {"stage": "终审结果", "title": "深圳市福田区住房和建设局关于面向人才配售住房认购资格终审结果的通告（住保售〔2026〕066号批次）", "date": "2026-09-14", "url": "https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12979/post_12979173.html"}, {"stage": "摇号结果", "title": "深圳市福田区住房和建设局关于面向人才配售住房配售公证摇号结果的通告（住保售〔2026〕066号批次）", "date": "2026-09-15", "url": "https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12982/post_12982007.html"}, {"stage": "选房通知", "title": "关于面向人才配售住房选房有关事项的通知（2026066-2批次）", "date": "2026-09-16", "url": "https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12983/post_12983199.html"}, {"stage": "综合公告", "title": "深圳市福田区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕066号）", "date": "2026-09-16", "url": "https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12983/post_12983192.html"}, {"stage": "选房通知", "title": "深圳市福田区住房和建设局关于面向人才配售住房选房结果公示（住保售〔2026〕066号批次）", "date": "2026-09-17", "url": "https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12985/post_12985225.html"}]','2026-11-10 14:01:29','2026-11-10 14:01:29');
+INSERT INTO "batches" VALUES('住保售〔2026〕054号批次',240,'深圳','龙华区',NULL,'保障性住房',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'公证摇号',0,NULL,'13538035996',NULL,NULL,NULL,'选房签约中','[{"stage": "摇号结果", "title": "深圳市龙华区住房和建设局关于面向人才配售住房公证摇号结果的通告（住保售〔2026〕54号批次）", "date": "2026-09-04", "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12968/post_12968394.html"}, {"stage": "摇号结果", "title": "深圳市龙华区住房和建设局关于面向人才配售住房公证摇号的通告（住保售〔2026〕54号批次）", "date": "2026-09-04", "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12967/post_12967385.html"}, {"stage": "终审结果", "title": "深圳市龙华区住房和建设局关于面向人才配售住房认购资格终审结果的通告（住保售〔2026〕54号批次）", "date": "2026-09-04", "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12967/post_12967371.html"}, {"stage": "选房通知", "title": "深圳市龙华区住房和建设局关于面向人才配售住房选房结果的通告（住保售〔2026〕54号批次）", "date": "2026-09-11", "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12978/post_12978988.html"}, {"stage": "选房通知", "title": "关于面向人才配售住房选房有关事项的通知（2026054-8）", "date": "2026-09-11", "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12977/post_12977250.html"}, {"stage": "综合公告", "title": "深圳市龙华区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕54号批次）", "date": "2026-09-11", "url": "https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12977/post_12977216.html"}]','2026-11-10 14:01:31','2026-11-10 14:01:31');
 CREATE TABLE households (
         code TEXT PRIMARY KEY,
         batch TEXT,
@@ -16881,22 +16883,692 @@ INSERT INTO "notices" VALUES(1210,'深圳','光明区',NULL,'〔2026〕038号','
 INSERT INTO "notices" VALUES(1211,'深圳','光明区',NULL,NULL,'综合公告','光明区住房和建设局关于光明区企事业单位保障性租赁住房需求库拟入库名单（2026年9月）的公示','2026-10-12','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13016/post_13016543.html','','','[{"id": 1755251, "name": "附件：光明区企事业单位拟入库名单（2026年9月）.pdf", "type": "pdf", "mime": "application/pdf", "size": "66887", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1755/1755251/13016543.pdf"}]','2026-11-07 03:34:48');
 INSERT INTO "notices" VALUES(1212,'深圳','光明区',NULL,'〔2026〕038号','综合公告','光明区住房和建设局关于2026年第一批次面向个人配租保障性租赁住房的通告（住保租〔2026〕038号）','2026-09-30','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13006/post_13006599.html','','','[{"id": 1753710, "name": "附件1：房源概况.pdf", "type": "pdf", "mime": "application/pdf", "size": "68283", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1753/1753710/13006599.pdf"}, {"id": 1753781, "name": "附件2：房源明细.zip", "type": "zip", "mime": "application/zip", "size": "515366", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1753/1753781/13006599.zip"}, {"id": 1753712, "name": "附件3：各项目户型图.zip", "type": "zip", "mime": "application/zip", "size": "66746264", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1753/1753712/13006599.zip"}, {"id": 1753713, "name": "附件4：人才引进迁户核准条件.pdf", "type": "pdf", "mime": "application/pdf", "size": "60636", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1753/1753713/13006599.pdf"}, {"id": 1753714, "name": "附件5：各项目配套设施情况.pdf", "type": "pdf", "mime": "application/pdf", "size": "54841", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1753/1753714/13006599.pdf"}, {"id": 1753755, "name": "附件6：保障性租赁住房申请材料清单.pdf", "type": "pdf", "mime": "application/pdf", "size": "222547", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1753/1753755/13006599.pdf"}]','2026-11-07 03:34:48');
 INSERT INTO "notices" VALUES(1213,'深圳','光明区',NULL,NULL,'轮候公示','深圳市光明区住房和建设局关于光明区公共租赁住房轮候申请核查合格家庭信息公示的通告','2026-09-30','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13006/post_13006066.html','','','[{"id": 1753552, "name": "深圳市光明区公共租赁住房轮候申请核查合格家庭名单及相关信息表（受理时间：2026年8月1日至8月31日）.pdf", "type": "pdf", "mime": "application/pdf", "size": "147643", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1753/1753552/13006066.pdf"}]','2026-11-07 03:34:48');
-CREATE TABLE policies (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        city TEXT NOT NULL DEFAULT '深圳',
-        category TEXT,
-        title TEXT NOT NULL,
-        document_number TEXT,
-        publisher TEXT,
-        publish_date TEXT,
-        effective_date TEXT,
-        status TEXT DEFAULT '现行有效',
-        url TEXT NOT NULL UNIQUE,
-        summary TEXT,
-        content_text TEXT,
-        attachments_json TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
+INSERT INTO "notices" VALUES(1214,'深圳','市住建局',228,'住保售〔2026〕083号批次','初审名单','深圳市住房保障署关于面向人才配售住房认购资格审核结果公示的通告（住保售〔2026〕083号批次）','2026-11-09','https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13059379.html','安居华越龙苑住房（以下简称“本批次住房”）认购工作已于2026年11月8日18:00结束，共127户家庭提交认购申请。深圳市住房保障署会同相关部门进行了审核，现将审核结果进行公示。通告如下： 一、认购申请家庭资格审核结果 经审核，本批次住房','安居华越龙苑住房（以下简称“本批次住房”）认购工作已于2026年11月8日18:00结束，共127户家庭提交认购申请。深圳市住房保障署会同相关部门进行了审核，现将审核结果进行公示。通告如下：
+一、认购申请家庭资格审核结果
+经审核，本批次住房资格审核合格的认购申请家庭共97户（名单详见附件1-5），资格审核不合格的认购申请家庭共30户。
+二、公示时间和方式
+自2026年11月10日至2026年11月16日，在深圳市住房和建设局网站公示5个工作日。
+三、信息变更及异议申请
+认购申请家庭如发现公示信息与实际情况不符或发生变化的，应于公示期内登录深圳市住房和建设局网站→政务服务→服务主题→住房保障服务→面向人才配售住房申请（“住房个人服务窗口”上方）变更相关信息；网上提交认购申请后至签订买卖合同前婚姻发生变化属于离婚情形的，申请人及原配偶须共同前往深圳市住房保障署办理婚姻信息变更。
+认购家庭如对被取消认购申请有异议，请于公示期内（节假日除外）持相关证明材料到深圳市住房保障署提交书面复核申请。逾期未提交复核申请的，视为认购家庭认同本次公示信息。
+四、重要提示
+（一）认购申请家庭已签订其他保障性住房项目认购协议书且仍有效的，不纳入本批次住房合格认购申请家庭公示名单。
+（二）深圳市住房保障署对公示期内认购申请家庭提交的资格审核结果异议申请进行复核。异议成立的，更正认购申请家庭审核结果。公示结束后，终审合格认购申请家庭名单将在深圳市住房和建设局网站发布。
+（三）申请人对申报信息和提交材料的真实性、准确性、合法性负责，如存在虚报、瞒报有关情况或者伪造有关证明材料等情形，深圳市住房和建设局将依照《深圳市保障性住房条例》及相关法律、法规、规章进行处理。
+（四）市民如发现违法违规线索，可通过来电、来信、来访的方式向深圳市住房和建设局投诉、举报。
+深圳市住房和建设局投诉举报电话：0755-23913749。
+（五）信息变更及异议受理地址：福田区红荔西路莲花大厦南面一楼。
+（六）业务咨询电话：
+深圳市住房保障署业务咨询电话：0755-88631666。
+业务咨询电话接听时间：周一到周五（节假日除外）9:00-12:00，14:00-18:00。
+附件：
+1.认购住保售〔2026〕083号批次住房第一队列审核合格名单
+2.认购住保售〔2026〕083号批次住房第二队列审核合格名单
+3.认购住保售〔2026〕083号批次住房第三队列审核合格名单
+4.认购住保售〔2026〕083号批次住房第四队列审核合格名单
+5.认购住保售〔2026〕083号批次住房第五队列审核合格名单
+深圳市住房保障署
+2026年11月9日',NULL,'2026-11-10 00:27:54');
+INSERT INTO "notices" VALUES(1215,'深圳','光明区',NULL,NULL,'综合公告','光明区住房和建设局关于光明区企事业单位保障性租赁住房需求库拟入库名单（2026年10月）的公示','2026-11-10','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13060/post_13060942.html','','','[{"id": 1767030, "name": "附件：光明区企事业单位拟入库名单（2026年10月）.pdf", "type": "pdf", "mime": "application/pdf", "size": "57207", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1767/1767030/13060942.pdf"}]','2026-11-10 14:00:42');
+INSERT INTO "notices" VALUES(1216,'深圳','罗湖区',NULL,NULL,'轮候公示','罗湖区住房和建设局关于2026年度第三批面向符合收入财产限额标准的辖区户籍在册轮候家庭配租公共租赁住房有关事项的通告（住保租〔2026〕035号）','2026-09-23','https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/12/12997/post_12997414.html','本次配租龙悦居二期、龙悦居四期、呈祥花园二期、和悦居、和悦居二期、天然慧谷产业园天健亲蜜家公寓、天健亲蜜家（大芬店）、天健亲蜜家布吉公寓、黄龙小区、东海富汇豪庭10个项目共计512套住房。','','[{"id": 1751711, "name": "附件1：特殊家庭解释.pdf", "type": "pdf", "mime": "application/pdf", "size": "80481", "url": "https://www.szlh.gov.cn/lhqzfhjsj/attachment/1/1751/1751711/12997414.pdf"}, {"id": 1751712, "name": "附件2：配租项目温馨提示.pdf", "type": "pdf", "mime": "application/pdf", "size": "182249", "url": "https://www.szlh.gov.cn/lhqzfhjsj/attachment/1/1751/1751712/12997414.pdf"}]','2026-11-10 14:01:28');
+INSERT INTO "notices" VALUES(1217,'深圳','罗湖区',NULL,NULL,'轮候公示','罗湖区住房和建设局关于罗湖区户籍公共租赁住房轮候申请核查合格家庭信息公示的通告','2026-09-01','https://www.szlh.gov.cn/lhqzfhjsj/gkmlpt/content/12/12961/post_12961681.html','公示日期：2026年9月1日至2026年9月15日','','[{"id": 1744488, "name": "罗湖区户籍公共租赁住房轮候申请核查合格家庭名单及相关信息表（受理时间：2026年7月1日至7月31日）.pdf", "type": "pdf", "mime": "application/pdf", "size": "277576", "url": "https://www.szlh.gov.cn/lhqzfhjsj/attachment/1/1744/1744488/12961681.pdf"}]','2026-11-10 14:01:28');
+INSERT INTO "notices" VALUES(1218,'深圳','福田区',235,'住保售〔2026〕066号批次','选房通知','深圳市福田区住房和建设局关于面向人才配售住房选房结果公示（住保售〔2026〕066号批次）','2026-09-17','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12985/post_12985225.html','','河创智都大厦项目面向人才配售住房（住保售〔2026〕066号）将于2026年9月19日进行选房，选房结果届时在下方链接公示：
+一、
+房源公示
+二、
+选房结果公示
+深圳市福田区住房和建设局
+2026年9月17日',NULL,'2026-11-10 14:01:29');
+INSERT INTO "notices" VALUES(1219,'深圳','福田区',235,'住保售〔2026〕066号批次','选房通知','关于面向人才配售住房选房有关事项的通知（2026066-2批次）','2026-09-16','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12983/post_12983199.html','','根据《深圳市福田区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕066号）》以及《深圳市福田区住房和建设局关于面向人才配售住房认购资格终审结果的通告（住保售〔2026〕066号批次）》相关规定，现决定开展河创智都大厦项目面向人才配售住房（住保售〔2026〕066号批次）的选房签约工作，有关事项通知如下：
+一、选房有关事项
+按照《深圳市福田区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕066号）》确定的选房名单，河创智都大厦项目住房的选房时间、场次及地点等事项分别安排如下：
+（一）选房时间及场次安排
+两房户型队列、三房户型队列的选房时间为2026年9月19日，具体选房场次及时间安排详见附件1，房源选完即止。
+本批次认购申请家庭应于2026年9月17日10:00起,进入深圳市住房和建设局网站，在线打印选房通知书。具体路径为：登录深圳市住房和建设局网站→政务服务→服务主题→住房保障服务→面向人才配售住房申请（“住房保障个人服务窗口”上方）。
+（二）选房地点安排
+选房地址：深圳市福田区槟榔道3号深港国际科技园H栋。选房交通指引详见附件2。
+二、选房规则
+关于选房规则及有关提示请查阅《深圳市福田区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕066号）》。
+三、注意事项
+（一）认购申请家庭应当按照选房通知书规定的时间，携带选房通知书、本人身份证原件，到达指定地点参加选房。
+（二）认购申请家庭如需委托除共同申请人之外的人员进行选房的，需提供由公证处出具的公证委托书、受托人身份证原件、委托人身份证复印件，经核实后方可签到入场参加选房。
+（三）认购申请家庭选定房号后，应按规定当场缴纳认购订金人民币2万元，并签订认购协议书。
+（四）已选房的认购申请家庭应按照认购协议书的约定，按时缴纳购房款并签订买卖合同。未在规定时间内签订买卖合同的，视为放弃本次认购。
+（五）本次选房工作结束后，选房结果在深圳市福田区住房和建设局官网公示。
+（六）其他注意事项详见附件2。
+四、项目咨询电话
+河创智都大厦项目咨询电话0755-83836666，接听时间：工作日9:00-18:00。
+附件：1.河创智都大厦项目两房、三房户型队列认购家庭选房时间安排表
+2.河创智都大厦安居型商品房（面向人才配售）项目选房交通指引和注意事项
+深圳深港科技创新合作区发展有限公司
+2026年9月16日
+附件：
+1．
+1.河创智都大厦项目两房、三房户型队列认购家庭选房时间安排表.pdf
+2．
+2.河创智都大厦安居型商品房（面向人才配售）项目选房交通指引和注意事项.docx','[{"id": 1749106, "name": "1.河创智都大厦项目两房、三房户型队列认购家庭选房时间安排表.pdf", "type": "pdf", "mime": "application/pdf", "size": "32031", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749106/12983199.pdf"}, {"id": 1749107, "name": "2.河创智都大厦安居型商品房（面向人才配售）项目选房交通指引和注意事项.docx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "size": "508764", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749107/12983199.docx"}]','2026-11-10 14:01:29');
+INSERT INTO "notices" VALUES(1220,'深圳','福田区',NULL,'住保售〔2026〕066号批次','综合公告','深圳市福田区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕066号）','2026-09-16','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12983/post_12983192.html','','','[{"id": 1749097, "name": "1.河创智都大厦项目两房户型第一队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "86784", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749097/12983192.pdf"}, {"id": 1749098, "name": "2.河创智都大厦项目两房户型第二队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "77668", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749098/12983192.pdf"}, {"id": 1749099, "name": "3.河创智都大厦项目两房户型第三队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "61531", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749099/12983192.pdf"}, {"id": 1749100, "name": "4.河创智都大厦项目三房户型第一队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "53382", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749100/12983192.pdf"}, {"id": 1749101, "name": "5.河创智都大厦项目三房户型第二队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "52968", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749101/12983192.pdf"}, {"id": 1749102, "name": "6.河创智都大厦项目三房户型第三队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "48177", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749102/12983192.pdf"}, {"id": 1749103, "name": "7.河创智都大厦项目三房户型第四队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "79669", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1749/1749103/12983192.pdf"}]','2026-11-10 14:01:29');
+INSERT INTO "notices" VALUES(1221,'深圳','福田区',NULL,'住保售〔2026〕066号批次','摇号结果','深圳市福田区住房和建设局关于面向人才配售住房配售公证摇号结果的通告（住保售〔2026〕066号批次）','2026-09-15','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12982/post_12982007.html','','根据《深圳市福田区住房和建设局面向人才配售住房通告（住保售〔2026〕066号）》，广东省深圳市深圳公证处于2026年9月15日上午开展了本批次住房配售公证摇号工作，产生了终审合格认购申请家庭的选房顺序号。现将公证摇号结果予以发布，详见附件。
+特此通告。
+附件：1.住保售〔2026〕066号批次住房两房户型第一队列公证摇号结果
+2.住保售〔2026〕066号批次住房两房户型第二队列公证摇号结果
+3.住保售〔2026〕066号批次住房两房户型第三队列公证摇号结果
+4.住保售〔2026〕066号批次住房三房户型第一队列公证摇号结果
+5.住保售〔2026〕066号批次住房三房户型第二队列公证摇号结果
+6.住保售〔2026〕066号批次住房三房户型第三队列公证摇号结果
+7.住保售〔2026〕066号批次住房三房户型第四队列公证摇号结果
+深圳市福田区住房和建设局
+2026年9月15日
+附件：
+1．
+1.住保售〔2026〕066号批次住房两房户型第一队列公证摇号结果.pdf
+2．
+2.住保售〔2026〕066号批次住房两房户型第二队列公证摇号结果.pdf
+3．
+3.住保售〔2026〕066号批次住房两房户型第三队列公证摇号结果.pdf
+4．
+4.住保售〔2026〕066号批次住房三房户型第一队列公证摇号结果.pdf
+5．
+5.住保售〔2026〕066号批次住房三房户型第二队列公证摇号结果.pdf
+6．
+6.住保售〔2026〕066号批次住房三房户型第三队列公证摇号结果.pdf
+7．
+7.住保售〔2026〕066号批次住房三房户型第四队列公证摇号结果.pdf','[{"id": 1748592, "name": "1.住保售〔2026〕066号批次住房两房户型第一队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "87247", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748592/12982007.pdf"}, {"id": 1748593, "name": "2.住保售〔2026〕066号批次住房两房户型第二队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "87218", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748593/12982007.pdf"}, {"id": 1748594, "name": "3.住保售〔2026〕066号批次住房两房户型第三队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "86584", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748594/12982007.pdf"}, {"id": 1748595, "name": "4.住保售〔2026〕066号批次住房三房户型第一队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "84853", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748595/12982007.pdf"}, {"id": 1748596, "name": "5.住保售〔2026〕066号批次住房三房户型第二队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "85227", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748596/12982007.pdf"}, {"id": 1748597, "name": "6.住保售〔2026〕066号批次住房三房户型第三队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "85152", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748597/12982007.pdf"}, {"id": 1748598, "name": "7.住保售〔2026〕066号批次住房三房户型第四队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "85931", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748598/12982007.pdf"}]','2026-11-10 14:01:29');
+INSERT INTO "notices" VALUES(1222,'深圳','福田区',NULL,NULL,'综合公告','福田区2026年第三季度租赁社会存量住房补贴续签合格名单的公示','2026-09-14','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12980/post_12980828.html','','','[{"id": 1748419, "name": "福田区2026年第三季度租赁社会存量住房补贴续签合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "271419", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748419/12980828.pdf"}]','2026-11-10 14:01:29');
+INSERT INTO "notices" VALUES(1223,'深圳','福田区',235,'住保售〔2026〕066号批次','摇号结果','深圳市福田区住房和建设局关于面向人才配售住房配售公证摇号的通告（住保售〔2026〕066号批次）','2026-09-14','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12979/post_12979197.html','','根据《深圳市福田区住房和建设局面向人才配售住房通告（住保售〔2026〕066号）》，现定于2026年9月15日上午10:00开展河创智都大厦项目住房（以下简称“本批次住房”）配售公证摇号，确定本批次住房终审合格认购申请家庭(不含高层次人才及高精尖缺人才，下同)的选房顺序号，现将有关事项公告如下：
+一、公证摇号地点
+广东省深圳市深圳公证处(以下简称“公证处”)，地址：深圳市福田区民田路178号华融大厦9楼会议室。
+二、公证摇号对象
+公证摇号对象为本批次住房的终审合格认购申请家庭，包括两房户型第一队列终审合格认购家庭74户，两房户型第二队列终审合格认购家庭72户，两房户型第三队列终审合格认购家庭44户，三房户型第一队列终审合格认购家庭6户，三房户型第二队列终审合格认购家庭8户，三房户型第三队列终审合格认购家庭7户，三房户型第四队列终审合格认购家庭34户(名单详见附件1-7)。
+三、公证与现场见证监督
+本次公证摇号由公证处进行公证监督。公证处提供公证摇号活动专用电脑，并使用经国家认定的第三方机构检测并出具合格检测报告的公证摇号系统，通过摇号确定选房顺序号。
+本次公证摇号邀请人大代表或政协委员1人，以及终审合格认购申请家庭代表2户（两房户型1人、三房户型1人）现场见证监督。
+认购申请家庭代表由深圳市福田区住房和建设局从终审合格认购申请家庭名单中随机邀请确定。
+摇号过程通过公证处视频号进行网络视频直播，直播路径：在微信页面上方搜索“深圳公证处视频号”，点击进入观看直播。
+四、公证摇号规则
+公证处在公证摇号现场将本次摇号对象的认购编号导入摇号系统，摇号数据为认购编号，摇出的先后顺序即为认购编号对应的选房顺序号。
+五、公证摇号流程
+(一)公证播号准备工作
+1.软件系统准备。公证处使用由公证机构专门定制、并经国家认定的第三方机构检测并出具合格检测报告的公证摇号系统。
+2.电脑设备准备。公证处准备公证摇号活动专用电脑2台，用于软件系统检测、数据查重校验、现场公证摇号。
+3.数据准备与接收工作。本批次住房终审合格认购申请家庭名单发布后，深圳市福田区住房和建设局向公证处密封报送公证摇号对象信息光盘，作为本次公证摇号的基础数据，摇号对象的申请人姓名、身份证号码信息将进行脱敏处理。
+(二)公证摇号流程
+公证摇号活动现场全过程由公证处进行录音、录像并存档备查。
+1.公证处工作人员引导、组织有关人员进场、签到。
+2.公证处工作人员现场宣读《公证摇号系统、器具使用说明及摇号规则》。
+3.公证处工作人员现场展示公证摇号活动专用电脑2台、摇号系统光盘2套、已封存的本批次住房终审合格认购申请家庭名单光盘（两房户型第一队列、第二队列、第三队列；三房户型第一队列、第二队列、第三队列、第四队列)。
+4.深圳市福田区住房和建设局工作人员现场宣读本批次住房《认购和资格审核情况说明》。
+5.现场见证监督代表随机选定公证摇号专用电脑，公证处工作人员启封选定的专用电脑，安装摇号系统运行支撑环境，确认断开互联网连接，并请现场见证监督代表查看确认。
+6.现场见证监督代表随机选定摇号系统光盘，公证处工作人员将选定的摇号系统拷贝至选定的专用电脑，并运行摇号系统。
+7.现场见证监督代表随机选定已封存的认购两房户型第一队列终审合格认购申请家庭名单光盘，公证处工作人员现场拆封选定的光盘，并将数据导入选定的专用电脑。
+8.公证处工作人员现场进行数据查重并展示，确保认购编号不重复。
+9.现场确认无重复数据后，公证处工作人员开始摇号排序，根据指令“开始”或“停”，每轮产生1000个选房顺序号，摇号结果实时同步在现场大屏幕显示，直至产生全部认购两房户型第一队列终审合格认购申请家庭的选房顺序号。
+10.两房户型第一队列公证摇号结束后，电脑系统自动生成不可修改的摇号结果(PDF格式)，公证处工作人员现场将摇号结果刻录光盘2张，现场密封，并由现场见证监督人员签字确认。
+11.按照上述第7-10项步骤，依次开展两房户型第二队列、第三队列；三房户型第一队列、第二队列、第三队列、第四队列终审合格认购申请家庭摇号工作，生成摇号结果。
+12.公证处工作人员现场封存公证摇号所使用的专用电脑、终审合格认购申请家庭名单光盘、摇号系统光盘和摇号结果光盘，封存至本批次住房选房结束日。
+13.公证处工作人员现场宣读公证词，本批次住房公证摇号结束。
+(三)公证摇号结果移交
+公证摇号结束后，公证处将摇号结果光盘（7张）现场封存，并于当日移交给深圳市福田区住房和建设局。
+六、结果发布
+本次公证摇号结束后24小时内，公证摇号结果将在福田区政府在线、公证处网站发布。
+附件：
+1.认购住保售〔2026〕066号批次住房两房户型第一队列公证摇号名单
+2.认购住保售〔2026〕066号批次住房两房户型第二队列公证摇号名单
+3.认购住保售〔2026〕066号批次住房两房户型第三队列公证摇号名单
+4.认购住保售〔2026〕066号批次住房三房户型第一队列公证摇号名单
+5.认购住保售〔2026〕066号批次住房三房户型第二队列公证摇号名单
+6.认购住保售〔2026〕066号批次住房三房户型第三队列公证摇号名单
+7.认购住保售〔2026〕066号批次住房三房户型第四队列公证摇号名单
+深圳市福田区住房和建设局
+2026年9月14日
+附件：
+1．
+1.认购住保售〔2026〕066号批次住房两房户型第一队列公证摇号名单.pdf
+2．
+2.认购住保售〔2026〕066号批次住房两房户型第二队列公证摇号名单.pdf
+3．
+3.认购住保售〔2026〕066号批次住房两房户型第三队列公证摇号名单.pdf
+4．
+4.认购住保售〔2026〕066号批次住房三房户型第一队列公证摇号名单.pdf
+5．
+5.认购住保售〔2026〕066号批次住房三房户型第二队列公证摇号名单.pdf
+6．
+6.认购住保售〔2026〕066号批次住房三房户型第三队列公证摇号名单.pdf
+7．
+7.认购住保售〔2026〕066号批次住房三房户型第四队列公证摇号名单.pdf','[{"id": 1748000, "name": "1.认购住保售〔2026〕066号批次住房两房户型第一队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "80477", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748000/12979197.pdf"}, {"id": 1748001, "name": "2.认购住保售〔2026〕066号批次住房两房户型第二队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "78452", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748001/12979197.pdf"}, {"id": 1748002, "name": "3.认购住保售〔2026〕066号批次住房两房户型第三队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "69120", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748002/12979197.pdf"}, {"id": 1748003, "name": "4.认购住保售〔2026〕066号批次住房三房户型第一队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "55515", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748003/12979197.pdf"}, {"id": 1748004, "name": "5.认购住保售〔2026〕066号批次住房三房户型第二队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "56723", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748004/12979197.pdf"}, {"id": 1748005, "name": "6.认购住保售〔2026〕066号批次住房三房户型第三队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "55977", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748005/12979197.pdf"}, {"id": 1748006, "name": "7.认购住保售〔2026〕066号批次住房三房户型第四队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "67280", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1748/1748006/12979197.pdf"}]','2026-11-10 14:01:29');
+INSERT INTO "notices" VALUES(1224,'深圳','福田区',235,'住保售〔2026〕066号批次','终审结果','深圳市福田区住房和建设局关于面向人才配售住房认购资格终审结果的通告（住保售〔2026〕066号批次）','2026-09-14','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12979/post_12979173.html','','河创智都大厦项目住房的认购资格审核结果公示已于2026年9月10日结束。现将认购资格终审结果通告如下：
+一、终审合格认购申请家庭共246户（名单详见附件1-7）。
+二、深圳市福田区住房和建设局将通过公证摇号方式，分别确定两房户型第一队列、第二队列、第三队列及三房户型第一队列、第二队列、第三队列、第四队列的终审合格认购申请家庭（不含高层次人才及高精尖缺人才）的选房顺序号。
+特此通告。
+附件：
+1.认购住保售〔2026〕066号批次住房两房户型第一队列终审合格名单
+2.认购住保售〔2026〕066号批次住房两房户型第二队列终审合格名单
+3.认购住保售〔2026〕066号批次住房两房户型第三队列终审合格名单
+4.认购住保售〔2026〕066号批次住房三房户型第一队列终审合格名单
+5.认购住保售〔2026〕066号批次住房三房户型第二队列终审合格名单
+6.认购住保售〔2026〕066号批次住房三房户型第三队列终审合格名单
+7.认购住保售〔2026〕066号批次住房三房户型第四队列终审合格名单
+深圳市福田区住房和建设局
+2026年9月14日
+附件：
+1．
+1.认购住保售〔2026〕066号批次住房两房户型第一队列终审合格名单.pdf
+2．
+2.认购住保售〔2026〕066号批次住房两房户型第二队列终审合格名单.pdf
+3．
+3.认购住保售〔2026〕066号批次住房两房户型第三队列终审合格名单.pdf
+4．
+4.认购住保售〔2026〕066号批次住房三房户型第一队列终审合格名单.pdf
+5．
+5.认购住保售〔2026〕066号批次住房三房户型第二队列终审合格名单.pdf
+6．
+6.认购住保售〔2026〕066号批次住房三房户型第三队列终审合格名单.pdf
+7．
+7.认购住保售〔2026〕066号批次住房三房户型第四队列终审合格名单.pdf','[{"id": 1747990, "name": "1.认购住保售〔2026〕066号批次住房两房户型第一队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "107951", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1747/1747990/12979173.pdf"}, {"id": 1747991, "name": "2.认购住保售〔2026〕066号批次住房两房户型第二队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "99242", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1747/1747991/12979173.pdf"}, {"id": 1747992, "name": "3.认购住保售〔2026〕066号批次住房两房户型第三队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "82284", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1747/1747992/12979173.pdf"}, {"id": 1747993, "name": "4.认购住保售〔2026〕066号批次住房三房户型第一队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "75318", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1747/1747993/12979173.pdf"}, {"id": 1747994, "name": "5.认购住保售〔2026〕066号批次住房三房户型第二队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "74986", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1747/1747994/12979173.pdf"}, {"id": 1747995, "name": "6.认购住保售〔2026〕066号批次住房三房户型第三队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "69837", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1747/1747995/12979173.pdf"}, {"id": 1747996, "name": "7.认购住保售〔2026〕066号批次住房三房户型第四队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "102980", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1747/1747996/12979173.pdf"}]','2026-11-10 14:01:30');
+INSERT INTO "notices" VALUES(1225,'深圳','福田区',NULL,'住保售〔2026〕066号批次','初审名单','深圳市福田区住房和建设局关于面向人才配售住房认购资格审核结果公示的通告（住保售〔2026〕066号批次）','2026-09-04','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12967/post_12967170.html','','','[{"id": 1745888, "name": "1.认购住保售〔2026〕066号批次住房两房户型第一队列审核合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "87052", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1745/1745888/12967170.pdf"}, {"id": 1745889, "name": "2.认购住保售〔2026〕066号批次住房两房户型第二队列审核合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "77692", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1745/1745889/12967170.pdf"}, {"id": 1745890, "name": "3.认购住保售〔2026〕066号批次住房两房户型第三队列审核合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "59741", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1745/1745890/12967170.pdf"}, {"id": 1745891, "name": "4.认购住保售〔2026〕066号批次住房三房户型第一队列审核合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "53486", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1745/1745891/12967170.pdf"}, {"id": 1745892, "name": "5.认购住保售〔2026〕066号批次住房三房户型第二队列审核合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "52658", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1745/1745892/12967170.pdf"}, {"id": 1745893, "name": "6.认购住保售〔2026〕066号批次住房三房户型第三队列审核合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "46528", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1745/1745893/12967170.pdf"}, {"id": 1745894, "name": "7.认购住保售〔2026〕066号批次住房三房户型第四队列审核合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "78748", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1745/1745894/12967170.pdf"}]','2026-11-10 14:01:30');
+INSERT INTO "notices" VALUES(1226,'深圳','福田区',NULL,NULL,'轮候公示','深圳市福田区住房和建设局关于2026年第二批面向符合收入财产限额标准的福田区户籍在册轮候人配租公共租赁住房的通告（住保租〔2026〕033号）','2026-09-02','https://www.szft.gov.cn/ftqjsj/gkmlpt/content/12/12963/post_12963560.html','','','[{"id": 1744492, "name": "1.特殊家庭解释.doc", "type": "doc", "mime": "application/msword", "size": "13824", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1744/1744492/12963560.doc"}, {"id": 1744540, "name": "2.信义御元山居项目户型图.pdf", "type": "pdf", "mime": "application/pdf", "size": "733215", "url": "https://www.szft.gov.cn/ftqjsj/attachment/1/1744/1744540/12963560.pdf"}]','2026-11-10 14:01:30');
+INSERT INTO "notices" VALUES(1227,'深圳','龙华区',NULL,NULL,'综合公告','深圳市龙华区2026年第三批高层次人才租房补贴拟发放人员名单公示','2026-09-20','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12990/post_12990621.html','','','[{"id": 1750163, "name": "深圳市龙华区2026年第三批高层次人才租房补贴拟发放人员名单.xlsx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "size": "15536", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1750/1750163/12990621.xlsx"}]','2026-11-10 14:01:31');
+INSERT INTO "notices" VALUES(1228,'深圳','龙华区',NULL,NULL,'选房通知','深圳市龙华区住房和建设局关于2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次选房结果的公示','2026-09-11','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12978/post_12978990.html','','2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次选房已经结束，房源共计1385套，763套被选定签约，剩余622套由我局收回另行分配。选房结果详见附件。
+附件：2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次选房结果
+深圳市龙华区住房和建设局
+2026年9月11日
+附件：
+1．
+2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次选房结果.pdf','[{"id": 1747970, "name": "2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次选房结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "248981", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747970/12978990.pdf"}]','2026-11-10 14:01:31');
+INSERT INTO "notices" VALUES(1229,'深圳','龙华区',240,'住保售〔2026〕054号批次','选房通知','深圳市龙华区住房和建设局关于面向人才配售住房选房结果的通告（住保售〔2026〕54号批次）','2026-09-11','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12978/post_12978988.html','','深圳市龙华区住房和建设局关于面向人才配售住房选房结果的通告，详见附件。
+附件：
+1．
+两房选房结果公示(09月11日）.xlsx
+2．
+两房已选房源公示（09月11日）.xlsx
+3．
+三房选房结果公示(09月11日）.xlsx
+4．
+三房已选房源公示（09月11日）.xlsx','[{"id": 1747966, "name": "两房选房结果公示(09月11日）.xlsx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "size": "12826", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747966/12978988.xlsx"}, {"id": 1747967, "name": "两房已选房源公示（09月11日）.xlsx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "size": "10739", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747967/12978988.xlsx"}, {"id": 1747968, "name": "三房选房结果公示(09月11日）.xlsx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "size": "11510", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747968/12978988.xlsx"}, {"id": 1747969, "name": "三房已选房源公示（09月11日）.xlsx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "size": "10549", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747969/12978988.xlsx"}]','2026-11-10 14:01:31');
+INSERT INTO "notices" VALUES(1230,'深圳','龙华区',240,'住保售〔2026〕054号批次','选房通知','关于面向人才配售住房选房有关事项的通知（2026054-8）','2026-09-11','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12977/post_12977250.html','','根据《深圳市龙华区住房和建设局关于面向人才配售住房的通告（住保售〔2026〕54号）》及《深圳市龙华区住房和建设局关于面向人才配售住房认购资格终审结果的通告（住保售〔2026〕54号批次）》等相关要求，现将星河开市客环球商业中心项目住房（以下简称“本批次住房”）选房签约等有关事项通知如下：
+一、选房有关事项
+按照《深圳市龙华区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕54号批次）》确定的选房名单，本批次住房的选房时间、场次及地点等事项安排如下：
+（一）选房时间及场次安排
+本批次的选房时间为2026年9月11日，具体选房场次及时间安排详见附件1，房源选完即止。
+本批次认购申请家庭应于2026年9月11日15:30起进入深圳市住房和建设局网站→政务服务→服务主题→住房保障服务→面向人才配售住房申请（“住房保障个人服务窗口”上方），在线打印选房通知书。
+（二）交通指引
+选房地址：深圳市龙华区民治街道星河开市客环球商业中心接待中心（新区大道旁，项目3栋底商）。选房交通指引详见附件2。
+二、选房规则
+选房规则及有关提示请查阅《深圳市龙华区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕54号批次）》。
+三、注意事项
+（一）认购申请家庭应当按照选房通知书规定的时间，携带选房通知书、本人身份证原件以及申请人或共同申请人的储蓄卡（余额超过人民币2万元，用于缴纳2万元认购订金）到达指定地点参加选房。
+（二）认购申请家庭选定房号后，应按规定当场缴纳认购订金人民币2万元，并签订认购协议书。
+（三）认购申请家庭可于选房当日24:00前登录龙华政府在线（网址：http://www.szlhq.gov.cn/bmxxgk/zfhjsj/dtxx_124333/tzgg_124335/）查看选房结果。
+（四）认购申请家庭委托其他人选房的，被委托人须提供经公证的选房委托书原件和被委托人身份证原件。
+（五）已选房的认购申请家庭应按照认购协议书的约定，按时缴纳购房款并签订买卖合同。未在规定时间内签订买卖合同的，视为放弃本次认购。
+四、项目咨询电话
+星河开市客环球商业中心项目咨询电话13538035996，接听时间：9:00-18:00。
+附件：1.星河开市客环球商业中心项目认购家庭选房时间安排表
+2.星河开市客环球商业中心项目选房交通指引和注意事项
+星河实业（深圳）有限公司
+2026年9月11日
+附件：
+1．
+附件1：星河开市客环球商业中心项目认购家庭选房时间安排表.xls
+2．
+附件2：星河开市客环球商业中心项目选房交通指引和注意事项.docx','[{"id": 1747728, "name": "附件1：星河开市客环球商业中心项目认购家庭选房时间安排表.xls", "type": "doc", "mime": "application/vnd.ms-excel", "size": "19968", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747728/12977250.xls"}, {"id": 1747729, "name": "附件2：星河开市客环球商业中心项目选房交通指引和注意事项.docx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "size": "170569", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747729/12977250.docx"}]','2026-11-10 14:01:31');
+INSERT INTO "notices" VALUES(1231,'深圳','龙华区',240,'住保售〔2026〕054号批次','综合公告','深圳市龙华区住房和建设局关于面向人才配售住房选房的通告（住保售〔2026〕54号批次）','2026-09-11','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12977/post_12977216.html','','','[{"id": 1747726, "name": "附件1：星河开市客环球商业中心两房户型第一队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "64273", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747726/12977216.pdf"}, {"id": 1747725, "name": "附件2：星河开市客环球商业中心两房户型第二队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "60029", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747725/12977216.pdf"}, {"id": 1747724, "name": "附件3：星河开市客环球商业中心两房户型第三队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "58173", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747724/12977216.pdf"}, {"id": 1747723, "name": "附件4：星河开市客环球商业中心三房户型第一队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "54687", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747723/12977216.pdf"}, {"id": 1747722, "name": "附件5：星河开市客环球商业中心三房户型第二队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "54325", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747722/12977216.pdf"}, {"id": 1747720, "name": "附件6：星河开市客环球商业中心三房户型第三队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "53539", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747720/12977216.pdf"}, {"id": 1747721, "name": "附件7：星河开市客环球商业中心三房户型第四队列认购申请家庭选房名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "70258", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1747/1747721/12977216.pdf"}]','2026-11-10 14:01:31');
+INSERT INTO "notices" VALUES(1232,'深圳','龙华区',240,'住保售〔2026〕054号批次','摇号结果','深圳市龙华区住房和建设局关于面向人才配售住房公证摇号结果的通告（住保售〔2026〕54号批次）','2026-09-04','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12968/post_12968394.html','','根据《深圳市龙华区住房和建设局关于面向人才配售住房公证摇号的通告（住保售〔2026〕54号批次）》，广东省深圳市深圳公证处于2026年9月4日下午开展了星河开市客环球商业中心住房配售公证摇号工作，产生了终审合格认购申请家庭的选房顺序号。现将公证摇号结果予以发布（详见附件1-5）。
+特此通告。
+附件：1.认购两房户型第一队列公证摇号结果
+2.认购两房户型第二队列公证摇号结果
+3.认购两房户型第三队列公证摇号结果
+4.认购三房户型第三队列公证摇号结果
+5.认购三房户型第四队列公证摇号结果
+深圳市龙华区住房和建设局
+2026年9月4日
+附件：
+1．
+附件1：认购两房户型第一队列公证摇号结果.pdf
+2．
+附件2：认购两房户型第二队列公证摇号结果.pdf
+3．
+附件3：认购两房户型第三队列公证摇号结果.pdf
+4．
+附件4：认购三房户型第三队列公证摇号结果.pdf
+5．
+附件5：认购三房户型第四队列公证摇号结果.pdf','[{"id": 1746159, "name": "附件1：认购两房户型第一队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "34121", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746159/12968394.pdf"}, {"id": 1746158, "name": "附件2：认购两房户型第二队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "34069", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746158/12968394.pdf"}, {"id": 1746157, "name": "附件3：认购两房户型第三队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "34134", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746157/12968394.pdf"}, {"id": 1746156, "name": "附件4：认购三房户型第三队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "32471", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746156/12968394.pdf"}, {"id": 1746155, "name": "附件5：认购三房户型第四队列公证摇号结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "34057", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746155/12968394.pdf"}]','2026-11-10 14:01:31');
+INSERT INTO "notices" VALUES(1233,'深圳','龙华区',63,NULL,'选房通知','深圳市龙华区住房和建设局关于2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次选房名单及选房签约等有关事项的通告','2026-09-04','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12967/post_12967946.html','','《深圳市龙华区住房和建设局关于2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房认租家庭资格审核结果的公示》已于2026年8月11日截止。根据《深圳市公共租赁住房管理办法》《深圳市龙华区住房和建设局关于2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房的通告（住保租〔2026〕016号）》（以下简称《配租通告》）的相关要求，现将2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次选房名单及选房签约等有关事项通告如下：
+一、选房名单及排位
+根据《配租通告》，第三批次房源为建筑面积不超过70㎡的房源，总共1385套。第三批次选房家庭为一至三人认租家庭、仅认租建筑面积不超过70㎡房源的以及第二批次排序到位无房源可选且认租意向房源中含建筑面积不超过70㎡房源的四人及以上认租家庭、第一批次排序到位无房源可选且剩余认租意向房源中仅含建筑面积不超过70㎡房源的五人及以上认租家庭。
+根据核查结果，第三批次合格选房家庭共1519户，按照房源数1:1的比例，分别确定入围选房家庭（含第一序位）、候补入围选房家庭名单。故第三批次选房家庭中，选房排位1～1385位的1385户为入围选房家庭（详见附件1），选房排位1386～1519位的134户为候补入围选房家庭（详见附件2）。选房家庭如为特殊家庭、有三个以上子女的家庭（至少有一个未满十八周岁的子女）在相应序位中优先选房。
+二、选房签约有关事项
+（一）选房签约方式
+本次公共租赁住房选房签约采用线上模式，须由选房家庭中的主申请人（以下称为“选房人员”）进行选房签约，不接受委托他人选房签约。选房家庭按照选房排位顺序依次选择房源，排序到位后可在本批次所有认租意向剩余房源内选择其中一套对应建筑面积标准的房源，房源选完即止。
+线上选房操作
+具体流程
+指引详见附件
+3、附件4
+。
+（二）选房签约时间安排
+线上选房预选开放时间为2026年9月4日17:00，选房人员应在系统开放后、正式选房前登录系统查看房源并预选。
+正选房时间：2026年9月6日至9月11日（共计6天），房源选完即止，
+选房日期安排详见附件
+5
+，各选房家庭具体正选房时间以线上选房系统显示时间为准。
+线上选房咨询电话：0755-81477770（9:00-12:00、14:00-18:00）。
+无法通过咨询电话沟通解决
+选房问题
+的，可到我局现场咨询，地址：
+深圳市
+龙华区龙华街道清湖路10号国鸿工业园3栋
+108A
+室。
+（三）选房签约流程
+1.登录选房系统
+请选房人员访问深圳市住房和建设局官网或者通过微信关注“深圳市住房和建设局”公众号，通过广东省统一身份认证平台登录网上选房系统（请选房人员提前在广东省统一身份认证平台进行身份注册并通过实名认证，且确保能够正常登录）。为确保顺利完成选房，建议通过
+电脑端
+使用谷歌浏览器、火狐浏览器、360浏览器登录选房系统。
+2.
+预选
+2026年9月4日17:00将开放本次待分配的房源，选房人员可在预选时间开始后至其正选时间开始前登录网上选房系统进行预选。每个选房人员最多预选5套房源。
+3.
+正选
+请选房人员在正式选房场次开始前15分钟登录选房系统，查看预选房源情况。每位选房人员的正选时长为2分钟。选房人员在正选环节选定房源后将进入合同签订阶段，不可再更换房源。选房人员如在正选时间内一直停留在选房界面且不选定房源，选房时间结束时，系统将自动为选房人员选定其意向房源中未被其他选房人员选定的第一序位意向房源。
+4.补选
+选房人员未在正选时间内参与选房或正选时间结束后未选定住房（主动放弃选房的除外），如仍需选房可在本家庭选房场次结束后至当天正选场次结束后3分钟内登录网上选房系统申请补选。参与补选的选房人员按原选房排序依次补选，补选时长与正选一致。
+5.合同签订及保证金缴交
+选房人员通过正选或补选确认房源后进入合同签订环节，请选房人员提前准备好主申请人的银行卡（深圳任意银行储蓄卡）正反面清晰照片，签约时必须完成银行托收办理后才可进行下一步。正选房场次中成功选定住房的家庭必须在选房当天18点前正确签署租赁合同并缴纳押金后提交签约申请；在补选场次中成功选定住房的家庭完成签约时间以系统提示为准，请在选定住房后及时查看系统办理。租赁合同审核结果请查看系统。
+（四）起租和入住事项
+本次安排选房的卓越和奕府、悦见誉府、壹湾府、臻著雅居、雍云府、未来平方云岭府、龙胜尚府、龙馨家园、民兴苑、龙塘居、安宏基天曜广场、保利·悦都、壹成中心、祥澜苑、天屿花园、澜汇居、安宏基星曜广场、深国际万科和风轩、北宸之光家园、奥宸观壹城华府、华盛珑悦花园、尚誉红山里、春江天玺阁、盛龙时代广场项目线上租赁合同的起租时间均设置为2026年9月19日，澜汇云庭花园线上租赁合同的起租时间设置为2026年9月24日。成功选定并签约上述房源的选房家庭，凭租赁合同、入住通知书等相关材料，提前向项目物业管理处预约办理入住时间，并按约定时间前往现场办理入住手续，入住相关事宜请咨询各项目物业管理处（附件6）。未按规定时间办理入住且未办理退房手续的，按照租赁合同约定的起租时间计收租金，如仍需办理入住手续的，请自行联系项目管理处处理。
+三、重要提示
+（一）请选房人员仔细核查本家庭选房排位（附件1-2），并对照《第三批次选房家庭选房排期表》（附件5），认真核对选房时间及选房场次，仔细阅读《公共租赁住房线上选房操作流程指引》（附件3-4），熟悉线上选房操作流程。
+（二）选房人员正确签署租赁合同并缴纳押金后提交审核且审核通过的，即为已完成选房签约。已完成选房签约的选房家庭，退出深圳市公共租赁住房轮候册，原轮候排序作废，仍需申请公共租赁住房的，应当按照日常轮候规则再次提出轮候申请；选房人员正确签署租赁合同并缴纳押金后提交审核未通过的，取消配租资格。已选定住房的选房人员（含补选场）未在当天规定时间内正确签署租赁合同并缴纳押金后提交审核的，即视为放弃本次选房，其所选住房纳入次日待选房源（户型选房结束之日或本批次选房结束之日的弃选房源除外）。
+（三）选房家庭有如下行为之一的，视为放弃本次选房：
+1.选房排序到位，有其意向小区及意向建筑面积标准的房源但未选房。
+2.选定住房但未在规定的时间内签订租赁合同（含线上选房正确签署租赁合同并缴纳押金后提交审核）。
+放弃选房达到三次的，退出深圳市公共租赁住房轮候册，原轮候排序作废，仍需申请公共租赁住房的，应当按照日常轮候规则再次提出轮候申请。
+（四）各类认租意向对应户型的最后一套房源被选定之日，即视为该认租意向对应户型选房结束。该认租意向对应户型选房结束后，如选房人员已选定该认租意向对应户型的住房，但未在当天签约时间结束前正确签署租赁合同并缴纳押金后提交审核，其所选住房将由深圳市龙华区住房和建设局收回另行分配。
+（五）选房人员所有认租意向房源被其他选房人员选定后不用参与选房，不计入放弃次数。
+（六）已签订安居型商品房及面向人才配售住房认购协议书且该协议书仍有效的选房家庭，不得参与本批次选房，选房家庭须如实申报并主动放弃选房。
+（七）
+卓越和奕府、
+澜汇云庭花园小区停车位紧张，停车月卡按小区停车场管理方案办理，请租户结合自身情况妥善安排停车事宜。
+（八）选房家庭选定住房并签订租赁合同的，视为已了解所选项目的预计交付时间、租期、租金、学位、落户等信息并予以认可。
+（九）本次配租签订租赁合同前，选房家庭住房、人口、户籍、婚姻状况等信息发生变化的，应当如实申报；如因信息变化或者审核发现新情况不再符合申请条件，将取消配租资格，如已选定住房，不予签订租赁合同。
+（十）选房家庭因离婚、死亡等原因导致计入配租面积家庭人口数减少，认租的意向房源包含符合其实际配租面积家庭人口数对应建筑面积标准的房源的，列入选房名单，但其仅能选择符合其实际配租面积家庭人口数对应建筑面积标准的房源；未认租符合其实际配租面积家庭人口数对应建筑面积标准的房源的，不列入选房名单。
+（十一）申请人对申报信息的真实性、准确性、合法性负责。未如实申报或提供虚假信息的，无论在公示期间还是公示之后，一经发现，将依据《深圳市保障性住房条例》等相关规定进行处理。
+（十二）签约完成后，我局对承租家庭的信息进行核查，如发现承租人存在不实申报、弄虚作假等违法行为，将按照《深圳市保障性住房条例》《深圳市公共租赁住房管理办法》及其他有关规定处理。
+（十三）本批次配租结束后如有剩余房源，将由深圳市龙华区住房和建设局收回另行分配。
+（十四）深圳市龙华区住房和建设局联系地址：深圳市龙华区龙华街道清湖路10号国鸿工业园3栋108A室。电话：0755-81477770；接听时间：9:00-12:00，14:00-18:00。
+（十五）本通告未尽事宜由深圳市龙华区住房和建设局负责解释。
+附件：1.2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次入围选房家庭名单及排位
+2.2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次候补入围选房家庭名单及排位
+3.公共租赁住房线上选房操作流程指引（电脑端）
+4.公共租赁住房线上选房操作流程指引（手机端）
+5.第三批次选房家庭选房排期表
+6.各项目入住办理联系方式
+深圳市龙华区住房和建设局
+2026年9月4日
+附件：
+1．
+附件1：2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次入围选房家庭名单及排位.pdf
+2．
+附件2：2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次候补入围选房家庭名单及排位.pdf
+3．
+附件3：公共租赁住房线上选房操作流程指引（电脑端）.docx
+4．
+附件4：公共租赁住房线上选房操作流程指引（手机端）.docx
+5．
+附件5：第三批次选房家庭选房排期表.xlsx
+6．
+附件6：各项目入住办理安排表.xlsx','[{"id": 1746074, "name": "附件1：2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次入围选房家庭名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "957253", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746074/12967946.pdf"}, {"id": 1746111, "name": "附件2：2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第三批次候补入围选房家庭名单及排位.pdf", "type": "pdf", "mime": "application/pdf", "size": "179873", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746111/12967946.pdf"}, {"id": 1746072, "name": "附件3：公共租赁住房线上选房操作流程指引（电脑端）.docx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "size": "5458083", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746072/12967946.docx"}, {"id": 1746075, "name": "附件4：公共租赁住房线上选房操作流程指引（手机端）.docx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "size": "2369671", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746075/12967946.docx"}, {"id": 1746110, "name": "附件5：第三批次选房家庭选房排期表.xlsx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "size": "10240", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746110/12967946.xlsx"}, {"id": 1746076, "name": "附件6：各项目入住办理安排表.xlsx", "type": "doc", "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "size": "10779", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1746/1746076/12967946.xlsx"}]','2026-11-10 14:01:32');
+INSERT INTO "notices" VALUES(1234,'深圳','龙华区',240,'住保售〔2026〕054号批次','摇号结果','深圳市龙华区住房和建设局关于面向人才配售住房公证摇号的通告（住保售〔2026〕54号批次）','2026-09-04','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12967/post_12967385.html','','根据《深圳市龙华区住房和建设局关于面向人才配售住房的通告（住保售〔2026〕54号）》，定于2026年9月4日下午3:00开展星河开市客环球商业中心项目住房（以下简称本批次住房）配售公证摇号工作，确定本批次住房终审合格认购申请家庭的选房顺序号。现将有关事项公告如下：
+一、公证摇号地点
+广东省深圳市深圳公证处（以下简称公证处），地址：深圳市福田区福田街道民田路178号华融大厦9楼会议室。
+二、公证摇号对象
+公证摇号对象为本批次住房终审合格的两房户型第一队列13户、第二队列10户、第三队列12户，三房户型第三队列2户、第四队列11户，共计48户。
+三、公证与监督
+本次公证摇号由公证处进行公证监督。公证处提供公证摇号活动专用电脑，使用经国家认定的第三方机构检测并出具合格检测报告的公证摇号系统，通过摇号确定选房顺序号。
+本次公证摇号邀请终审合格认购申请家庭代表1户现场见证监督。
+认购申请家庭代表由深圳市龙华区住房和建设局从终审合格认购申请家庭名单中随机邀请确定。
+摇号过程通过公证处视频号进行网络视频直播，直播路径：在微信页面上方搜索“深圳公证处视频号”，点击进入观看直播。
+四、公证摇号规则
+公证处在公证摇号现场将本次摇号对象的认购编号导入摇号系统，摇号数据为认购编号，摇出的先后顺序即为认购编号对应的选房顺序号。
+五、公证摇号流程
+（一）公证摇号准备工作
+1.软件系统准备。公证处使用由公证机构专门定制、经国家认定的第三方机构检测并出具合格检测报告的公证摇号系统。
+2.电脑设备准备。公证处准备公证摇号活动专用电脑2台，用于软件系统检测、数据查重校验、现场公证摇号。
+3.数据准备与接收工作。本次住房终审合格认购申请家庭名单发布后，深圳市龙华区住房和建设局向公证处密封报送本次住房公证摇号对象信息光盘，作为本次公证摇号的基础数据。摇号对象的申请人姓名、身份证号码信息将进行脱敏处理。
+（二）公证摇号流程
+公证摇号活动现场全过程由公证处进行录音、录像并存档备查。
+1.公证处工作人员引导、组织有关人员进场、签到。
+2.公证处工作人员现场宣读《公证摇号系统、器具使用说明及摇号规则》。
+3.公证处工作人员现场展示公证摇号活动专用电脑2台、摇号系统光盘2套、已封存的本次住房终审合格认购申请家庭名单光盘（两房户型第一、第二、第三队列，三房户型第三、第四队列）。
+4.深圳市龙华区住房和建设局工作人员现场宣读《星河开市客环球商业中心项目住房认购和资格审核情况说明》。
+5.现场见证监督代表随机选定公证摇号专用电脑，公证处工作人员启封选定的专用电脑，安装摇号系统运行支撑环境，确认断开互联网连接，并请现场见证监督代表查看确认。
+6.现场见证监督代表随机选定摇号系统光盘，公证处工作人员将选定的摇号系统拷贝至选定的专用电脑，并运行摇号系统。
+7.现场见证监督代表随机选定已封存的两房户型第一队列终审合格认购申请家庭名单光盘，公证处工作人员现场拆封选定的光盘，并将数据导入选定的专用电脑。
+8.公证处工作人员现场进行数据查重并展示，确保认购编号不重复。
+9.现场确认无重复数据后，公证处工作人员开始摇号排序，根据指令“开始”或“停”，每轮最多产生1000个选房顺序号，摇号结果实时同步在现场大屏幕显示，直至产生两房户型第一队列终审合格认购申请家庭的选房顺序号。
+10.两房户型第一队列公证摇号结束后，电脑系统自动生成不可修改的摇号结果（PDF格式），公证处工作人员现场将摇号结果刻录光盘2张，现场密封，并由现场见证监督人员签字确认。
+11.按照上述第7-10项步骤，开展两房户型第二、第三队列，三房户型第三、第四队列终审合格认购申请家庭摇号工作，生成摇号结果。
+12.公证处工作人员现场封存公证摇号所使用的专用电脑、终审合格认购申请家庭名单光盘、摇号系统光盘和摇号结果光盘，封存至本次住房选房结束日。
+13.公证处工作人员现场宣读公证词，本次住房公证摇号结束。
+（三）公证摇号结果移交
+公证摇号结束后，公证处将摇号结果光盘（5张）现场封存，并于当日移交给深圳市龙华区住房和建设局。
+六、结果发布
+本次公证摇号结束后24小时内，公证摇号结果将在龙华政府在线网站及公证处微信公众号发布。
+附件：1.认购两房户型第一队列公证摇号名单
+2.认购两房户型第二队列公证摇号名单
+3.认购两房户型第三队列公证摇号名单
+4.认购三房户型第三队列公证摇号名单
+5.认购三房户型第四队列公证摇号名单
+深圳市龙华区住房和建设局
+2026年9月4日
+附件：
+1．
+附件1：认购两房户型第一队列公证摇号名单.pdf
+2．
+附件2：认购两房户型第二队列公证摇号名单.pdf
+3．
+附件3：认购两房户型第三队列公证摇号名单.pdf
+4．
+附件4：认购三房户型第三队列公证摇号名单.pdf
+5．
+附件5：认购三房户型第四队列公证摇号名单.pdf','[{"id": 1745952, "name": "附件1：认购两房户型第一队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "46566", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745952/12967385.pdf"}, {"id": 1745951, "name": "附件2：认购两房户型第二队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "46055", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745951/12967385.pdf"}, {"id": 1745950, "name": "附件3：认购两房户型第三队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "46845", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745950/12967385.pdf"}, {"id": 1745949, "name": "附件4：认购三房户型第三队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "42392", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745949/12967385.pdf"}, {"id": 1745948, "name": "附件5：认购三房户型第四队列公证摇号名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "46003", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745948/12967385.pdf"}]','2026-11-10 14:01:32');
+INSERT INTO "notices" VALUES(1235,'深圳','龙华区',240,'住保售〔2026〕054号批次','终审结果','深圳市龙华区住房和建设局关于面向人才配售住房认购资格终审结果的通告（住保售〔2026〕54号批次）','2026-09-04','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12967/post_12967371.html','','星河开市客环球商业中心项目住房（住保售〔2026〕54号批次）的认购资格审核结果已于2026年8月28日公示结束。现将认购资格终审结果通告如下：
+一、终审合格认购申请家庭共50户（名单详见附件1-7）。
+二、深圳市龙华区住房和建设局将通过公证摇号方式，分别确定两房户型第一、第二、第三队列，三房户型第三、第四队列共计48户合格认购申请家庭的选房顺序号。三房户型第一、第二队列各有1户合格认购申请家庭，该2户家庭不参与公证摇号。
+特此通告。
+附件：1.认购两房户型第一队列终审合格名单
+2.认购两房户型第二队列终审合格名单
+3.认购两房户型第三队列终审合格名单
+4.认购三房户型第一队列终审合格名单
+5.认购三房户型第二队列终审合格名单
+6.认购三房户型第三队列终审合格名单
+7.认购三房户型第四队列终审合格名单
+深圳市龙华区住房和建设局
+2026年9月4日
+附件：
+1．
+附件1：认购两房户型第一队列终审合格名单.pdf
+2．
+附件2：认购两房户型第二队列终审合格名单.pdf
+3．
+附件3：认购两房户型第三队列终审合格名单.pdf
+4．
+附件4：认购三房户型第一队列终审合格名单.pdf
+5．
+附件5：认购三房户型第二队列终审合格名单.pdf
+6．
+附件6：认购三房户型第三队列终审合格名单.pdf
+7．
+附件7：认购三房户型第四队列终审合格名单.pdf','[{"id": 1745943, "name": "附件1：认购两房户型第一队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "62875", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745943/12967371.pdf"}, {"id": 1745942, "name": "附件2：认购两房户型第二队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "58353", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745942/12967371.pdf"}, {"id": 1745941, "name": "附件3：认购两房户型第三队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "57042", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745941/12967371.pdf"}, {"id": 1745940, "name": "附件4：认购三房户型第一队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "52959", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745940/12967371.pdf"}, {"id": 1745939, "name": "附件5：认购三房户型第二队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "52600", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745939/12967371.pdf"}, {"id": 1745938, "name": "附件6：认购三房户型第三队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "51716", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745938/12967371.pdf"}, {"id": 1745937, "name": "附件7：认购三房户型第四队列终审合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "69637", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1745/1745937/12967371.pdf"}]','2026-11-10 14:01:32');
+INSERT INTO "notices" VALUES(1236,'深圳','龙华区',NULL,NULL,'选房通知','深圳市龙华区住房和建设局关于2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第二批次选房结果的公示','2026-09-01','https://www.szlhq.gov.cn/lhzfhjsj/gkmlpt/content/12/12963/post_12963375.html','','2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第二批次选房已经结束，房源共计317套，312套被选定签约，剩余5套由我局收回另行分配。选房结果详见附件。
+附件：2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第二批次选房结果
+深圳市龙华区住房和建设局
+2026年9月1日
+附件：
+1．
+2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第二批次选房结果.pdf','[{"id": 1744769, "name": "2026年面向符合收入财产限额标准的龙华区户籍在册轮候人配租公共租赁住房第二批次选房结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "137660", "url": "https://www.szlhq.gov.cn/lhzfhjsj/attachment/1/1744/1744769/12963375.pdf"}]','2026-11-10 14:01:32');
+INSERT INTO "notices" VALUES(1237,'深圳','光明区',NULL,NULL,'选房通知','光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房第三场次选房名单及选房签约等有关事项的通告','2026-09-22','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/12/12994/post_12994384.html','','根据《深圳市公共租赁住房管理办法》以及《光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房有关事项的通告》的相关要求，现将选房名单予以公示。
+一、选房名单及排位
+根据《光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房有关事项的通告》，现已确定针对
+家庭成员为
+一至三人，且认租意向中含不超过70平方米房源的家庭及前两个批次排序到位无房源可选家庭
+的入围名单（详见附件1）。户籍在册轮候家庭选房顺序依据市公租房轮候册的轮候排序确定，特殊家庭在相应序位中有优先选房权利。
+二、选房签约有关事项
+（一）选房时间
+家庭成员为
+一至三人，且认租意向中含不超过70平方米房源的家庭及前两个批次排序到位无房源可选家庭的
+选房时间为2026年9月23日至9月24日。房源选完即止，具体选房安排详见附件2。本批次选房中排序到位有房源可选但未选定住房的认租家庭，视为放弃本次选房。
+（二）选房地点
+选房地点安排在光明区科联路与同仁路交叉口东南侧科润大厦裙楼二楼（瑞幸咖啡扶梯上去即可到达）。为避免人多拥挤，每户选房家庭最多一人进入选房现场，建议老人和小孩不要前往选房现场。
+（三）选房期间认租房源及结果查询
+选房工作将于2026年9月23日至9月24日进行。选房期间，各选房家庭可进入以下网站，查看每日认租房源及选房结果。
+1.房源公示查询
+https://zjj.sz.gov.cn/zfxx/ggfw/house.html?code=GMPZ20264724&batchSignCode=UniRR6FFR72aytvC
+2.选房结果公示查询
+https://zjj.sz.gov.cn/zfxx/ggfw/publicity.html?code=GMPZ20264724&batchSignCode=UniRR6FFR72aytvC
+（四）选房及签约方式
+认租家庭按照选房排位顺序依次选择意向小区内对应配租面积标准的住房。对应房源选完即止。认租家庭自愿认租低于对应建筑面积住房的，视为其已按标准享受住房保障。
+选房当日现场签订租赁合同。申请人无法到场选房签约的，可书面委托成年共同申请人（委托书见附件3）选房并签订租赁合同，委托非共同申请人选房时须提供经公证的授权委托书，具体选房签约服务指引详见附件4。
+三、保证金缴交事项
+申请人应在签订租赁合同后按照合同约定的金额缴交租赁保证金，保证金金额为租赁合同月租金的两倍。租赁保证金缴纳可通过手机网银转账到指定账户或自行前往指定银行柜台缴纳。承租人凭租赁合同、入住通知书和保证金缴款凭证到物业管理处办理入住手续。
+四、投诉举报和监督
+欢迎社会各界通过来电、来信、来访等方式，向光明区住房和建设局或光明区纪检监察机关投诉、举报。
+（一）光明区住房和建设局，投诉举报电话：29102063，地址：光明区科联路与同仁路交叉口东南侧科润大厦11楼。
+（二）光明区房屋事务中心，投诉举报电话：23696012，地址：光明区科联路与同仁路交叉口东南侧科润大厦11楼。
+（三）纪检监察部门投诉举报电话以其公开的信息为准。
+为便于调查核实，鼓励实名举报并提供联系方式，受理单位将对举报人信息严格保密。
+五、重要提示
+（一）申请人对申报信息的真实性、准确性、合法性负责。如提供虚假信息，无论在公示期间还是公示之后，一经发现，将依据《深圳市保障性住房条例》等相关规定进行处理。
+（二）本次认租受理截止后至签订租赁合同前，认租家庭住房、人口、户籍、婚姻状况、残疾及抚恤定补优抚等信息发生变化的，仍应当如实申报；如不再符合申请条件的，将取消配租资格，已选定住房的，不予签订租赁合同。
+（三）合格家庭中，申请人和共同申请人的总人数计入配租面积家庭人口数，其他家庭成员为非共同申请人。非共同申请人不计入配租面积家庭人口数，但应当符合公共租赁住房申请条件中关于住房的规定。
+（四）选房结束后，选房结果以系统查询链接为准，不另行公示。
+（五）根据《深圳市公共租赁住房管理办法》规定，合格认租家庭有如下行为的，视为放弃本次选房：
+1.选房过程中，认租申请人排序到位但未选定住房；
+2.选定住房但未在规定时间交付保证金并签订租赁合同。
+上述行为达到三次的，退出轮候册，原轮候排序作废。仍需申请公共租赁住房的，应当按照日常轮候规则再次提出轮候申请。
+（六）房源选完即止，所有房源被选定之后，选房工作完成，后续排序到位的选房家庭可不用到达选房现场，不计入放弃次数。
+附件：1.1-3人且认租70㎡以下房源家庭的入围名单
+2.选房排期表
+3.授权委托书
+4.选房签约服务指引
+5.项目不利因素告知书
+光明区住房和建设局
+2026年9月22日
+附件：
+1．
+附件1：1-3人且认租70㎡以下房源家庭的入围名单.pdf
+2．
+附件2：选房排期表.pdf
+3．
+附件3：授权委托书.pdf
+4．
+附件4：选房签约服务指引 .pdf
+5．
+附件5：各项目不利因素告知书.zip','[{"id": 1751013, "name": "附件1：1-3人且认租70㎡以下房源家庭的入围名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "250825", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1751/1751013/12994384.pdf"}, {"id": 1751012, "name": "附件2：选房排期表.pdf", "type": "pdf", "mime": "application/pdf", "size": "84817", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1751/1751012/12994384.pdf"}, {"id": 1751011, "name": "附件3：授权委托书.pdf", "type": "pdf", "mime": "application/pdf", "size": "66496", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1751/1751011/12994384.pdf"}, {"id": 1751279, "name": "附件4：选房签约服务指引 .pdf", "type": "pdf", "mime": "application/pdf", "size": "206959", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1751/1751279/12994384.pdf"}, {"id": 1751280, "name": "附件5：各项目不利因素告知书.zip", "type": "zip", "mime": "application/zip", "size": "43826", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1751/1751280/12994384.zip"}]','2026-11-10 14:01:33');
+INSERT INTO "notices" VALUES(1238,'深圳','光明区',NULL,NULL,'选房通知','光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房第二场次选房名单及选房签约等有关事项的通告','2026-09-20','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/12/12991/post_12991630.html','','根据《深圳市公共租赁住房管理办法》以及《光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房有关事项的通告》的相关要求，现将选房名单予以公示。
+一、选房名单及排位
+根据《光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房有关事项的通告》，现已确定针对家庭成员为四人及以上，且认租意向中含超过70平方米二房房源家庭的入围、候补入围名单及递补入围名单（详见附件1、2、3）。户籍在册轮候家庭选房顺序依据市公租房轮候册的轮候排序确定，特殊家庭在相应序位中有优先选房权利。
+二、选房签约有关事项
+（一）选房时间
+家庭成员为四人及以上，且认租意向中含超过70平方米房源的家庭选房时间从2026年9月21日14:30开始，房源选完即止，具体选房安排详见附件4。本批次选房中排序到位有房源可选但未选定住房的认租家庭，视为放弃本次选房，不列入下一批次选房名单，如无房源可选的，且认租意向包括建筑面积不超过70平方米房源的认租家庭，则按照深圳市公共租赁住房轮候册排位列入下一批次选房名单。
+家庭成员为
+一至三人，且认租意向中含不超过70平方米房源的家庭及前两个批次排序到位无房源可选家庭
+预计选房时间为2026年9月23日至2026年9月24日。本批次选房名单将于上一批次选房结束后另行发布公告，具体安排以本批次选房公告为准。
+（二）选房地点
+选房地点安排在光明区科联路与同仁路交叉口东南侧科润大厦裙楼二楼（瑞幸咖啡扶梯上去即可到达）。为避免人多拥挤，每户选房家庭最多一人进入选房现场，建议老人和小孩不要前往选房现场。
+（三）选房期间认租房源及结果查询
+选房工作将于2026年9月21日进行。选房期间，各选房家庭可进入以下网站，查看每日认租房源及选房结果。
+1.房源公示查询
+https://zjj.sz.gov.cn/zfxx/ggfw/house.html?code=GMPZ20264724&batchSignCode=UniRR6FFR72aytvC
+2.选房结果公示查询
+https://zjj.sz.gov.cn/zfxx/ggfw/publicity.html?code=GMPZ20264724&batchSignCode=UniRR6FFR72aytvC
+（四）选房及签约方式
+认租家庭按照选房排位顺序依次选择意向小区内对应配租面积标准的住房。对应房源选完即止。认租家庭自愿认租低于对应建筑面积住房的，视为其已按标准享受住房保障。
+选房当日现场签订租赁合同。申请人无法到场选房签约的，可书面委托成年共同申请人（委托书见附件5）选房并签订租赁合同，委托非共同申请人选房时须提供经公证的授权委托书，具体选房签约服务指引详见附件6。
+三、保证金缴交事项
+申请人应在签订租赁合同后按照合同约定的金额缴交租赁保证金，保证金金额为租赁合同月租金的两倍。租赁保证金缴纳可通过手机网银转账到指定账户或自行前往指定银行柜台缴纳。承租人凭租赁合同、入住通知书和保证金缴款凭证到物业管理处办理入住手续。
+四、投诉举报和监督
+欢迎社会各界通过来电、来信、来访等方式，向光明区住房和建设局或光明区纪检监察机关投诉、举报。
+（一）光明区住房和建设局，投诉举报电话：29102063，地址：光明区科联路与同仁路交叉口东南侧科润大厦11楼。
+（二）光明区房屋事务中心，投诉举报电话：23696012，地址：光明区科联路与同仁路交叉口东南侧科润大厦11楼。
+（三）纪检监察部门投诉举报电话以其公开的信息为准。
+为便于调查核实，鼓励实名举报并提供联系方式，受理单位将对举报人信息严格保密。
+五、重要提示
+（一）申请人对申报信息的真实性、准确性、合法性负责。如提供虚假信息，无论在公示期间还是公示之后，一经发现，将依据《深圳市保障性住房条例》等相关规定进行处理。
+（二）本次认租受理截止后至签订租赁合同前，认租家庭住房、人口、户籍、婚姻状况、残疾及抚恤定补优抚等信息发生变化的，仍应当如实申报；如不再符合申请条件的，将取消配租资格，已选定住房的，不予签订租赁合同。
+（三）合格家庭中，申请人和共同申请人的总人数计入配租面积家庭人口数，其他家庭成员为非共同申请人。非共同申请人不计入配租面积家庭人口数，但应当符合公共租赁住房申请条件中关于住房的规定。
+（四）选房结束后，选房结果以系统查询链接为准，不另行公示。
+（五）根据《深圳市公共租赁住房管理办法》规定，合格认租家庭有如下行为的，视为放弃本次选房：
+1.选房过程中，认租申请人排序到位但未选定住房；
+2.选定住房但未在规定时间交付保证金并签订租赁合同。
+上述行为达到三次的，退出轮候册，原轮候排序作废。仍需申请公共租赁住房的，应当按照日常轮候规则再次提出轮候申请。
+房源选完即止，所有房源被选定之后，选房工作完成，后续排序到位的选房家庭可不用到达选房现场，不计入放弃次数。
+附件：1.四人及以上认租家庭入围名单
+2.四人及以上认租家庭候补入围名单
+3.四人及以上认租家庭递补入围名单
+4.选房排期表
+5.授权委托书
+6.选房签约服务指引
+7.项目不利因素告知书
+光明区住房和建设局
+2026年9月20日
+附件：
+1．
+附件1：四人及以上且认租70㎡及以上房源家庭的入围名单1.pdf
+2．
+附件2：四人及以上且认租70㎡及以上房源家庭的候补入围名单.pdf
+3．
+附件3：四人及以上且认租70㎡及以上房源家庭的递补入围名单.pdf
+4．
+附件4：选房排期表.pdf
+5．
+附件5：授权委托书.pdf
+6．
+附件6：选房签约服务指引 .pdf
+7．
+附件7：各项目不利因素告知书.zip','[{"id": 1750372, "name": "附件1：四人及以上且认租70㎡及以上房源家庭的入围名单1.pdf", "type": "pdf", "mime": "application/pdf", "size": "69576", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1750/1750372/12991630.pdf"}, {"id": 1750373, "name": "附件2：四人及以上且认租70㎡及以上房源家庭的候补入围名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "69791", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1750/1750373/12991630.pdf"}, {"id": 1750374, "name": "附件3：四人及以上且认租70㎡及以上房源家庭的递补入围名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "129299", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1750/1750374/12991630.pdf"}, {"id": 1750375, "name": "附件4：选房排期表.pdf", "type": "pdf", "mime": "application/pdf", "size": "85634", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1750/1750375/12991630.pdf"}, {"id": 1750376, "name": "附件5：授权委托书.pdf", "type": "pdf", "mime": "application/pdf", "size": "66496", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1750/1750376/12991630.pdf"}, {"id": 1750377, "name": "附件6：选房签约服务指引 .pdf", "type": "pdf", "mime": "application/pdf", "size": "207314", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1750/1750377/12991630.pdf"}, {"id": 1750378, "name": "附件7：各项目不利因素告知书.zip", "type": "zip", "mime": "application/zip", "size": "43673", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1750/1750378/12991630.zip"}]','2026-11-10 14:01:33');
+INSERT INTO "notices" VALUES(1239,'深圳','光明区',NULL,NULL,'综合公告','光明区住房和建设局关于保障性租赁住房（2026年第三批次）配租结果的通告','2026-09-20','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/12/12991/post_12991615.html','','','[{"id": 1750570, "name": "配租结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "109911", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1750/1750570/12991615.pdf"}]','2026-11-10 14:01:33');
+INSERT INTO "notices" VALUES(1240,'深圳','光明区',NULL,NULL,'选房通知','光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房认租资格结果及选房签约等有关事项的通告','2026-09-18','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/12/12989/post_12989341.html','','光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房认租资格核查结果的公示已于2026年9月14日结束。根据《光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房有关事项的通告》（以下简称《配租通告》）相关要求，现将2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房认租资格结果通告如下：
+一、终审资格核查情况
+（一）资格审核合格认租家庭
+经公示期内提交异议受理及核查，本次通过资格审核的认租家庭共450户（详见附件1）。
+（二）资格审核不合格及撤销认租家庭
+本次未通过资格审核及撤销认租家庭共16户（详见附件2）。
+二、选房名单及排位
+根据《配租通告》，现已确定针对五人及以上且认租意向中含超过70平方米三房房源家庭的入围、候补入围名单（详见附件3、4）。户籍在册轮候家庭选房顺序依据市公租房轮候册的轮候排序确定，特殊家庭在相应序位中有优先选房权利。
+三、
+选房签约有关事项
+(一)选房时间
+认租意向房源中含超过70平方米三房房源的五人及以上认租家庭
+（1-50位）选房时间为2026年9月20日9：30开始，房源选完即止，具体选房安排详见附件5。本批次选房中排序到位有房源可选但未选定住房的认租家庭，视为放弃本次选房，不列入下一批次选房名单；如无房源可选的，且认租意向包括建筑面积超过70平方米的二房房源的认租家庭，则按照深圳市公共租赁住房轮候册排位列入下一批次选房名单。
+认租意向房源中含超过70平方米二房房源的四人及以上家庭
+预计选房时间为2026年9月21日14：00开始，房源选完即止。本批次选房名单将于上一批次选房结束后另行发布公告，具体安排以本批次选房公告为准。本批次选房中排序到位有房源可选但未选定住房的认租家庭，视为放弃本次选房，不列入下一批次选房名单；如无房源可选的，且认租意向包括建筑面积不超过70平方米房源的认租家庭，则按照深圳市公共租赁住房轮候册排位列入下一批次选房名单。
+认租意向房源中含不超过70平方米房源的一至三人认租家庭及前两个批次排序到位但无房源可选家庭
+预计选房时间为2026年9月23日至2026年9月24日，本批次选房名单将于上一批次选房结束后另行发布公告，具体安排以本批次选房公告为准。
+(二)选房地点
+选房地点安排在光明区科联路与同仁路交叉口东南侧科润大厦裙楼二楼（瑞幸咖啡扶梯上去即可到达）。为避免人多拥挤，每户选房家庭最多两人进入选房现场，建议老人和小孩不要前往选房现场。
+(三) 选房期间认租房源及结果查询
+选房工作将于2026年9月20日到9月24日开展。选房期间，各选房家庭可进入以下网站，查看每日认租房源及选房结果。
+1.房源公示查询
+https://zjj.sz.gov.cn/zfxx/ggfw/house.html?code=GMPZ20264724&batchSignCode=UniRR6FFR72aytvC
+2.选房结果公示查询
+https://zjj.sz.gov.cn/zfxx/ggfw/publicity.html?code=GMPZ20264724&batchSignCode=UniRR6FFR72aytvC
+(四)选房及签约方式
+认租家庭按照选房排位顺序依次选择意向小区内对应配租面积标准的住房。对应房源选完即止。认租家庭自愿认租低于对应建筑面积住房的，视为其已按标准享受住房保障。
+选房当日现场签订租赁合同。申请人无法到场选房签约的，可书面委托成年共同申请人（委托书见附件6）选房并签订租赁合同，委托非共同申请人选房时须提供经公证的授权委托书，具体选房签约服务指引详见附件7。
+四、保证金缴交事项
+申请人应在签订租赁合同后按照合同约定的金额缴交租赁保证金，保证金金额为租赁合同月租金的两倍。租赁保证金缴纳可通过手机网银转账到指定账户或自行前往指定银行柜台缴纳。承租人凭租赁合同、入住通知书和保证金缴款凭证到物业管理处办理入住手续。
+五、投诉举报和监督
+欢迎社会各界通过来电、来信、来访等方式，向光明区住房和建设局或光明区纪检监察机关投诉、举报。
+（一）光明区住房和建设局，投诉举报电话：29102063，地址：光明区科联路与同仁路交叉口东南侧科润大厦11楼。
+（二）光明区房屋事务中心，投诉举报电话：23696012，地址：光明区科联路与同仁路交叉口东南侧科润大厦11楼。
+（三）纪检监察部门投诉举报电话以其公开的信息为准。
+为便于调查核实，鼓励实名举报并提供联系方式，受理单位将对举报人信息严格保密。
+六、重要提示
+（一）申请人对申报信息的真实性、准确性、合法性负责。如提供虚假信息，无论在公示期间还是公示之后，一经发现，将依据《深圳市保障性住房条例》等相关规定进行处理。
+（二）本次认租受理截止后至签订租赁合同前，认租家庭住房、人口、户籍、婚姻状况、残疾及抚恤定补优抚等信息发生变化的，仍应当如实申报；如不再符合申请条件的，将取消配租资格，已选定住房的，不予签订租赁合同。
+（三）合格家庭中，申请人和共同申请人的总人数计入配租面积家庭人口数，其他家庭成员为非共同申请人。非共同申请人不计入配租面积家庭人口数，但应当符合公共租赁住房申请条件中关于住房的规定。
+（四）选房序位将在选房公告名单中进行调整。
+（五）根据《深圳市公共租赁住房管理办法》规定，合格认租家庭有如下行为的，视为放弃本次选房：
+1.选房过程中，认租申请人排序到位但未选定住房；
+2.选定住房但未在规定时间内交付保证金并签订租赁合同。
+上述行为达到三次的，退出轮候册，原轮候排序作废。仍需申请公共租赁住房的，应当按照日常轮候规则再次提出轮候申请。
+（六）房源选完即止，所有房源被选定之后，选房工作完成，后续排序到位的选房家庭可不用到达选房现场，不计入放弃次数。
+附件：1.2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房合格名单
+2.2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房不合格及撤销认租名单
+3.超过70平方米的五人及以上认租家庭的入围认租家庭选房名单
+4.超过70平方米的五人及以上认租家庭的候补入围认租家庭选房名单
+5.选房排期表
+6.授权委托书
+7.选房签约服务指引
+8.项目不利因素告知书
+9.供应小区房源户型图
+光明区住房和建设局
+2026年9月18日
+附件：
+1．
+附件1：2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）认租资格核查合格名单.pdf
+2．
+附件2：2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）认租资格核查不合格名单.pdf
+3．
+附件3：70平方米以上三房房源的五人及以上认租家庭的入围名单.pdf
+4．
+附件4：70平方米以上三房房源的五人及以上认租家庭的候补入围名单.pdf
+5．
+附件5：选房排期表.pdf
+6．
+附件6：授权委托书.pdf
+7．
+附件7：选房签约服务指引 .pdf
+8．
+附件8：各项目不利因素告知书.zip
+9．
+附件9：供应小区房源户型图.zip','[{"id": 1752341, "name": "附件1：2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）认租资格核查合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "331603", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1752/1752341/12989341.pdf"}, {"id": 1749924, "name": "附件2：2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）认租资格核查不合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "62716", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1749/1749924/12989341.pdf"}, {"id": 1749922, "name": "附件3：70平方米以上三房房源的五人及以上认租家庭的入围名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "87507", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1749/1749922/12989341.pdf"}, {"id": 1749923, "name": "附件4：70平方米以上三房房源的五人及以上认租家庭的候补入围名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "65889", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1749/1749923/12989341.pdf"}, {"id": 1749921, "name": "附件5：选房排期表.pdf", "type": "pdf", "mime": "application/pdf", "size": "84994", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1749/1749921/12989341.pdf"}, {"id": 1749920, "name": "附件6：授权委托书.pdf", "type": "pdf", "mime": "application/pdf", "size": "66496", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1749/1749920/12989341.pdf"}, {"id": 1749919, "name": "附件7：选房签约服务指引 .pdf", "type": "pdf", "mime": "application/pdf", "size": "217787", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1749/1749919/12989341.pdf"}, {"id": 1749927, "name": "附件8：各项目不利因素告知书.zip", "type": "zip", "mime": "application/zip", "size": "43673", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1749/1749927/12989341.zip"}, {"id": 1749926, "name": "附件9：供应小区房源户型图.zip", "type": "zip", "mime": "application/zip", "size": "145610700", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1749/1749926/12989341.zip"}]','2026-11-10 14:01:33');
+INSERT INTO "notices" VALUES(1241,'深圳','光明区',NULL,NULL,'轮候公示','光明区住房和建设局关于2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）配租公共租赁住房认租资格核查结果的公示','2026-09-08','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/12/12971/post_12971109.html','','','[{"id": 1752320, "name": "附件1：2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）认租资格核查合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "362490", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1752/1752320/12971109.pdf"}, {"id": 1746606, "name": "附件2：2026年度第二批次面向符合收入财产限额标准的光明区户籍在册轮候人（家庭）认租资格核查不合格名单.pdf", "type": "pdf", "mime": "application/pdf", "size": "95150", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1746/1746606/12971109.pdf"}]','2026-11-10 14:01:33');
+INSERT INTO "notices" VALUES(1242,'深圳','光明区',NULL,NULL,'综合公告','光明区住房和建设局关于保障性租赁住房（2026年第二批次）配租结果的通告','2026-09-07','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/12/12970/post_12970644.html','','','[{"id": 1746532, "name": "配租结果.pdf", "type": "pdf", "mime": "application/pdf", "size": "112499", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1746/1746532/12970644.pdf"}]','2026-11-10 14:01:33');
+INSERT INTO "notices" VALUES(1243,'深圳','光明区',NULL,NULL,'综合公告','光明区住房和建设局关于光明区企事业单位保障性租赁住房需求库拟入库名单（2026年8月）的公示','2026-09-07','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/12/12969/post_12969983.html','','','[{"id": 1746376, "name": "附件：光明区企事业单位拟入库名单（2026年8月）.pdf", "type": "pdf", "mime": "application/pdf", "size": "59273", "url": "https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1746/1746376/12969983.pdf"}]','2026-11-10 14:01:33');
+INSERT INTO "notices" VALUES(1244,'深圳','光明区',NULL,NULL,'综合公告','光明区住房和建设局关于2026年10月份廉租补贴申请家庭变动情况的公示','2026-11-09','https://www.szgm.gov.cn/gmzfhjsjcsgx/gkmlpt/content/13/13058/post_13058909.html','根据《深圳市公共租赁住房和廉租住房并轨运行实施办法》的有关规定，现将2026年10月廉租住房补贴申请家庭变动信息予以公示（详见附件）。 一、公示时间 公示期为2026年11月9日至2026年11月13日。 二、投诉举报和监督 在此期间对公示','根据《深圳市公共租赁住房和廉租住房并轨运行实施办法》的有关规定，现将2026年10月廉租住房补贴申请家庭变动信息予以公示（详见附件）。
+一、公示时间
+公示期为2026年11月9日至2026年11月13日。
+二、投诉举报和监督
+在此期间对公示信息有异议的，可通过来电、来信、来访的方式向我局投诉举报。为便于调查核实，鼓励实名反映问题并提供联系方式，我局将按有关规定予以严格保密，并对投诉举报的有关内容认真调查处理。
+光明区住房和建设局投诉举报电话：0755-23198431，地址：光明区科联路与同仁路交叉口东南侧科润大厦A栋11楼。
+附件：2026年10月份廉租住房补贴申请家庭取消名单
+光明区住房和建设局
+2026年11月9日
+附件：
+1．
+附件：2026年10月份廉租住房补贴申请家庭取消名单.pdf','[{"name":"2026年10月份廉租住房补贴申请家庭取消名单.pdf","url":"https://www.szgm.gov.cn/gmzfhjsjcsgx/attachment/1/1766/1766769/13058909.pdf"}]','2026-11-10 14:12:16');
+INSERT INTO "notices" VALUES(1245,'深圳','深汕合作区',NULL,NULL,'补贴名单','深圳市深汕特别合作区住房建设和水务局关于蔡蔓衍等新引进人才租金减免相关信息的公示','2026-11-11','https://www.szss.gov.cn/sstbhzq/ssw/jrss/ggtz/content/post_13063406.html','当前位置： 首页 > 通知公告 深圳市深汕特别合作区住房建设和水务局关于蔡蔓衍等新引进人才租金减免相关信息的公示 发布日期：2026-11-11 18:03 来源： 人工智能朗读： 【  字体： 大 中 小 】 视力保护色： 根据《深圳市深','当前位置：
+首页
+>
+通知公告
+深圳市深汕特别合作区住房建设和水务局关于蔡蔓衍等新引进人才租金减免相关信息的公示
+发布日期：2026-11-11 18:03
+来源：
+人工智能朗读：
+【  字体：
+大
+中
+小
+】
+视力保护色：
+根据《深圳市深汕特别合作区新引进人才租住区保障性住房租金减免申请指南》有关规定，深汕特别合作区住房建设和水务局受理蔡蔓衍等人才的租金减免申请，经审核，人才符合租金减免申请资格。现将相关信息予以公示，具体内容如下：
+一、公示时间和方式
+自发布之日起，在深汕网公示5个工作日。
+二、公示内容
+新引进人才租金减免申请人名单及相关信息，详见附件。
+三、投诉举报和监督
+在公示期内，市民如发现违法违规线索，可通过来电、来信、来访的方式，向深汕特别合作区住房建设和水务局投诉、举报。为了便于调查核实，提倡实名举报并提供联系方式，有关部门将按规定予以严格保密。
+深汕特别合作区住房建设和水务局投诉举报电话：0755-22101186，地址：深圳市深汕特别合作区鹅埠街道大同路仁和楼1栋2楼202室。
+深圳市深汕特别合作区住房建设和水务局
+2026年
+11
+月11日
+附件下载：
+附件：深圳市深汕特别合作区新引进人才租金减免相关信息.xls
+【我要纠错】
+【打印本页】
+【关闭窗口】
+手机扫一扫打开当前界面
+相关稿件','[{"name": "附件：深圳市深汕特别合作区新引进人才租金减免相关信息.xls", "url": "https://www.szss.gov.cn/attachment/1/1767/1767334/13063406.xls"}]','2026-11-11 14:20:34');
+CREATE TABLE "policies" (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    city TEXT NOT NULL DEFAULT '深圳',
+    category TEXT,
+    title TEXT NOT NULL,
+    document_number TEXT,
+    publisher TEXT,
+    publish_date TEXT,
+    effective_date TEXT,
+    status TEXT DEFAULT '现行有效',
+    url TEXT NOT NULL UNIQUE,
+    summary TEXT,
+    content_text TEXT,
+    attachments_json TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 INSERT INTO "policies" VALUES(1,'深圳','配售型保障房','深圳市人民政府关于印发深圳市配售型保障性住房管理办法的通知','深府规〔2026〕1号','第三十六条  法律、法规、规章授权的区域，可以根据实际需要制订本区域配售型保障性住房实施细则，经市人民政府批准后实施。','2026-01-23',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12616398.html','深府规〔2026〕1号 各区人民政府，市有关单位： 《深圳市配售型保障性住房管理办法》已经市政府同意，现予印发，请认真组织实施。实施中遇到的问题，请径向市住房建设局反映。 深圳市人民政府 2026年1月21日 深圳市配售型保障性住房管理办法 第一章  总  则 第一条  为了规范配售型保障性住房的配','深府规〔2026〕1号
 各区人民政府，市有关单位：
 《深圳市配售型保障性住房管理办法》已经市政府同意，现予印发，请认真组织实施。实施中遇到的问题，请径向市住房建设局反映。
@@ -17003,7 +17675,7 @@ INSERT INTO "policies" VALUES(1,'深圳','配售型保障房','深圳市人民�
 第三十四条  本办法所称的“以上”“以内”“满”，包括本数；所称的“未满”“超过”，不包括本数。
 第三十五条 市主管部门会同市市场监管部门制订配售型保障性住房买卖合同示范文本。
 第三十六条  法律、法规、规章授权的区域，可以根据实际需要制订本区域配售型保障性住房实施细则，经市人民政府批准后实施。
-第三十七条  本办法自2026年3月1日起施行，有效期五年。',NULL,'2026-11-07 02:37:18');
+第三十七条  本办法自2026年3月1日起施行，有效期五年。',NULL,'2026-11-07 02:37:18','2026-11-07 02:37:18');
 INSERT INTO "policies" VALUES(2,'深圳','人才住房与安居','深圳市住房和建设局 深圳市人力资源和社会保障局关于印发《深圳市青年人才住房支持实施办法》的通知','深建规〔2025〕18号','','2025-12-17',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12554848.html','深建规〔2025〕18号 各有关单位： 为进一步加强青年人才来深发展服务保障，打造最好的科技创新生态和人才发展环境，市住房建设局会同市人力资源保障局制定了《深圳市青年人才住房支持实施办法》，现予印发，请遵照执行。 特此通知。 深圳市住房和建设局          深圳市人力资源和社会保障局 2025','深建规〔2025〕18号
 各有关单位：
 为进一步加强青年人才来深发展服务保障，打造最好的科技创新生态和人才发展环境，市住房建设局会同市人力资源保障局制定了《深圳市青年人才住房支持实施办法》，现予印发，请遵照执行。
@@ -17096,7 +17768,7 @@ INSERT INTO "policies" VALUES(2,'深圳','人才住房与安居','深圳市住�
 （二）政策性住房，是指各类带有政策优惠性质的住房，包括准成本房、全成本房、全成本微利房、社会微利房、单位集资合作建房、经济适用住房、限价商品房、安居型商品房、共有产权住房和配售型保障性住房等；
 （三）住房保障优惠政策，是指根据住房保障的相关法规、规章、规范性文件规定，在承租、购买具有保障性质的住房或者领取住房租赁补贴等方面享受的相关优惠政策；
 （四）依法缴纳社会保险，是指青年人才通过本市工作单位缴纳养老、医疗、失业、生育、工伤等5个社保险种（社保政策允许的特殊情况除外）。
-第二十八条  本办法自2026年1月1日起施行，有效期5年。',NULL,'2026-11-07 02:37:18');
+第二十八条  本办法自2026年1月1日起施行，有效期5年。',NULL,'2026-11-07 02:37:18','2026-11-07 02:37:18');
 INSERT INTO "policies" VALUES(3,'深圳','保障性租赁住房','深圳市住房和建设局 深圳市规划和自然资源局关于印发《关于既有非居住房屋改建保障性租赁住房的通知》的通知','','','2025-10-31',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12467240.html','各有关单位： 《关于既有非居住房屋改建保障性租赁住房的通知》已经市政府同意，现予印发，请遵照执行。 特此通知。 深圳市住房和建设局         深圳市规划和自然资源局 2025年10月29日 关于既有非居住房屋改建保障性租赁住房的通知 为了规范既有非居住房屋改建保障性租赁住房行为，切实增加保障性','各有关单位：
 《关于既有非居住房屋改建保障性租赁住房的通知》已经市政府同意，现予印发，请遵照执行。
 特此通知。
@@ -17170,7 +17842,7 @@ INSERT INTO "policies" VALUES(3,'深圳','保障性租赁住房','深圳市住�
 （二）本通知发布前已将具有不动产权属证书的商业、办公、旅馆（酒店）、厂房、研发用房、仓储或者科研教育等既有非居住房屋（不含经依法处理取得产权的农村城市化历史遗留违法建筑）改建为租赁住房的项目，申请认定为保障性租赁住房的，由区政府组织相关部门进行联审，对符合结构安全、消防安全等要求的，经联审通过后出具项目认定书。
 （三）本通知自 2025 年 10月 29日起施行，有效期 5 年。
 附件：1.深圳市既有非居住房屋改建保障性租赁住房项目认定指引
-2.相关格式范本',NULL,'2026-11-07 02:37:18');
+2.相关格式范本',NULL,'2026-11-07 02:37:18','2026-11-07 02:37:18');
 INSERT INTO "policies" VALUES(4,'深圳','保障性租赁住房','住房租赁条例','','','2025-08-21',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12341634.html','中华人民共和国国务院令 第812号 《住房租赁条例》已经2025年6月27日国务院第62次常务会议通过，现予公布，自2025年9月15日起施行。 总理　　李强 2025年7月16日 住房租赁条例 第一章  总  则 第一条 为了规范住房租赁活动，维护住房租赁活动当事人合法权益，稳定住房租赁关系，促进','中华人民共和国国务院令
 第812号
 《住房租赁条例》已经2025年6月27日国务院第62次常务会议通过，现予公布，自2025年9月15日起施行。
@@ -17334,7 +18006,7 @@ INSERT INTO "policies" VALUES(4,'深圳','保障性租赁住房','住房租赁�
 保障性住房的租赁活动及其监督管理，国家另有规定的，从其规定。
 集体土地上住房租赁活动，由省、自治区、直辖市人民政府根据实际情况，制定管理办法。
 第五十条
-本条例自2025年9月15日起施行。',NULL,'2026-11-07 02:37:18');
+本条例自2025年9月15日起施行。',NULL,'2026-11-07 02:37:18','2026-11-07 02:37:18');
 INSERT INTO "policies" VALUES(5,'深圳','保障性租赁住房','深圳市住房和建设局等部门关于《深圳市住房和建设局等部门关于开展住房租赁资金监管的通知》续期的通知','深建规〔2025〕6号','深圳市社区网格管理办公室','2025-05-25',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12194734.html','深建规〔2025〕6号 各有关单位： 为规范住房租赁企业经营，维护住房租赁当事人合法权益，市住房建设局会同有关部门联合印发了《深圳市住房和建设局等部门关于开展住房租赁资金监管的通知》（深建规〔2021〕6号），于2021年6月11日起实施，有效期将于2025年6月11日届满。为确保依法有效履职，根据','深建规〔2025〕6号
 各有关单位：
 为规范住房租赁企业经营，维护住房租赁当事人合法权益，市住房建设局会同有关部门联合印发了《深圳市住房和建设局等部门关于开展住房租赁资金监管的通知》（深建规〔2021〕6号），于2021年6月11日起实施，有效期将于2025年6月11日届满。为确保依法有效履职，根据《深圳市行政机关规范性文件管理规定》（深圳市人民政府令第305号）第三十三条第三款第二项、《深圳市人民政府办公厅关于加强行政规范性文件管理的实施意见》（深府办〔2021〕8号）的规定，结合工作实际，现决定对《深圳市住房和建设局等部门关于开展住房租赁资金监管的通知》有效期予以延长，实体内容不变，有效期延续至2027年6月11日。
@@ -17347,7 +18019,7 @@ INSERT INTO "policies" VALUES(5,'深圳','保障性租赁住房','深圳市住�
 中国人民银行深圳市分行
 国家金融监督管理总局深圳监管局
 深圳市社区网格管理办公室
-2025年5月25日',NULL,'2026-11-07 02:37:18');
+2025年5月25日',NULL,'2026-11-07 02:37:18','2026-11-07 02:37:18');
 INSERT INTO "policies" VALUES(6,'深圳','安居型商品房','深圳市住房和建设局关于印发《深圳市安居型商品房产权管理有关事项处理办法》的通知','深建规〔2024〕6号','','2024-12-23',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_11915806.html','深建规〔2024〕6号 各有关单位： 为了规范安居型商品房产权管理活动，根据《深圳市保障性住房条例》和《深圳市安居型商品房建设和管理暂行办法》（深圳市人民政府令第228号）等有关规定，我局制定了《深圳市安居型商品房产权管理有关事项处理办法》，经市政府同意，现予印发，请遵照执行。 深圳市住房和建设局 ','深建规〔2024〕6号
 各有关单位：
 为了规范安居型商品房产权管理活动，根据《深圳市保障性住房条例》和《深圳市安居型商品房建设和管理暂行办法》（深圳市人民政府令第228号）等有关规定，我局制定了《深圳市安居型商品房产权管理有关事项处理办法》，经市政府同意，现予印发，请遵照执行。
@@ -17384,7 +18056,7 @@ INSERT INTO "policies" VALUES(6,'深圳','安居型商品房','深圳市住房�
 第十条 权利人签订安居型商品房买卖合同满十年，不取得完全产权的，不需要补缴价款，该套住房性质维持不变，权利人按照规定继续占有、使用该套住房。
 权利人取得安居型商品房完全产权后上市交易的，按照相关规定不得以无房身份再次享受本市住房保障政策。
 第十一条 面向人才配售的住房产权管理有关事项按照本办法规定执行。计算补缴价款时，原购买价格按照同等条件下安居型商品房价格取值。
-第十二条 本办法自2025年1月2日起施行。',NULL,'2026-11-07 02:37:19');
+第十二条 本办法自2025年1月2日起施行。',NULL,'2026-11-07 02:37:19','2026-11-07 02:37:19');
 INSERT INTO "policies" VALUES(7,'深圳','保障性租赁住房','深圳市住房和建设局关于印发《关于公寓类居住房屋用作社会主体出租的保障性租赁住房的通知》的通知','','','2024-09-30',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_11581517.html','深建规 〔20 24 〕 3 号 各有关单位： 《关于公寓类居住房屋用作社会主体出租的保障性租赁住房的通知》现印发给你们，请遵照执行。实施中遇到的问题，请径向市住房建设局反映。 特此通知。 深圳市住房和建设局 2024年9月30日 关于公寓类居住房屋用作社会主体出租的保障性租赁住房的通知 为落实《国','深建规
 〔20
 24
@@ -17419,12 +18091,12 @@ INSERT INTO "policies" VALUES(7,'深圳','保障性租赁住房','深圳市住�
 七、以经认定的社会类保租房申请入学的，积分类别以原房屋性质为准，按照所在区有关政策规定执行，并在住房租赁合同中予以明确。
 八、经认定的社会类保租房项目执行国家关于保障性租赁住房税收优惠政策。
 九、鼓励政策性银行、商业银行在依法合规、商业可持续前提下，加强产品创新、优化信贷管理，为公寓类居住房屋用作社会类保租房提供金融支持。引导保险机构通过债权投资计划、股权转让等方式投资公寓类居住房屋用作社会类保租房项目。鼓励银行保险机构在依法合规、风险可控的前提下，参与公寓类居住房屋用作社会类保租房基础设施不动产投资信托基金（REITs）。
-十、本通知自2024年9月30日起施行，有效期两年。',NULL,'2026-11-07 02:37:19');
+十、本通知自2024年9月30日起施行，有效期两年。',NULL,'2026-11-07 02:37:19','2026-11-07 02:37:19');
 INSERT INTO "policies" VALUES(8,'深圳','城中村改造与棚改','深圳市人民政府办公厅关于印发《关于积极稳步推进城中村改造实现高质量发展的实施意见》的通知','深府办规〔2024〕1号','市政府办公厅','2024-05-07',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_11274492.html','深府办规〔2024〕1号 各区人民政府， 市有关单位： 《关于积极稳步推进城中村改造实现高质量发展的实施意见》已经市政府同意，现予印发，请认真组织实施。实施过程中遇到的问题，请径向市住房建设局反映。 市政府办公厅 2024年4月27日','深府办规〔2024〕1号
 各区人民政府， 市有关单位：
 《关于积极稳步推进城中村改造实现高质量发展的实施意见》已经市政府同意，现予印发，请认真组织实施。实施过程中遇到的问题，请径向市住房建设局反映。
 市政府办公厅
-2024年4月27日',NULL,'2026-11-07 02:37:19');
+2024年4月27日',NULL,'2026-11-07 02:37:19','2026-11-07 02:37:19');
 INSERT INTO "policies" VALUES(9,'深圳','保障性租赁住房','深圳市住房和建设局关于印发《关于公共租赁住房轮候与配租有关事项的通知》的通知','深建规〔2023〕11号','','2023-09-15',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10838059.html','深建规〔2023〕11号 各有关单位： 为贯彻实施《深圳市公共租赁住房管理办法》（深圳市人民政府令第352号），我局制定了《关于公共租赁住房轮候与配租有关事项的通知》，现予印发，请遵照执行。 深圳市住房和建设局 2023年9月12日 关于公共租赁住房轮候与配租有关事项的通知 为贯彻实施《深圳市公共租','深建规〔2023〕11号
 各有关单位：
 为贯彻实施《深圳市公共租赁住房管理办法》（深圳市人民政府令第352号），我局制定了《关于公共租赁住房轮候与配租有关事项的通知》，现予印发，请遵照执行。
@@ -17443,7 +18115,7 @@ INSERT INTO "policies" VALUES(9,'深圳','保障性租赁住房','深圳市住�
 六、承租期间，因申请人家庭人口数增加需要提高配租面积标准再次轮候公共租赁住房，申请人选定住房的，应当在签订租赁合同时签订退房协议，并自签订租赁合同之日起三个月以内腾退原承租住房。
 七、入住定向配租公共租赁住房的，职工及其配偶、未满十八周岁的子女因购买、继承、接受赠与、婚姻状况变化等在本市拥有自有住房需要延期腾退的，用人单位可以向住房主管部门申请延期腾退公共租赁住房，腾退期限最长不得超过自有住房交付使用之日起四个月，腾退期间的租金按照原租赁合同约定的租金计收。
 八、住房主管部门在受理、审核、配租和监督管理过程中，有权查阅、记录、复制相关资料，有关单位和个人应当积极配合。
-九、本通知自2023年9月15日起施行，《深圳市公共租赁住房轮候与配租暂行办法》同时废止。',NULL,'2026-11-07 02:37:19');
+九、本通知自2023年9月15日起施行，《深圳市公共租赁住房轮候与配租暂行办法》同时废止。',NULL,'2026-11-07 02:37:19','2026-11-07 02:37:19');
 INSERT INTO "policies" VALUES(10,'深圳','保障性租赁住房','深圳市住房和建设局 深圳市民政局关于印发《深圳市公共租赁住房申请家庭和单身居民经济状况核对和认定实施细则》的通知','深建规〔2023〕9号','第十八条  本细则由市住房建设局会同市民政局负责解释。','2023-08-29',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10808731.html','深建规〔2023〕9号 各有关单位和个人： 根据《深圳市公共租赁住房管理办法》（深圳市人民政府令第352号）、《深圳市居民经济状况核对办法》（深圳市人民政府令第335号）等有关规定，结合本市实际，市住房建设局、市民政局制定了《深圳市公共租赁住房申请家庭和单身居民经济状况核对和认定实施细则》，现予印发','深建规〔2023〕9号
 各有关单位和个人：
 根据《深圳市公共租赁住房管理办法》（深圳市人民政府令第352号）、《深圳市居民经济状况核对办法》（深圳市人民政府令第335号）等有关规定，结合本市实际，市住房建设局、市民政局制定了《深圳市公共租赁住房申请家庭和单身居民经济状况核对和认定实施细则》，现予印发，请遵照执行。
@@ -17496,7 +18168,7 @@ INSERT INTO "policies" VALUES(10,'深圳','保障性租赁住房','深圳市住�
 第十六条  住房主管部门应当与获取核对信息的工作人员签订保密协议，严格按照信息保密有关规定实施，切实加强信息安全管理。
 第十七条  相关工作人员不得利用住房信息平台和核对平台获取与核对工作无关的信息，不得违规使用和泄露核对对象的收入财产等信息，不得对核对工作产生的有关痕迹、记录及反馈数据进行删除和修改。因滥用职权、玩忽职守或者徇私舞弊造成不良后果的，依法承担法律责任。
 第十八条  本细则由市住房建设局会同市民政局负责解释。
-第十九条  本细则自2023年8月31日起施行。',NULL,'2026-11-07 02:37:19');
+第十九条  本细则自2023年8月31日起施行。',NULL,'2026-11-07 02:37:19','2026-11-07 02:37:19');
 INSERT INTO "policies" VALUES(11,'深圳','保障性租赁住房','深圳市住房和建设局关于印发《深圳市保障性租赁住房项目认定办法（试行）》的通知','','','2023-08-04',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10765670.html','深建 规 〔20 23 〕 4 号 各区人民政府，各有关单位： 《深圳市保障性租赁住房项目认定办法（试行）》已经市政府同意，现印发给你们，请遵照执行。实施中遇到的问题，请径向市住房建设局反映。 特此通知。 深圳市住房和建设局 2023年8月4日 深圳市保障性租赁住房项目认定办法（试行） 第一章  总','深建
 规
 〔20
@@ -17580,7 +18252,7 @@ INSERT INTO "policies" VALUES(11,'深圳','保障性租赁住房','深圳市住�
 附件：1.深圳市保障性租赁住房项目认定指引
 2.深圳市保障性租赁住房项目认定申请相关材料（式样）
 3.深圳市保障性租赁住房项目认定书（式样）
-4.深圳市保障性租赁住房项目认定书注销撤销通知（式样）',NULL,'2026-11-07 02:37:20');
+4.深圳市保障性租赁住房项目认定书注销撤销通知（式样）',NULL,'2026-11-07 02:37:20','2026-11-07 02:37:20');
 INSERT INTO "policies" VALUES(12,'深圳','综合保障法规','深圳市保障性住房规划建设管理办法','深圳市人民政府令（第355号）','','2023-07-03',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10691003.html','深圳市人民政府令（第355号） 《深圳市保障性住房规划建设管理办法》已于2023年5月4日经深圳市人民政府七届76次常务会议审议通过，现予公布，自2023年8月1日起施行。 2023年6月7日 深圳市保障性住房规划建设管理办法 第一章 总则 第一条  为了贯彻落实党中央、国务院关于加快建立多主体供给','深圳市人民政府令（第355号）
 《深圳市保障性住房规划建设管理办法》已于2023年5月4日经深圳市人民政府七届76次常务会议审议通过，现予公布，自2023年8月1日起施行。
 2023年6月7日
@@ -17687,7 +18359,7 @@ INSERT INTO "policies" VALUES(12,'深圳','综合保障法规','深圳市保障�
 单位和个人可以对违反本办法的行为进行投诉、举报，有关部门应当按照相关规定及时处理。
 第八章 附则
 第四十一条  本办法所称的“不低于”“以下”“不超过”，包括本数；所称的“超过”“不足”，不包括本数。
-第四十二条  本办法自2023年8月1日起施行。',NULL,'2026-11-07 02:37:20');
+第四十二条  本办法自2023年8月1日起施行。',NULL,'2026-11-07 02:37:20','2026-11-07 02:37:20');
 INSERT INTO "policies" VALUES(13,'深圳','共有产权住房','深圳市共有产权住房管理办法','深圳市人民政府令（第354号）','','2023-07-03',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10691012.html','深圳市人民政府令（第354号） 《深圳市共有产权住房管理办法》已于2023年5月4日经深圳市人民政府七届76次常务会议审议通过，现予公布，自2023年8月1日起施行。 2023年6月7日 深圳市共有产权住房管理办法 第一章 总则 第一条  为了贯彻落实党中央、国务院关于加快建立多主体供给、多渠道保障','深圳市人民政府令（第354号）
 《深圳市共有产权住房管理办法》已于2023年5月4日经深圳市人民政府七届76次常务会议审议通过，现予公布，自2023年8月1日起施行。
 2023年6月7日
@@ -17834,7 +18506,7 @@ INSERT INTO "policies" VALUES(13,'深圳','共有产权住房','深圳市共有�
 （二）原安居型商品房在册轮候人有本办法第二十二条规定情形之一的，三年以内不得申请共有产权住房；
 （三）原安居型商品房在册轮候人已签订共有产权住房买卖合同的，应当退出安居型商品房轮候册。
 第五十条  本办法施行之日起，不再安排建设安居型商品房和人才住房。已签订土地使用权出让合同的安居型商品房，继续按照228号令及其相关规定执行。
-第五十一条  本办法自2023年8月1日起施行。',NULL,'2026-11-07 02:37:21');
+第五十一条  本办法自2023年8月1日起施行。',NULL,'2026-11-07 02:37:21','2026-11-07 02:37:21');
 INSERT INTO "policies" VALUES(14,'深圳','保障性租赁住房','深圳市保障性租赁住房管理办法','深圳市人民政府令（第353号）','前海管理局及相关区人民政府可以根据实际需要，制定前海合作区、河套深港合作区、光明科学城等重点区域的保障性租赁住房租赁管理实施细则，报市主管部门备案后实施。','2023-07-03',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10691021.html','深圳市人民政府令（第353号） 《深圳市保障性租赁住房管理办法》已于2023年5月4日经深圳市人民政府七届76次常务会议审议通过，现予公布，自2023年8月1日起施行。 2023年6月7日 深圳市保障性租赁住房管理办法 第一章 总则 第一条  为了贯彻落实党中央、国务院关于加快发展保障性租赁住房的决','深圳市人民政府令（第353号）
 《深圳市保障性租赁住房管理办法》已于2023年5月4日经深圳市人民政府七届76次常务会议审议通过，现予公布，自2023年8月1日起施行。
 2023年6月7日
@@ -17946,7 +18618,7 @@ INSERT INTO "policies" VALUES(14,'深圳','保障性租赁住房','深圳市保�
 （二）在本办法施行之日前，本市已纳入中央财政支持住房租赁市场发展试点（全市已开工建设和已建成出租的人才住房项目除外）、非房地产企业利用自有土地建设租赁住房试点的租赁住房，已开工建设和已建成的存量产业园区配套宿舍或者公寓，以及已建成的具有居住功能的存量房屋，符合条件的，纳入保障性租赁住房管理，并按照社会主体出租的保障性租赁住房相关规定开展出租运营、监督管理等活动。
 第四十条  政府组织配租的保障性租赁住房，面向单位定向配租的具体规则另行制定。
 前海管理局及相关区人民政府可以根据实际需要，制定前海合作区、河套深港合作区、光明科学城等重点区域的保障性租赁住房租赁管理实施细则，报市主管部门备案后实施。
-第四十一条  本办法自2023年8月1日起施行。',NULL,'2026-11-07 02:37:21');
+第四十一条  本办法自2023年8月1日起施行。',NULL,'2026-11-07 02:37:21','2026-11-07 02:37:21');
 INSERT INTO "policies" VALUES(15,'深圳','保障性租赁住房','深圳市公共租赁住房管理办法','深圳市人民政府令（第352号）','','2023-07-03',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10691030.html','深圳市人民政府令（第352号） 《深圳市公共租赁住房管理办法》已于2023年5月4日经深圳市人民政府七届76次常务会议审议通过，现予公布，自2023年8月1日起施行。 2023年6月7日 深圳市公共租赁住房管理办法 第一章 总则 第一条  为了贯彻落实党中央、国务院关于加快建立多主体供给、多渠道保障','深圳市人民政府令（第352号）
 《深圳市公共租赁住房管理办法》已于2023年5月4日经深圳市人民政府七届76次常务会议审议通过，现予公布，自2023年8月1日起施行。
 2023年6月7日
@@ -18132,7 +18804,7 @@ INSERT INTO "policies" VALUES(15,'深圳','保障性租赁住房','深圳市公�
 （一）本办法施行之日前已经取得轮候申请受理回执的家庭和单身居民，依照原轮候申请条件进行审核，符合条件的纳入公共租赁住房轮候册，在册轮候人按照申请人户籍所在地分解到各区；
 （二）符合本条第一项规定情形的或者本办法施行之日前的公共租赁住房在册轮候人或者承租公共租赁住房的申请人，在本办法施行后认租或者续租公共租赁住房的，可以选择按照原政策或者本办法相关规定执行。选择按照原政策执行的，认租和续租时不审核家庭收入财产状况，租金按照原政策租金定价规则确定；选择按照本办法相关规定执行的，续租时不再适用原政策；
 （三）市、区两级存量公共租赁住房和企事业单位自建公共租赁住房由主管部门按照尊重历史、有序衔接的原则，结合实际情况实施管理。
-第五十一条  本办法自2023年8月1日起施行。',NULL,'2026-11-07 02:37:21');
+第五十一条  本办法自2023年8月1日起施行。',NULL,'2026-11-07 02:37:21','2026-11-07 02:37:21');
 INSERT INTO "policies" VALUES(16,'深圳','保障性租赁住房','深圳市住房和建设局等部门关于《深圳市住房和建设局等部门关于开展住房租赁资金监管的通知》续期的通知','深建规〔2023〕2号','深圳市社区网格管理办公室','2023-06-10',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10642661.html','深建规〔2023〕2号 各有关单位： 为规范住房租赁企业经营，维护住房租赁当事人合法权益，我局会同市委网信办等六部门联合印发了《深圳市住房和建设局等部门关于开展住房租赁资金监管的通知》（以下简称《通知》），自2021年6月11日起施行，有效期2年。根据《深圳市行政机关规范性文件管理规定》（深圳市人民','深建规〔2023〕2号
 各有关单位：
 为规范住房租赁企业经营，维护住房租赁当事人合法权益，我局会同市委网信办等六部门联合印发了《深圳市住房和建设局等部门关于开展住房租赁资金监管的通知》（以下简称《通知》），自2021年6月11日起施行，有效期2年。根据《深圳市行政机关规范性文件管理规定》（深圳市人民政府令第305号）第三十三条第三款第二项的规定，现决定对《深圳市住房和建设局等部门关于开展住房租赁资金监管的通知》进行续期2年，有效期延续至2025年6月11日。
@@ -18145,7 +18817,7 @@ INSERT INTO "policies" VALUES(16,'深圳','保障性租赁住房','深圳市住�
 中国人民银行深圳市中心支行
 中国银行保险监督管理委员会深圳监管局
 深圳市社区网格管理办公室
-2023年6月9日',NULL,'2026-11-07 02:37:22');
+2023年6月9日',NULL,'2026-11-07 02:37:22','2026-11-07 02:37:22');
 INSERT INTO "policies" VALUES(17,'深圳','保障性租赁住房','深圳市住房和建设局关于印发《深圳市保障性租赁住房项目认定办法（试行）》的通知','深建规〔2022〕10号','','2022-12-30',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10362803.html','深建规〔2022〕10号 各区人民政府，各有关单位： 现将《深圳市保障性租赁住房项目认定办法（试行）》印发给你们，请认真贯彻执行。实施中遇到的问题，请径向市住房建设局反映。 深圳市住房和建设局 2022年12月28日 深圳市保障性租赁住房项目认定办法（试行） 第一章  总  则 第一条 为了规范本市','深建规〔2022〕10号
 各区人民政府，各有关单位：
 现将《深圳市保障性租赁住房项目认定办法（试行）》印发给你们，请认真贯彻执行。实施中遇到的问题，请径向市住房建设局反映。
@@ -18253,7 +18925,7 @@ INSERT INTO "policies" VALUES(17,'深圳','保障性租赁住房','深圳市住�
 本办法自2022年12月28日起实施，有效期三年。
 附件：1.深圳市保障性租赁住房项目认定指引
 2.深圳市保障性租赁住房项目认定申请书（式样）
-3.深圳市保障性租赁住房项目认定书（式样）',NULL,'2026-11-07 02:37:22');
+3.深圳市保障性租赁住房项目认定书（式样）',NULL,'2026-11-07 02:37:22','2026-11-07 02:37:22');
 INSERT INTO "policies" VALUES(18,'深圳','保障性租赁住房','深圳市住房和建设局 深圳市规划和自然资源局关于印发《关于既有非居住房屋改建保障性租赁住房的通知（试行）》的通知','深建规〔2022〕8号','','2022-12-09',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10330982.html','深建规〔2022〕8号 各有关单位： 《关于既有非居住房屋改建保障性租赁住房的通知（试行）》已经市政府同意，现予印发，请遵照执行。 深圳市住房和建设局         深圳市规划和自然资源局 2022年12月9日 关于既有非居住房屋改建保障性租赁住房的通知（试行） 为了规范既有非居住房屋改建保障性租','深建规〔2022〕8号
 各有关单位：
 《关于既有非居住房屋改建保障性租赁住房的通知（试行）》已经市政府同意，现予印发，请遵照执行。
@@ -18333,12 +19005,12 @@ INSERT INTO "policies" VALUES(18,'深圳','保障性租赁住房','深圳市住�
 （一）本通知发布前将具有不动产权属证书的商业、办公、旅馆（酒店）、厂房、研发用房、仓储或者科研教育等既有非居住房屋（不含经依法处理取得产权的农村城市化历史遗留违法建筑）改建为租赁住房的项目，区政府可参照本通知要求组织评估，对符合规划原则、结构安全、消防安全等要求的，按规定程序报经市领导小组同意后，由区政府出具项目认定书；其中，在《国务院办公厅关于加快发展保障性租赁住房的意见》（国办发〔2021〕22号）发布之日前改建的项目，须经规划土地监察机构处理并确定可以继续使用，再按照前述规定出具项目认定书。
 （二）本通知自2022年12月9日起施行，有效期3年。
 附件：1.深圳市既有非居住房屋改建保障性租赁住房项目认定指引
-2.相关格式范本',NULL,'2026-11-07 02:37:22');
+2.相关格式范本',NULL,'2026-11-07 02:37:22','2026-11-07 02:37:22');
 INSERT INTO "policies" VALUES(19,'深圳','人才住房与安居','深圳市住房和建设局关于发布《深圳市人才住房和保障性住房配建管理办法》续期的通知','为规范人才住房和保障性住房的配建程序,确保人才住房和保障性住房的建设质量和居住品质，我局于2017年8月17日印发实施 《深圳市人才住房和保障性住房配建管理办法》 （深建规〔2017〕7号），该规范性文件将于2022年8月17日满有效期。经研究，因工作需要，现根据《深圳市行政机关规范性文件管理规定》第三十三条规定，发布续期通知，该规范性文件有效期满后继续实施，实体内容不变，续期1年，有效期至202','深圳市住房和建设局','2022-07-20',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_9969109.html','各有关单位： 为规范人才住房和保障性住房的配建程序,确保人才住房和保障性住房的建设质量和居住品质，我局于2017年8月17日印发实施 《深圳市人才住房和保障性住房配建管理办法》 （深建规〔2017〕7号），该规范性文件将于2022年8月17日满有效期。经研究，因工作需要，现根据《深圳市行政机关规范性','各有关单位：
 为规范人才住房和保障性住房的配建程序,确保人才住房和保障性住房的建设质量和居住品质，我局于2017年8月17日印发实施 《深圳市人才住房和保障性住房配建管理办法》 （深建规〔2017〕7号），该规范性文件将于2022年8月17日满有效期。经研究，因工作需要，现根据《深圳市行政机关规范性文件管理规定》第三十三条规定，发布续期通知，该规范性文件有效期满后继续实施，实体内容不变，续期1年，有效期至2023年8月17日。
 特此通知。
 深圳市住房和建设局
-2022年7月19日',NULL,'2026-11-07 02:37:22');
+2022年7月19日',NULL,'2026-11-07 02:37:22','2026-11-07 02:37:22');
 INSERT INTO "policies" VALUES(20,'深圳','综合保障法规','深圳市住房和建设局关于印发《深圳市公共住房收购操作规程》的通知','深建规〔2021〕14号','','2021-12-17',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_9458830.html','深建规〔2021〕14号 各有关单位： 为规范深圳市公共住房的收购工作，市住房建设局制定了《深圳市公共住房收购操作规程》，现予印发，请遵照执行。 深圳市住房和建设局 2021年12月14日 深圳市公共住房收购操作规程 第一条 为规范深圳市公共住房的收购工作，依据《深圳市人民政府关于深化住房制度改革加','深建规〔2021〕14号
 各有关单位：
 为规范深圳市公共住房的收购工作，市住房建设局制定了《深圳市公共住房收购操作规程》，现予印发，请遵照执行。
@@ -18398,7 +19070,7 @@ INSERT INTO "policies" VALUES(20,'深圳','综合保障法规','深圳市住房�
 市住房主管部门可以根据法律、政策的变动，结合市场实际情况，会同相关部门适时调整本规程附件所列内容。
 市人民政府与区人民政府之间、各区人民政府之间调剂的公共住房，涉及调剂房源成本价测算的，可以参照本规程规定执行。
 公共住房所包含的住房类型如发生调整，调整后出租型公共住房的收购价格根据本规程的相关规定确定，出售型公共住房的收购价格根据公共住房销售价格相关规定确定。
-第十三条 本规程自2021年12月20日起实施，有效期3年。',NULL,'2026-11-07 02:37:22');
+第十三条 本规程自2021年12月20日起实施，有效期3年。',NULL,'2026-11-07 02:37:22','2026-11-07 02:37:22');
 INSERT INTO "policies" VALUES(21,'深圳','保障性租赁住房','深圳市住房和建设局等部门关于开展住房租赁资金监管的通知','为规范住房租赁企业经营，维护住房租赁当事人合法权益，根据《住房和城乡建设部等部门关于加强轻资产住房租赁企业监管的意见》（建房规〔2021〕2号）等有关规定，经市政府同意，现就开展住房租赁资金监管有关事项通知如下：','深圳市社区网格管理办公室','2021-06-03',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_8822695.html','各有关单位： 为规范住房租赁企业经营，维护住房租赁当事人合法权益，根据《住房和城乡建设部等部门关于加强轻资产住房租赁企业监管的意见》（建房规〔2021〕2号）等有关规定，经市政府同意，现就开展住房租赁资金监管有关事项通知如下： 一、开立银行专户 （一）本市辖区内从事住房租赁经营的企业（以下简称住房租','各有关单位：
 为规范住房租赁企业经营，维护住房租赁当事人合法权益，根据《住房和城乡建设部等部门关于加强轻资产住房租赁企业监管的意见》（建房规〔2021〕2号）等有关规定，经市政府同意，现就开展住房租赁资金监管有关事项通知如下：
 一、开立银行专户
@@ -18451,7 +19123,7 @@ INSERT INTO "policies" VALUES(21,'深圳','保障性租赁住房','深圳市住�
 中国人民银行深圳市中心支行
 中国银行保险监督管理委员会深圳监管局
 深圳市社区网格管理办公室
-2021年6月1日',NULL,'2026-11-07 02:37:22');
+2021年6月1日',NULL,'2026-11-07 02:37:22','2026-11-07 02:37:22');
 INSERT INTO "policies" VALUES(22,'深圳','综合保障法规','深圳市住房和建设局关于进一步加强我市商品住房购房资格审查和管理的通知','深建规〔2021〕2号','附件：关于《深圳市住房和建设局关于进一步加强我市商品住房购房资格审查和管理的通知》的说明.docx','2021-01-24',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_9086031.html','深建规〔2021〕2号 各有关单位： 为贯彻落实“房子是用来住的、不是用来炒的”定位，加强房地产市场监管，加大对房地产违法违规行为的打击力度，切实维护房地产市场秩序，根据国务院关于房地产市场调控的有关政策以及《关于进一步促进我市房地产市场平稳健康发展的通知》（深建字〔2020〕137号）的精神，现就','深建规〔2021〕2号
 各有关单位：
 为贯彻落实“房子是用来住的、不是用来炒的”定位，加强房地产市场监管，加大对房地产违法违规行为的打击力度，切实维护房地产市场秩序，根据国务院关于房地产市场调控的有关政策以及《关于进一步促进我市房地产市场平稳健康发展的通知》（深建字〔2020〕137号）的精神，现就有关事项通知如下：
@@ -18480,7 +19152,7 @@ INSERT INTO "policies" VALUES(22,'深圳','综合保障法规','深圳市住房�
 本通知自发布之日起实施。
 深圳市住房和建设局
 2021年1月23日
-附件：关于《深圳市住房和建设局关于进一步加强我市商品住房购房资格审查和管理的通知》的说明.docx',NULL,'2026-11-07 02:37:23');
+附件：关于《深圳市住房和建设局关于进一步加强我市商品住房购房资格审查和管理的通知》的说明.docx',NULL,'2026-11-07 02:37:23','2026-11-07 02:37:23');
 INSERT INTO "policies" VALUES(23,'深圳','城中村改造与棚改','深圳市住房和建设局关于印发《深圳市城中村规模化租赁整治改造消防安全指引》的通知','','','2020-03-01',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_7384363.html','各区政府(新区管委会)、深汕特别合作区管委会，各有关单位： 《深圳市城中村规模化租赁整治改造消防安全指引》已经市政府同意，现予以印发，请遵照执行。 深圳市城中村规模化租赁整治改造消防安全指引 1 总 则 1.1为规范深圳市城中村规模化租赁建筑整治改造工作，多渠道解决保障性安居房要求，本着“改造后优于','各区政府(新区管委会)、深汕特别合作区管委会，各有关单位：
 《深圳市城中村规模化租赁整治改造消防安全指引》已经市政府同意，现予以印发，请遵照执行。
 深圳市城中村规模化租赁整治改造消防安全指引
@@ -18579,12 +19251,12 @@ c）宜采用低温照明灯具，不宜设置卤钨灯等高温照明灯具。
 3）表示允许稍有选择，在条件许可时，首先应这样作的用词：
 正面词采用“宜”或“可”；
 反面词采用“不宜”。
-2 条文中指明必须按有关标准、规范或规定执行的写法为“应按……执行”或“应符合……要求或规定”。非必须按所指的标准、规范或其他规定执行写法为“可参照……执行”。',NULL,'2026-11-07 02:37:23');
+2 条文中指明必须按有关标准、规范或规定执行的写法为“应按……执行”或“应符合……要求或规定”。非必须按所指的标准、规范或其他规定执行写法为“可参照……执行”。',NULL,'2026-11-07 02:37:23','2026-11-07 02:37:23');
 INSERT INTO "policies" VALUES(24,'深圳','城中村改造与棚改','深圳市住房和建设局关于废止《深圳市住房和建设局关于印发&lt;深圳市棚户区改造项目界定标准&gt;的通知》的通知','深建规〔2019〕5号','深圳市住房和建设局','2019-11-06',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_12957800.html','深建规〔2019〕5号 各有关单位： 经研究，我局决定废止《深圳市住房和建设局关于印发＜深圳市棚户区改造项目界定标准＞的通知》（深建规［2016］9号）。废止后，棚户区改造项目界定标准按照《深圳市人民政府关于加强棚户区改造工作的实施意见》（深府规［2018］8号）相关规定执行。 深圳市住房和建设局 ','深建规〔2019〕5号
 各有关单位：
 经研究，我局决定废止《深圳市住房和建设局关于印发＜深圳市棚户区改造项目界定标准＞的通知》（深建规［2016］9号）。废止后，棚户区改造项目界定标准按照《深圳市人民政府关于加强棚户区改造工作的实施意见》（深府规［2018］8号）相关规定执行。
 深圳市住房和建设局
-2019年9月30日',NULL,'2026-11-07 02:37:23');
+2019年9月30日',NULL,'2026-11-07 02:37:23','2026-11-07 02:37:23');
 INSERT INTO "policies" VALUES(25,'深圳','城中村改造与棚改','深圳市住房和建设局关于规范棚户区改造项目增购面积价格评估工作的通知','深建规〔2019〕1号','深圳市住房和建设局','2019-03-22',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_7384321.html','深建规〔2019〕1号 各有关单位和个人： 为规范我市棚户区改造项目中增购面积的价格评估工作，落实《深圳市人民政府关于加强棚户区改造工作的实施意见》(深府规〔2018〕8号)等规定,现就相关事宜通知如下： 一、棚户区改造项目增购面积价格的评估工作，由各区住房建设主管部门(下称区主管部门)直接委托市政','深建规〔2019〕1号
 各有关单位和个人：
 为规范我市棚户区改造项目中增购面积的价格评估工作，落实《深圳市人民政府关于加强棚户区改造工作的实施意见》(深府规〔2018〕8号)等规定,现就相关事宜通知如下：
@@ -18596,11 +19268,11 @@ INSERT INTO "policies" VALUES(25,'深圳','城中村改造与棚改','深圳市�
 五、本通知生效前，尚未完成增购面积价格评估工作的棚户区改造项目可以适用本通知。
 六、本通知自2019年4月1日起生效，有效期3年。
 深圳市住房和建设局
-2019年3月7日',NULL,'2026-11-07 02:37:23');
+2019年3月7日',NULL,'2026-11-07 02:37:23','2026-11-07 02:37:23');
 INSERT INTO "policies" VALUES(26,'深圳','综合保障法规','深圳市住房和建设局关于印发《深圳市经济适用住房取得完全产权和上市交易办法》的通知','为了规范我市已售经济适用住房取得完全产权活动，根据国家、省和我市相关法规政策规定，我局制定并于2015年6月发布《深圳市经济适用住房取得完全产权和上市交易暂行办法》（深建规〔2015〕8号，以下简称《暂行办法》）。《暂行办法》已到期。在《暂行办法》的基础上，结合其实施过程中所面临的问题，我局制定了《深圳市经济适用住房取得完全产权和上市交易办法》，已经市政府批准，现予印发，请遵照执行。','深圳市住房和建设局','2018-09-29',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_7384323.html','各有关单位和个人： 为了规范我市已售经济适用住房取得完全产权活动，根据国家、省和我市相关法规政策规定，我局制定并于2015年6月发布《深圳市经济适用住房取得完全产权和上市交易暂行办法》（深建规〔2015〕8号，以下简称《暂行办法》）。《暂行办法》已到期。在《暂行办法》的基础上，结合其实施过程中所面临','各有关单位和个人：
 为了规范我市已售经济适用住房取得完全产权活动，根据国家、省和我市相关法规政策规定，我局制定并于2015年6月发布《深圳市经济适用住房取得完全产权和上市交易暂行办法》（深建规〔2015〕8号，以下简称《暂行办法》）。《暂行办法》已到期。在《暂行办法》的基础上，结合其实施过程中所面临的问题，我局制定了《深圳市经济适用住房取得完全产权和上市交易办法》，已经市政府批准，现予印发，请遵照执行。
 深圳市住房和建设局
-2018年9月29日',NULL,'2026-11-07 02:37:24');
+2018年9月29日',NULL,'2026-11-07 02:37:24','2026-11-07 02:37:24');
 INSERT INTO "policies" VALUES(27,'深圳','城中村改造与棚改','深圳市人民政府关于加强棚户区改造工作的实施意见','符合《关于加强和改进城市更新实施工作的暂行措施》（深府办〔2016〕38号）第六条规定，无法独立进行改造的零散旧住宅区可以不纳入棚户区改造政策适用范围。','深圳市人民政府','2018-06-01',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_7384324.html','各区人民政府，市政府直属各单位： 为加强我市棚户区改造工作，根据《国务院关于加快棚户区改造工作的意见》（国发〔2013〕25号）、《广东省人民政府关于加快棚户区改造工作的实施意见》（粤府〔2014〕2号）、《关于完善人才住房制度的若干措施》（深发〔2016〕13号）等规定，制定本实施意见。 一、基本','各区人民政府，市政府直属各单位：
 为加强我市棚户区改造工作，根据《国务院关于加快棚户区改造工作的意见》（国发〔2013〕25号）、《广东省人民政府关于加快棚户区改造工作的实施意见》（粤府〔2014〕2号）、《关于完善人才住房制度的若干措施》（深发〔2016〕13号）等规定，制定本实施意见。
 一、基本规定
@@ -18652,7 +19324,7 @@ INSERT INTO "policies" VALUES(27,'深圳','城中村改造与棚改','深圳市�
 （二十七）落实棚户区改造项目税费支持政策。棚户区改造项目依法免收各种行政事业性收费和政府性基金，并依法享受相应的税收优惠；电力、通讯、市政公用事业等单位应当对棚户区改造项目适当减免入网、管网增容等经营性收费。
 （二十八）加快各区棚户区改造制度建设。本实施意见自公布之日起施行，有效期5年。各区政府应当认真研究当前棚户区改造中出现的问题，结合辖区实际情况，积极探索棚户区改造的新路径和新方法，制定具备可操作性的实施细则，加快依法推进棚户区改造工作。
 深圳市人民政府
-2018年5月17日',NULL,'2026-11-07 02:37:24');
+2018年5月17日',NULL,'2026-11-07 02:37:24','2026-11-07 02:37:24');
 INSERT INTO "policies" VALUES(28,'深圳','保障性租赁住房','关于发布《关于廉租保障对象承租公共租赁住房停止领取租金补贴的通知》的政策解读','为贯彻落实国家政策，结合深圳市实际，市住房建设局、市财政委、市发展改革委于2016年5月31日联合印发了《深圳市公共租赁住房和廉租住房并轨运行实施办法》（深建规〔2016〕6号，以下简称《办法》），明确了符合条件的廉租保障对象承租公租房配租面积和租金标准与其他公租房轮候家庭一致，同时在规定的面积标准内按照其所承租公租房租金标准的90%发放公租房租金补贴，即以“先收后补”的方式进行住房保障。而国家相','深圳市住房和建设局','2017-12-19',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_7384362.html','深圳市住房和建设局、市财政委、市发展改革委于2017年11月13日联合发布《关于廉租保障对象承租公共租赁住房停止领取租金补贴的通知》，现将有关事项解读如下： 一、相关背景 为贯彻落实国家政策，结合深圳市实际，市住房建设局、市财政委、市发展改革委于2016年5月31日联合印发了《深圳市公共租赁住房和廉','深圳市住房和建设局、市财政委、市发展改革委于2017年11月13日联合发布《关于廉租保障对象承租公共租赁住房停止领取租金补贴的通知》，现将有关事项解读如下：
 一、相关背景
 为贯彻落实国家政策，结合深圳市实际，市住房建设局、市财政委、市发展改革委于2016年5月31日联合印发了《深圳市公共租赁住房和廉租住房并轨运行实施办法》（深建规〔2016〕6号，以下简称《办法》），明确了符合条件的廉租保障对象承租公租房配租面积和租金标准与其他公租房轮候家庭一致，同时在规定的面积标准内按照其所承租公租房租金标准的90%发放公租房租金补贴，即以“先收后补”的方式进行住房保障。而国家相关规定为“对于符合住房保障条件的低收入家庭租赁政府投资建设的公共租赁住房，应当一律采取减免方式予以保障，不再发放租赁补贴”我市的操作模式虽然在结果上和国家相关规定是一致的，但操作步骤略有差异。为此，根据上级要求，市住房建设局、市财政委、市发展改革委联合发布了《关于廉租保障对象承租公共租赁住房停止领取租金补贴的通知》（以下简称《通知》），对廉租保障对象承租公共租赁住房工作方式稍作调整，与国家政策保持完全一致。
@@ -18664,7 +19336,7 @@ INSERT INTO "policies" VALUES(28,'深圳','保障性租赁住房','关于发布�
 （三）《通知》具体实施时间
 为做好政策衔接工作，《通知》于2018年1月1日起开始实施。
 深圳市住房和建设局
-2017年12月19日',NULL,'2026-11-07 02:37:24');
+2017年12月19日',NULL,'2026-11-07 02:37:24','2026-11-07 02:37:24');
 INSERT INTO "policies" VALUES(29,'深圳','保障性租赁住房','深圳市住房和建设局 深圳市财政委员会 深圳市发展和改革委员会关于印发《深圳市公共租赁住房和廉租住房并轨运行实施办法》的通知','','','2016-06-24',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_11527747.html','各有关单位和个人： 为实现公共租赁住房与廉租住房统一分配及运营管理，根据《住房城乡建设部、财政部、国家发展改革委关于公共租赁住房和廉租住房并轨运行的通知》（建保〔2013〕178号）等有关规定，结合本市实际，我们组织制定了《深圳市公共租赁住房和廉租住房并轨运行实施办法》，现予印发，请遵照执行。 深圳','各有关单位和个人：
 为实现公共租赁住房与廉租住房统一分配及运营管理，根据《住房城乡建设部、财政部、国家发展改革委关于公共租赁住房和廉租住房并轨运行的通知》（建保〔2013〕178号）等有关规定，结合本市实际，我们组织制定了《深圳市公共租赁住房和廉租住房并轨运行实施办法》，现予印发，请遵照执行。
 深圳市住房和建设局
@@ -18725,7 +19397,7 @@ INSERT INTO "policies" VALUES(29,'深圳','保障性租赁住房','深圳市住�
 账
 ），租金补贴发放名单清册（台账），银行对账单，廉租保障对象统计月（季）报表，承租公租房的租金收缴情况及廉租保障管理工作文件、表、图、册等相关资料。廉租保障信息应当纳入住房保障信息平台。
 有本办法第二十二条第三款规定情形的，区主管部门应当及时更新，确保档案数据完整、准确，实现对保障对象信息的动态管理。
-第二十五条 本办法自2016年7月1日起施行。',NULL,'2026-11-07 02:37:24');
+第二十五条 本办法自2016年7月1日起施行。',NULL,'2026-11-07 02:37:24','2026-11-07 02:37:24');
 INSERT INTO "policies" VALUES(30,'深圳','人才住房与安居','深圳市人才安居办法','','本办法自2015年1月1日起施行，2011年6月1日颁布实施的《深圳市人才安居暂行办法》（深圳市人民政府令第229号）同时废止。','2015-01-06',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_9086029.html','深圳市人才安居办法 第一章  总    则 第一条 为加快实施人才强市战略，优化人口结构和创新创业环境，提高城市竞争力，根据《深圳市保障性住房条例》及相关规定，制定本办法。 第二条 本办法适用于使用财政资金和政府筹措的其他资金、实物，对本市经济社会发展需要的各类人才实行的安居活动。 第三条 市住房保','深圳市人才安居办法
 第一章  总    则
 第一条
@@ -18900,7 +19572,7 @@ INSERT INTO "policies" VALUES(30,'深圳','人才住房与安居','深圳市人�
 （五）重点企事业单位已承租的公租房到期后，可以按照本办法规定续租；个人承租的公租房到期后，符合深圳市公租房轮候与配租条件的，可以续租，不符合该条件的，应当退租，或者按照市场指导租金标准缴交租金。
 前款所称已受理是指本办法施行前住房保障部门已经受理相关申请的情形；已承租是指本办法施行前相关单位或者个人已经在住房保障部门办理租赁手续的情形。
 第四十条
-本办法自2015年1月1日起施行，2011年6月1日颁布实施的《深圳市人才安居暂行办法》（深圳市人民政府令第229号）同时废止。',NULL,'2026-11-07 02:37:24');
+本办法自2015年1月1日起施行，2011年6月1日颁布实施的《深圳市人才安居暂行办法》（深圳市人民政府令第229号）同时废止。',NULL,'2026-11-07 02:37:24','2026-11-07 02:37:24');
 INSERT INTO "policies" VALUES(31,'深圳','人才住房与安居','中共深圳市委 深圳市人民政府关于实施人才安居工程的决定','','严格落实工作责任制，市发展改革部门负责制定人才安居住房建设项目投资计划；市规划国土部门负责制定人才安居住房建设项目年度用地保障计划；市财政部门负责制定人才安居工程资金安排计划；市人力资源保障部门负责牵头制定人才认定标准；各行业主管部门负责对各类人才进行具体认定；市住房建设部门负责制定人才安居住房规划、建设、申请、审核、分配、管理及货币补贴等具体办法，并会同各区政府具体实施。','2014-07-18',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_9086033.html','为深入贯彻落实科学发展观，加快实施人才强市战略，打造人才“宜聚”城市，优化创新创业环境，根据《珠江三角洲地区改革发展规划纲要》、《深圳市综合配套改革总体方案》的有关精神，结合深圳实际，现就实施人才安居工程作出如下决定。 一、充分认识实施人才安居工程的重要性和紧迫性 人才是推动科学发展的“第一资源”，','为深入贯彻落实科学发展观，加快实施人才强市战略，打造人才“宜聚”城市，优化创新创业环境，根据《珠江三角洲地区改革发展规划纲要》、《深圳市综合配套改革总体方案》的有关精神，结合深圳实际，现就实施人才安居工程作出如下决定。
 一、充分认识实施人才安居工程的重要性和紧迫性
 人才是推动科学发展的“第一资源”，人才问题事关深圳经济社会发展的大局，事关深圳国家创新型城市的建设，事关 深圳现代化、国际化城市进程的推进。纵观深圳经济特区30年的发展历程，筑巢引凤、广纳人才，是深圳快速崛起、创造奇迹的宝贵经验。在新的发展时期，实施人才强市战略，加快引进、培育各级各类人才，建设规模宏大、结构合理的高素质人才队伍，是深圳提升城市国际竞争力、促进经济社会持续健康发展的重要保证。当前，我市人才工作正面临新的形势与挑战，特别是居住成本高企对人才吸引力和经济社会发展的不利影响日益凸显。落实人才强市战略，实施人才安居工程，努力解决人才住房的后顾之忧，对于吸引人才、留住人才扎根深圳、创业发展具有重大而深远的意义。各级、各部门要以高度的政治责任感和历史使命感，充分认识实施人才安居工程的重要性、紧迫性，把解决人才安居问题摆在更加突出的位置。当前及今后一个时期，要把人才列为住房保障的重点对象，着力解决人才安居问题，全面缓解人才住房困难，不断改善人才居住条件，切实做到科学规划、精心组织、加快实施、务求实效。
@@ -18921,11 +19593,11 @@ INSERT INTO "policies" VALUES(31,'深圳','人才住房与安居','中共深圳�
 五、建立健全人才安居工程的实施机制
 建立人才安居工程市、区两级领导机制，健全工作机构，合理确定编制，充实工作力量，完善业务功能，加强管理队伍建设，为人才安居工程顺利实施提供强有力的组织保障。按照“统筹兼顾、条块结合、分工明确、就近配套”的原则，建立人才安居工程目标责任制。原则上，市级负责解决杰出人才、领军人才及市属事业单位、经认定的重点企事业单位人才安居问题；其他人才按照属地管理的原则，由各区负责解决。
 严格落实工作责任制，市发展改革部门负责制定人才安居住房建设项目投资计划；市规划国土部门负责制定人才安居住房建设项目年度用地保障计划；市财政部门负责制定人才安居工程资金安排计划；市人力资源保障部门负责牵头制定人才认定标准；各行业主管部门负责对各类人才进行具体认定；市住房建设部门负责制定人才安居住房规划、建设、申请、审核、分配、管理及货币补贴等具体办法，并会同各区政府具体实施。
-建立健全人才安居工程考核评价机制，将实施人才安居工程情况纳入政府绩效考评内容，加强对各区、各部门主要负责人落实人才安居工程的责任考核。完善监督机制，建立健全统一的网上申报、受理、查询、投诉、举报、监督信息系统平台，自觉接受人大、政协的监督检查和社会各界的舆论监督，使人才安居工程成为公开、透明、廉洁、规范的阳光工程。',NULL,'2026-11-07 02:37:25');
+建立健全人才安居工程考核评价机制，将实施人才安居工程情况纳入政府绩效考评内容，加强对各区、各部门主要负责人落实人才安居工程的责任考核。完善监督机制，建立健全统一的网上申报、受理、查询、投诉、举报、监督信息系统平台，自觉接受人大、政协的监督检查和社会各界的舆论监督，使人才安居工程成为公开、透明、廉洁、规范的阳光工程。',NULL,'2026-11-07 02:37:25','2026-11-07 02:37:25');
 INSERT INTO "policies" VALUES(32,'深圳','安居型商品房','关于印发《深圳市安居型商品房轮候与配售办法》的通知','','深圳市住房和建设局','2012-11-29',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_10291501.html','为加强安居型商品房管理，规范安居型商品房轮候与配售，根据《深圳市保障性住房条例》和《深圳市安居型商品房建设和管理暂行办法》的有关规定，结合本市实际，我局组织制定了《深圳市安居型商品房轮候与配售办法》，已经市政府批准，现予印发施行。 附件：深圳市安居型商品房轮候与配售办法 深圳市住房和建设局 二〇一二','为加强安居型商品房管理，规范安居型商品房轮候与配售，根据《深圳市保障性住房条例》和《深圳市安居型商品房建设和管理暂行办法》的有关规定，结合本市实际，我局组织制定了《深圳市安居型商品房轮候与配售办法》，已经市政府批准，现予印发施行。
 附件：深圳市安居型商品房轮候与配售办法
 深圳市住房和建设局
-二〇一二年十一月二十六日',NULL,'2026-11-07 02:37:25');
+二〇一二年十一月二十六日',NULL,'2026-11-07 02:37:25','2026-11-07 02:37:25');
 INSERT INTO "policies" VALUES(33,'深圳','综合保障法规','深圳市保障性住房条例','','第六十条 市政府可以根据本条例制定实施细则。','2011-08-13',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/zcfg2017/content/post_7384355.html','《深圳市保障性住房条例》经深圳市第五届人民代表大会常务委员会第八次会议于2011年4月26日修正，广东省第十一届人民代表大会常务委员会第二十六次会议于2011年5月31日批准，现予公布。 2011年7月13日 深圳市保障性住房条例 （2010年1月19日深圳市第四届人民代表大会常务委员会第三十五次会','《深圳市保障性住房条例》经深圳市第五届人民代表大会常务委员会第八次会议于2011年4月26日修正，广东省第十一届人民代表大会常务委员会第二十六次会议于2011年5月31日批准，现予公布。
 2011年7月13日
 深圳市保障性住房条例
@@ -19111,7 +19783,7 @@ INSERT INTO "policies" VALUES(33,'深圳','综合保障法规','深圳市保障�
 第五十八条 住房困难标准、安居型商品房建设和管理办法由市政府另行制定。
 第五十九条 本条例规定由市政府或者市主管部门制定具体办法、轮候规则以及相关标准的，市政府或者市主管部门应当自本条例施行之日起一年内制定。
 第六十条 市政府可以根据本条例制定实施细则。
-第六十一条 本条例自2010年7月1日起施行。',NULL,'2026-11-07 02:37:25');
+第六十一条 本条例自2010年7月1日起施行。',NULL,'2026-11-07 02:37:25','2026-11-07 02:37:25');
 INSERT INTO "policies" VALUES(34,'深圳','房地产与保障房新政','深圳市住房和建设局 深圳市规划和自然资源局 国家金融监督管理总局深圳监管局关于贯彻落实《关于完善商品住房销售制度的通知》的实施意见',NULL,'深圳市住建局等','2026-10-15',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13021748.html','深建文〔2026〕131号 各有关单位： 为贯彻落实《住房城乡建设部 自然资源部 金融监管总局关于完善商品住房销售制度的通知》（建房规〔2026〕3号）等有关规定，稳步推进商品住房销售制度改革，加快构建房地产发展新模式，促进房地产高质量发展','深建文〔2026〕131号
 各有关单位：
 为贯彻落实《住房城乡建设部 自然资源部 金融监管总局关于完善商品住房销售制度的通知》（建房规〔2026〕3号）等有关规定，稳步推进商品住房销售制度改革，加快构建房地产发展新模式，促进房地产高质量发展，结合我市实际，制定如下实施意见。
@@ -19143,7 +19815,7 @@ INSERT INTO "policies" VALUES(34,'深圳','房地产与保障房新政','深圳�
 深圳市住房和建设局
 深圳市规划和自然资源局
 国家金融监督管理总局深圳监管局
-2026年10月15日',NULL,'2026-11-07 03:34:29');
+2026年10月15日',NULL,'2026-11-07 03:34:29','2026-11-07 03:34:29');
 INSERT INTO "policies" VALUES(35,'深圳','房地产与保障房新政','深圳市住房和建设局关于《深圳市公共租赁住房房源跨区优化配置具体实施路径技术支持服务》的采购公告',NULL,'深圳市住建局等','2026-10-13',NULL,'现行有效','https://zjj.sz.gov.cn/ztfw/zfbz/tzgg2017/content/post_13018194.html','根据有关规定，现以公开征集方式开展《深圳市公共租赁住房房源跨区优化配置具体实施路径技术支持服务》的采购工作，欢迎符合资格的供应商参加投标。 一、项目名称：深圳市公共租赁住房房源跨区优化配置具体实施路径技术支持服务。 二、采购预算：人民币53','根据有关规定，现以公开征集方式开展《深圳市公共租赁住房房源跨区优化配置具体实施路径技术支持服务》的采购工作，欢迎符合资格的供应商参加投标。
 一、项目名称：深圳市公共租赁住房房源跨区优化配置具体实施路径技术支持服务。
 二、采购预算：人民币53.375万元。
@@ -19153,23 +19825,24 @@ INSERT INTO "policies" VALUES(35,'深圳','房地产与保障房新政','深圳�
 六、招标代理机构：深圳高星项目管理有限公司。
 七、招标代理联系人：陈工，联系电话：0755-88918226。
 深圳市住房和建设局
-2026年10月13日',NULL,'2026-11-07 03:34:29');
-CREATE TABLE projects (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        city TEXT NOT NULL DEFAULT '深圳',
-        district TEXT NOT NULL,
-        subdistrict TEXT,
-        project_name TEXT NOT NULL UNIQUE,
-        developer TEXT,
-        housing_type TEXT,
-        total_planned_units INTEGER,
-        planned_area REAL,
-        address TEXT,
-        status TEXT,
-        notices_json TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
+2026年10月13日',NULL,'2026-11-07 03:34:29','2026-11-07 03:34:29');
+CREATE TABLE "projects" (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    city TEXT NOT NULL DEFAULT '深圳',
+    district TEXT,
+    subdistrict TEXT,
+    project_name TEXT NOT NULL,
+    developer TEXT,
+    housing_type TEXT,
+    total_planned_units INTEGER,
+    planned_area REAL,
+    address TEXT,
+    status TEXT,
+    notices_json TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(city, project_name)
+);
 INSERT INTO "projects" VALUES(1,'深圳','福田区',NULL,'文化创意园','福田区政府','保障性住房',1250,5.35,'福田区沙头街道，北临福强路、东临新洲路','规划储备',NULL,'2026-11-07 02:52:47','2026-11-07 02:52:47');
 INSERT INTO "projects" VALUES(2,'深圳','福田区',NULL,'华强激光07-08-02 地块','福田区政府','保障性住房',350,1.0,'福田区梅林街道，北环大道北侧，华强科创广场西侧','规划储备',NULL,'2026-11-07 02:52:47','2026-11-07 02:52:47');
 INSERT INTO "projects" VALUES(3,'深圳','盐田区',NULL,'盐田港区公交综合车场项目','盐田区政府','保障性住房',780,3.69,'盐田区盐田街道青蓬路1号','规划储备',NULL,'2026-11-07 02:52:47','2026-11-07 02:52:47');
@@ -19241,7 +19914,7 @@ INSERT INTO "projects" VALUES(70,'深圳','光明区',NULL,'润珑苑－轨道13
 INSERT INTO "projects" VALUES(71,'深圳','大鹏新区',NULL,'安居龙湾府（一期）','深圳市大鹏安居有限公司','保障性住房',996,6.64,NULL,'计划竣工/在建',NULL,'2026-11-07 02:52:49','2026-11-07 02:52:49');
 INSERT INTO "projects" VALUES(155,'深圳','市住建局',NULL,'缙熙园',NULL,'保障性住房',NULL,NULL,NULL,'配售中',NULL,'2026-11-07 03:16:37','2026-11-07 03:16:37');
 INSERT INTO "projects" VALUES(227,'深圳','罗湖区',NULL,'畔溪悦府','深圳市罗湖人才安居有限公司','人才配售房',306,3.2,'罗湖区莲塘街道','配售中',NULL,'2026-11-07 03:25:41','2026-11-07 03:25:41');
-INSERT INTO "projects" VALUES(228,'深圳','龙华区',NULL,'安居华越龙苑','深圳市安居集团有限公司','人才配售房',1350,15.0,'龙华区民治街道新牛社区','配售中',NULL,'2026-11-07 03:25:41','2026-11-07 03:25:41');
+INSERT INTO "projects" VALUES(228,'深圳','龙华区',NULL,'安居华越龙苑','深圳市安居集团有限公司','人才配售房',1350,15.0,'龙华区民治街道新牛社区','配售中',NULL,'2026-11-07 03:25:41','2026-11-10 14:11:36');
 INSERT INTO "projects" VALUES(229,'深圳','南山区',NULL,'深铁熙府','深圳市地铁集团有限公司','人才配售房',2100,16.6,'南山区兴海大道5号','配售中',NULL,'2026-11-07 03:25:41','2026-11-07 03:25:41');
 INSERT INTO "projects" VALUES(230,'深圳','宝安区',NULL,'深铁璟城','深圳市地铁集团有限公司','人才配售房',2480,18.8,'宝安区松岗街道','配售中',NULL,'2026-11-07 03:25:41','2026-11-07 03:25:41');
 INSERT INTO "projects" VALUES(231,'深圳','光明区',NULL,'润珑苑','深圳市润宏房地产有限公司','人才配售房',2705,20.4,'光明区凤凰街道','配售中',NULL,'2026-11-07 03:25:41','2026-11-07 03:25:41');
@@ -19253,6 +19926,7 @@ INSERT INTO "projects" VALUES(236,'深圳','宝安区',NULL,'新城华苑',NULL,
 INSERT INTO "projects" VALUES(237,'深圳','龙华区',NULL,'安居峰景苑',NULL,'保障性住房',NULL,NULL,NULL,'配售中',NULL,'2026-11-07 03:27:55','2026-11-07 03:27:55');
 INSERT INTO "projects" VALUES(238,'深圳','光明区',NULL,'安居凤桐苑',NULL,'保障性住房',NULL,NULL,NULL,'配售中',NULL,'2026-11-07 03:28:46','2026-11-07 03:28:46');
 INSERT INTO "projects" VALUES(239,'深圳','宝安区',NULL,'雍湾府',NULL,'保障性住房',NULL,NULL,NULL,'配售中',NULL,'2026-11-07 03:34:45','2026-11-07 03:34:45');
+INSERT INTO "projects" VALUES(240,'深圳','龙华区',NULL,'星河开市客环球商业中心','星河集团','面向人才配售住房',NULL,NULL,NULL,'在售',NULL,'2026-11-10 14:02:36','2026-11-10 14:02:36');
 CREATE TABLE projects_pipeline (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     city TEXT NOT NULL DEFAULT '深圳',
@@ -19373,9 +20047,11 @@ CREATE INDEX idx_members_name ON members(name);
 CREATE INDEX idx_members_code ON members(code);
 CREATE INDEX idx_members_id_card ON members(id_card);
 CREATE INDEX idx_hh_queue ON households(house_type, queue);
+CREATE INDEX idx_proj_city_dist ON projects (city, district);
+CREATE INDEX idx_policy_city_cat ON policies (city, category);
 DELETE FROM "sqlite_sequence";
 INSERT INTO "sqlite_sequence" VALUES('projects_pipeline',98);
+INSERT INTO "sqlite_sequence" VALUES('notices',1245);
+INSERT INTO "sqlite_sequence" VALUES('projects',240);
 INSERT INTO "sqlite_sequence" VALUES('policies',35);
-INSERT INTO "sqlite_sequence" VALUES('projects',239);
-INSERT INTO "sqlite_sequence" VALUES('notices',1213);
 COMMIT;
