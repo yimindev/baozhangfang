@@ -26,14 +26,14 @@ SELECT '认购家庭 (households)', COUNT(*) FROM households;
 ### 1.2 各区推售房源套数与均价分布
 ```sql
 SELECT 
-    p.district AS 行政区,
-    COUNT(DISTINCT p.id) AS 项目数,
-    COUNT(b.batch_id) AS 推售批次数,
-    COALESCE(SUM(b.total_units), 0) AS 累计推售套数,
-    ROUND(AVG(b.average_price), 0) AS 区域均价_元每平
-FROM projects p
-LEFT JOIN batches b ON p.id = b.project_id
-GROUP BY p.district
+    b.district AS 行政区,
+    COUNT(DISTINCT bp.project_id) AS 项目数,
+    COUNT(DISTINCT b.batch_id) AS 推售批次数,
+    COALESCE(SUM(bp.units), 0) AS 累计推售套数,
+    ROUND(AVG(bp.average_price), 0) AS 项目均价_元每平
+FROM batches b
+LEFT JOIN batch_projects bp ON bp.batch_id = b.batch_id
+GROUP BY b.district
 ORDER BY 累计推售套数 DESC;
 ```
 
@@ -48,33 +48,39 @@ SELECT
     p.district AS 所属区,
     p.housing_type AS 房源类别,
     b.batch_id AS 批次文号,
-    b.total_units AS 推售套数,
+    bp.units AS 本项目本批次套数,
     b.two_bedroom_units AS 两房套数,
     b.three_bedroom_units AS 三房套数,
-    b.average_price AS 配售均价_元每平,
+    bp.average_price AS 配售均价_元每平,
     b.current_stage AS 当前阶段,
     b.sales_mode AS 销售模式,
     b.consultation_phone AS 咨询电话
 FROM projects p
-LEFT JOIN batches b ON p.id = b.project_id
+JOIN batch_projects bp ON bp.project_id = p.id
+JOIN batches b ON b.batch_id = bp.batch_id
 WHERE p.project_name LIKE '%华越龙苑%' OR p.aliases LIKE '%华越龙苑%'
 ORDER BY b.batch_id DESC;
 ```
 
+> 必须走 `batch_projects`：一个批次可同时推售多个楼盘（如龙岗 `住保售〔2026〕076` 含宝翠/宝澜/宝锦），
+> 只 `JOIN batches ON batches.project_id = projects.id` 会漏掉非主项目。
+
 ### 2.2 查询正在进行中的活跃批次（认购中、选房中、常态化）
 ```sql
 SELECT 
-    p.project_name AS 项目名称,
-    p.district AS 所属区,
+    GROUP_CONCAT(p.project_name, '/') AS 项目名称,
+    b.district AS 所属区,
     b.batch_id AS 批次文号,
     b.current_stage AS 当前生命周期阶段,
-    b.total_units AS 推售套数,
-    b.average_price AS 均价,
+    SUM(bp.units) AS 推售套数,
+    GROUP_CONCAT(DISTINCT bp.average_price) AS 各项目均价,
     b.sub_start_date AS 认购开始,
     b.sub_end_date AS 认购截止
 FROM batches b
-JOIN projects p ON b.project_id = p.id
+JOIN batch_projects bp ON bp.batch_id = b.batch_id
+JOIN projects p ON p.id = bp.project_id
 WHERE b.current_stage IN ('认购中', '选房签约中', '常态化配售中', '公证摇号')
+GROUP BY b.batch_id
 ORDER BY b.sub_start_date DESC;
 ```
 
@@ -88,6 +94,20 @@ WHERE project_name LIKE '%小梅沙%' OR aliases LIKE '%小梅沙%';
 > `aliases` 是 JSON 数组文本，查询用 `LIKE '%关键词%'` 即可；写入用
 > `db_io.py upsert-project --name 标准名 --aliases "异名1,异名2"`。
 
+### 2.4 查一个批次到底包含哪几个楼盘
+```sql
+SELECT b.batch_id, p.project_name, p.district, bp.batch_seq, bp.units,
+       bp.two_bedroom_units, bp.three_bedroom_units, bp.average_price
+FROM batches b
+JOIN batch_projects bp ON bp.batch_id = b.batch_id
+JOIN projects p ON p.id = bp.project_id
+WHERE b.batch_id = '住保售〔2026〕076号批次'
+ORDER BY bp.units DESC;
+```
+
+> 批次级查询（2.2 / 3.1 / 4.1）仍可只用 `batches`：那里的 `average_price` 是单项目批次价格，
+> 多项目混价的批次置空（不编造加权均价），此时改看 `batch_projects.average_price`。
+
 ---
 
 ## 3. 常态化即时配售房源盘点（随时可现场认购）
@@ -98,19 +118,20 @@ SELECT
     p.project_name AS 项目名称,
     p.district AS 所属区,
     b.batch_id AS 批次文号,
-    b.total_units AS 批次总套数,
-    b.two_bedroom_units AS 两房,
-    b.three_bedroom_units AS 三房,
-    b.average_price AS 均价_元每平,
+    bp.units AS 本项目套数,
+    bp.two_bedroom_units AS 两房,
+    bp.three_bedroom_units AS 三房,
+    bp.average_price AS 均价_元每平,
     b.current_stage AS 当前状态,
     b.reception_location AS 现场接待中心,
     b.consultation_phone AS 咨询热线
 FROM batches b
-JOIN projects p ON b.project_id = p.id
+JOIN batch_projects bp ON bp.batch_id = b.batch_id
+JOIN projects p ON p.id = bp.project_id
 WHERE b.has_regular_sales_exit = 1 
    OR b.current_stage = '常态化配售中'
    OR b.sales_mode LIKE '%常态化%'
-ORDER BY p.district, b.average_price ASC;
+ORDER BY p.district, bp.average_price ASC;
 ```
 
 ---
@@ -122,16 +143,17 @@ ORDER BY p.district, b.average_price ASC;
 SELECT 
     p.project_name AS 项目名称,
     p.district AS 行政区,
-    b.three_bedroom_units AS 三房套数,
-    b.four_bedroom_units AS 四房套数,
-    b.average_price AS 均价_元每平,
+    bp.three_bedroom_units AS 三房套数,
+    bp.four_bedroom_units AS 四房套数,
+    bp.average_price AS 均价_元每平,
     b.current_stage AS 当前状态,
     p.address AS 地址
-FROM batches b
-JOIN projects p ON b.project_id = p.id
-WHERE (b.three_bedroom_units > 0 OR b.four_bedroom_units > 0)
-  AND b.average_price <= 40000
-ORDER BY b.average_price ASC;
+FROM batch_projects bp
+JOIN batches b ON b.batch_id = bp.batch_id
+JOIN projects p ON p.id = bp.project_id
+WHERE (bp.three_bedroom_units > 0 OR bp.four_bedroom_units > 0)
+  AND bp.average_price <= 40000
+ORDER BY bp.average_price ASC;
 ```
 
 ### 4.2 筛选特定行政区（如南山区、福田区、宝安区）的所有保障房项目
@@ -300,8 +322,10 @@ GROUP BY 归一化名
 HAVING c > 1;
 
 -- ③ 批次挂到了别的区的项目（市级/保障署除外）
-SELECT b.batch_id, b.district AS 批次主管, p.id, p.project_name, p.district AS 项目所在区
-FROM batches b JOIN projects p ON b.project_id = p.id
+SELECT DISTINCT b.batch_id, b.district AS 批次主管, p.id, p.project_name, p.district AS 项目所在区
+FROM batches b
+JOIN batch_projects bp ON bp.batch_id = b.batch_id
+JOIN projects p ON p.id = bp.project_id
 WHERE b.district NOT IN ('市住建局', '市住房保障署') AND b.district <> p.district;
 
 -- ④ 公文引用了不存在的批次（应为空）

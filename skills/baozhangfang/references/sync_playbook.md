@@ -44,7 +44,9 @@ python3 <SKILL_DIR>/scripts/fetch_detail.py <url> --tables
 python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name 星河开市客环球商业中心 --district 龙华区 \
         --aliases "星河开市客"   # 可选：记录官方异名，避免下次同实体再建一行
 python3 <SKILL_DIR>/scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕054号批次" --project-id 84 \
-        --total-units 300 --three-bedroom-units 300 --average-price 28000 --current-stage 选房签约中
+        --current-stage 选房签约中 --sub-start-date 2026-09-28 --sub-end-date 2026-10-08
+python3 <SKILL_DIR>/scripts/db_io.py link-batch-project --batch-id "住保售〔2026〕054号批次" --project-id 84 \
+        --batch-seq 1 --units 300 --three-bedroom-units 300 --average-price 28000
 python3 <SKILL_DIR>/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-10 \
         --district 光明区 --category 综合公告 --content-file /tmp/body.txt
 python3 <SKILL_DIR>/scripts/db_io.py upsert-policy --url <url> --title "<法规标题>" --category 地方性法规 \
@@ -118,7 +120,9 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 **可以只存列表信息（不抓正文）**：轮候合格家庭公示、需求库名单、纯流程性通知——除非用户明确要看细节。
 
 ### Step 6 从正文抽要素
-按 `batches` 表字段清单逐项找，**找不到就留空，不要凑数**：
+按目标表字段逐项找，**找不到就留空，不要凑数**。先分清层级：
+套数/户型/均价/交付标准属于「批次 × 楼盘」→ `batch_projects`；
+认购窗口/销售方式/订金/咨询电话/阶段属于批次 → `batches`。
 
 > `notices.publish_date` 不从这里抽：一律用 `fetch_list` 的列表日期；`fetch_detail` 返回的页面/正文日期仅作参考，不写库。
 
@@ -148,15 +152,20 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 - **批次**：以官方文号为准，规范化为 `住保售〔YYYY〕NNN号批次`（序号**补零三位**）。
   - `住保租〔YYYY〕NNN号` 属于**配租**，不进 `batches`（配售台账），只记 `notices`。
   - 同一项目多次推售（如 043 → 073 → 083）是**不同批次**，不要合并。
-  - 同一批次的"选房有关事项通知（2026077-1）"这类派生文号，归到主批次上。
+  - 同一批次的“选房有关事项通知（2026077-1）”这类派生文号，归到主批次上。
+  - 一个批次可同时推售多个楼盘（如龙岗 `住保售〔2026〕076` 含宝翠雅苑/宝澜雅苑/宝锦华庭）：
+    先 `upsert-batch --project-id` 建批次（只写过程信息），再用 `link-batch-project` 逐盘登记
+    `--units / --two-bedroom-units / --average-price / --batch-seq`。套数、户型、均价**只记在
+    `batch_projects`**，`batches` 不存汇总副本，也不设“主项目”。
   - 若需解除已挂批次（如误挂或不适用），传 `--batch-id ""` 即可清空为 NULL。
 
 ### Step 8 写入顺序（有外键依赖）
 1. `upsert-project` → 拿到 `project_id`
-2. `upsert-batch`（新批次才需要；用 `--project-id`）
-3. `upsert-notice`（`--batch-id` 可为空串表示不挂批次）
-4. `append-timeline`（把该公文事件的 stage/title/date/url 追加到批次时间线）
-5. 若为政策法规，则直接执行 `upsert-policy`
+2. `upsert-batch`（新批次才需要；`--project-id` 先登记一条关联）
+3. `link-batch-project`（登记该盘在本批次的套数/户型/均价；多楼盘批次逐个调用）
+4. `upsert-notice`（`--batch-id` 可为空串表示不挂批次）
+5. `append-timeline`（把该公文事件的 stage/title/date/url 追加到批次时间线）
+6. 若为政策法规，则直接执行 `upsert-policy`
 
 `upsert-notice` 按 `district + 归一化标题 + publish_date` 优先去重，再按 URL 兜底，重复执行不会新增记录；
 命中同区同标题同日时，会更新正文/附件，并在旧 URL 不是 gkmlpt 时升级为 gkmlpt 直链；
@@ -176,7 +185,7 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 ```bash
 python3 <SKILL_DIR>/scripts/db_io.py stats --city 深圳
 python3 <SKILL_DIR>/scripts/db_io.py query "SELECT publish_date, district, substr(title,1,40) FROM notices ORDER BY publish_date DESC LIMIT 10"
-python3 <SKILL_DIR>/scripts/db_io.py query "SELECT batch_id, current_stage, total_units, average_price FROM batches ORDER BY batch_id DESC LIMIT 10"
+python3 <SKILL_DIR>/scripts/db_io.py query "SELECT b.batch_id, b.current_stage, SUM(bp.units) units, GROUP_CONCAT(DISTINCT bp.average_price) prices FROM batches b LEFT JOIN batch_projects bp ON bp.batch_id = b.batch_id GROUP BY b.batch_id ORDER BY b.batch_id DESC LIMIT 10"
 python3 <SKILL_DIR>/scripts/db_io.py query "SELECT district, title, publish_date, COUNT(*) c FROM notices GROUP BY district, title, publish_date HAVING c > 1"
 ```
 逐项确认：① 新公文都进了库；② 没有重复 `title + publish_date`；③ 批次套数/价格没有明显离谱值；

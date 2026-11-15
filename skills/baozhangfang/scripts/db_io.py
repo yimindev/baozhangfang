@@ -14,6 +14,8 @@ db_io.py - 数据库读写原子操作（原子工具）
   diff            fetch_list 结果与库内记录做差集（new/known，支持 notices/policies）
   upsert-project  建/改项目（按 city + project_name 唯一）
   upsert-batch    建/改推售批次（按 batch_id 唯一）
+  link-batch-project   给批次挂物理项目，并登记该项目在本批次的套数/户型/均价
+  unlink-batch-project 解除批次与项目的关联
   upsert-notice   建/改公文（按 district+归一化标题+publish_date → url 两级去重）
   upsert-policy   建/改政策法规规约（按 city+归一化标题+date → url 两级去重）
   append-timeline 给批次的 notices_json 追加一条事件
@@ -26,7 +28,9 @@ db_io.py - 数据库读写原子操作（原子工具）
   python3 scripts/db_io.py known-urls --since 2026-10-01
   python3 scripts/db_io.py upsert-project --name 星河开市客环球商业中心 --district 龙华区
   python3 scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕054号批次" --project-id 84 \\
-      --current-stage 选房签约中 --total-units 300 --average-price 28000
+      --current-stage 选房签约中 --sub-start-date 2026-09-01 --sub-end-date 2026-09-10
+  python3 scripts/db_io.py link-batch-project --batch-id "住保售〔2026〕076号批次" \\
+      --project-id 96 --units 65 --three-bedroom-units 65 --average-price 18586.32
   python3 scripts/db_io.py upsert-notice --url https://... --title "..." --date 2026-11-10 \\
       --district 光明区 --category 综合公告 --batch-id "" --content-file /tmp/body.txt
   python3 scripts/db_io.py upsert-policy --url https://... --title "..." --category 规章 \\
@@ -46,12 +50,14 @@ from typing import Any, Dict, List, Optional
 
 from db import get_db_path
 
-BATCH_FIELDS = ["project_id", "district", "batch_seq", "housing_type", "total_units",
-                "one_bedroom_units", "two_bedroom_units", "three_bedroom_units",
-                "four_bedroom_units", "other_units", "average_price", "deposit_amount",
-                "sales_mode", "has_regular_sales_exit", "reception_location",
-                "consultation_phone", "booking_channel", "sub_start_date",
-                "sub_end_date", "current_stage", "notices_json"]
+# batches 只存批次过程信息；房源量（套数/户型/均价）在 batch_projects
+BATCH_FIELDS = ["district", "housing_type", "deposit_amount", "sales_mode",
+                "has_regular_sales_exit", "reception_location", "consultation_phone",
+                "booking_channel", "sub_start_date", "sub_end_date", "current_stage",
+                "notices_json"]
+
+BP_FIELDS = ["batch_seq", "units", "one_bedroom_units", "two_bedroom_units",
+             "three_bedroom_units", "four_bedroom_units", "other_units", "average_price"]
 
 PROJECT_FIELDS = ["district", "subdistrict", "developer", "housing_type",
                   "total_planned_units", "planned_area", "address", "status",
@@ -73,6 +79,11 @@ def connect(read_only: bool = False) -> sqlite3.Connection:
         conn = sqlite3.connect(db_p)
     conn.row_factory = sqlite3.Row
     return conn
+
+
+def _table_exists(conn: sqlite3.Connection, name: str) -> bool:
+    return bool(conn.execute(
+        "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = ?", (name,)).fetchone())
 
 
 def normalize_title(title: str) -> str:
@@ -245,6 +256,8 @@ def cmd_stats(args) -> int:
                 out[tbl] = None
         out["latest_notice"] = conn.execute(
             f"SELECT MAX(publish_date) FROM notices{city_where}", params).fetchone()[0]
+        if _table_exists(conn, "batch_projects"):
+            out["batch_projects"] = conn.execute("SELECT COUNT(*) FROM batch_projects").fetchone()[0]
         print(json.dumps(out, ensure_ascii=False, indent=2))
     finally:
         conn.close()
@@ -400,6 +413,70 @@ def cmd_upsert_project(args) -> int:
     return 0
 
 
+def _ensure_link(conn: sqlite3.Connection, batch_id: str, project_id: int) -> None:
+    """确保批次与项目已建立关联（幂等）。"""
+    conn.execute("INSERT OR IGNORE INTO batch_projects (batch_id, project_id) VALUES (?, ?)",
+                 (batch_id, project_id))
+
+
+def cmd_link_batch_project(args) -> int:
+    conn = connect()
+    try:
+        if not conn.execute("SELECT 1 FROM batches WHERE batch_id = ?", (args.batch_id,)).fetchone():
+            print(f"[错误] 批次不存在：{args.batch_id}", file=sys.stderr)
+            return 2
+        values = {f: getattr(args, f, None) for f in BP_FIELDS}
+        values = {k: v for k, v in values.items() if v is not None}
+        if values and len(args.project_id) != 1:
+            print(f"[错误] {'/'.join('--' + f.replace('_', '-') for f in values)} "
+                  "只能与单个 --project-id 一起使用", file=sys.stderr)
+            return 2
+        actions = []
+        for pid in args.project_id:
+            if not conn.execute("SELECT 1 FROM projects WHERE id = ?", (pid,)).fetchone():
+                print(f"[错误] 项目不存在：{pid}", file=sys.stderr)
+                return 2
+            existed = conn.execute(
+                "SELECT 1 FROM batch_projects WHERE batch_id = ? AND project_id = ?",
+                (args.batch_id, pid)).fetchone()
+            if not existed:
+                conn.execute("INSERT INTO batch_projects (batch_id, project_id) VALUES (?, ?)",
+                             (args.batch_id, pid))
+            if values:
+                sets = ", ".join(f"{k} = ?" for k in values)
+                conn.execute(f"UPDATE batch_projects SET {sets} WHERE batch_id = ? AND project_id = ?",
+                             [*values.values(), args.batch_id, pid])
+            actions.append({"project_id": pid, "action": "exists" if existed else "linked"})
+        conn.commit()
+        projects = [dict(r) for r in conn.execute(
+            "SELECT project_id, batch_seq, units, two_bedroom_units, three_bedroom_units, average_price "
+            "FROM batch_projects WHERE batch_id = ? ORDER BY project_id", (args.batch_id,))]
+        print(json.dumps({"batch_id": args.batch_id, "projects": actions, "rows": projects},
+                         ensure_ascii=False))
+    finally:
+        conn.close()
+    return 0
+
+
+def cmd_unlink_batch_project(args) -> int:
+    conn = connect()
+    try:
+        row = conn.execute(
+            "SELECT 1 FROM batch_projects WHERE batch_id = ? AND project_id = ?",
+            (args.batch_id, args.project_id)).fetchone()
+        if not row:
+            print(f"[错误] 该批次未关联此项目：{args.batch_id} / {args.project_id}", file=sys.stderr)
+            return 2
+        conn.execute("DELETE FROM batch_projects WHERE batch_id = ? AND project_id = ?",
+                     (args.batch_id, args.project_id))
+        conn.commit()
+        print(json.dumps({"batch_id": args.batch_id, "project_id": args.project_id, "action": "unlinked"},
+                         ensure_ascii=False))
+    finally:
+        conn.close()
+    return 0
+
+
 def cmd_upsert_batch(args) -> int:
     conn = connect()
     try:
@@ -420,15 +497,8 @@ def cmd_upsert_batch(args) -> int:
             v = getattr(args, f, None)
             if v is not None:
                 values[f] = v
-
-        # 别名兼容
         if args.stage is not None and "current_stage" not in values:
             values["current_stage"] = args.stage
-        if args.price is not None and "average_price" not in values:
-            values["average_price"] = args.price
-
-        if pid:
-            values["project_id"] = pid
 
         exists = conn.execute("SELECT 1 FROM batches WHERE batch_id = ?", (args.batch_id,)).fetchone()
         if exists:
@@ -447,6 +517,8 @@ def cmd_upsert_batch(args) -> int:
             conn.execute(f"INSERT INTO batches ({', '.join(cols)}) VALUES ({', '.join('?' * len(cols))})",
                          [args.batch_id, args.city, *values.values()])
             action = "created"
+        if pid:
+            _ensure_link(conn, args.batch_id, pid)
         conn.commit()
         print(json.dumps({"batch_id": args.batch_id, "project_id": pid, "action": action,
                           "fields": sorted(values)}, ensure_ascii=False))
@@ -738,13 +810,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--project-id", type=int, default=None)
     p.add_argument("--project-name", default=None)
     p.add_argument("--stage", default=None, help="别名：--current-stage")
-    p.add_argument("--price", type=float, default=None, help="别名：--average-price")
-    int_fields = {"project_id", "batch_seq", "total_units", "one_bedroom_units",
-                  "two_bedroom_units", "three_bedroom_units", "four_bedroom_units",
-                  "other_units", "has_regular_sales_exit"}
-    float_fields = {"average_price", "deposit_amount"}
+    int_fields = {"has_regular_sales_exit"}
+    float_fields = {"deposit_amount"}
     for f in BATCH_FIELDS:
-        if f in ("project_id", "notices_json"):
+        if f == "notices_json":
             continue
         p.add_argument(f"--{f.replace('_', '-')}", dest=f, default=None,
                        type=int if f in int_fields else (float if f in float_fields else str))
@@ -794,6 +863,25 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--date", required=True)
     p.add_argument("--url", required=True)
     p.set_defaults(func=cmd_append_timeline)
+
+    # 10. link-batch-project / unlink-batch-project
+    p = sub.add_parser("link-batch-project", help="给批次挂物理项目并登记该项目在本批次的房源")
+    p.add_argument("--batch-id", required=True)
+    p.add_argument("--project-id", type=int, action="append", required=True)
+    p.add_argument("--batch-seq", type=int, default=None, help="该项目第几次推售")
+    p.add_argument("--units", type=int, default=None, help="该项目在本批次的套数")
+    p.add_argument("--one-bedroom-units", type=int, default=None)
+    p.add_argument("--two-bedroom-units", type=int, default=None)
+    p.add_argument("--three-bedroom-units", type=int, default=None)
+    p.add_argument("--four-bedroom-units", type=int, default=None)
+    p.add_argument("--other-units", type=int, default=None)
+    p.add_argument("--average-price", type=float, default=None, help="该项目在本批次的均价")
+    p.set_defaults(func=cmd_link_batch_project)
+
+    p = sub.add_parser("unlink-batch-project", help="解除批次与项目的关联")
+    p.add_argument("--batch-id", required=True)
+    p.add_argument("--project-id", type=int, required=True)
+    p.set_defaults(func=cmd_unlink_batch_project)
 
     return ap
 

@@ -31,26 +31,25 @@
 > 不收录错字或推测名。`upsert-project` 先按 `project_name` 精确匹配，再按 `aliases` 精确匹配；
 > 一个名字命中多个项目时直接报错，由 Agent 判断归属，不静默选取。
 
+> **来源与完整性**：项目有两个入口——年度/季度计划表（`projects_pipeline`，只有进了计划的盘）
+> 和公告抽建（配售通告、选房结果公示里的项目名）。配售型楼盘不在公共住房建设筹集口径里，
+> 所以计划表不可能覆盖全。公告里出现、库里没有的盘，**直接建行，地址/开发商/规划套数可空**，
+> 之后遇到新公告再补；不要因为字段不齐就不建，也不要用近似名去顶替。
+
 ---
 
 ### 2. `batches`：推售批次业务台账
-记录每一次面向社会的具体配售活动（一期、二期、常态化批次等），通过 `project_id` 关联物理项目。
+记录每一次面向社会的具体配售活动（一期、二期、常态化批次等），通过 `batch_id` 与物理项目建立关联。
+
+> `batches` 只描述**批次过程**（公告链、认购窗口、销售方式、阶段）。房源量（套数、户型、均价）
+> 属于「批次 × 楼盘」，一律记在 `batch_projects`，不在这里保留汇总副本，避免多项目批次出现两份数字。
 
 | 字段名 | 类型 | 说明 | 示例 |
 | :--- | :--- | :--- | :--- |
 | `batch_id` | TEXT PRIMARY KEY | 官方推售文号主键 | `'住保售〔2026〕083号批次'` |
-| `project_id` | INTEGER NOT NULL | 外键关联 `projects.id` | `1` |
 | `city` | TEXT NOT NULL | 所在城市 | `'深圳'` |
-| `district` | TEXT | 主管辖区 | `'市住建局'`, `'龙华区'` |
-| `batch_seq` | INTEGER | 该项目的第几次推售 | `1, 2, 3` |
-| `housing_type` | TEXT | 房源类型 | `'人才配售房'`, `'安居型商品房'` |
-| `total_units` | INTEGER | 本次推售总套数 | `433` |
-| `one_bedroom_units` | INTEGER | 一房套数（独立整数列） | `NULL` |
-| `two_bedroom_units` | INTEGER | 两房套数（独立整数列） | `NULL` |
-| `three_bedroom_units` | INTEGER | 三房套数（独立整数列） | `433` |
-| `four_bedroom_units` | INTEGER | 四房套数（独立整数列） | `NULL` |
-| `other_units` | INTEGER | 其他户型套数 | `NULL` |
-| `average_price` | REAL | 配售均价（元/㎡） | `39600.0` |
+| `district` | TEXT | 主管辖区（发布机构） | `'市住建局'`, `'龙华区'` |
+| `housing_type` | TEXT | 本批次房源类型 | `'人才配售房'`, `'安居型商品房'` |
 | `deposit_amount` | REAL | 认购订金（元） | `20000.0` |
 | `sales_mode` | TEXT | 销售模式 | `'公证摇号'`, `'常态化即时配售'` |
 | `has_regular_sales_exit`| INTEGER | 是否具备常态化出口（1有，0无） | `1` |
@@ -61,6 +60,32 @@
 | `sub_end_date` | TEXT | 认购截止时间 | `'2026-10-08'` |
 | `current_stage` | TEXT | 当前生命周期阶段（状态机推进） | `'常态化配售中'` |
 | `notices_json` | TEXT | 该批次关联的全生命周期公文链 | `[{"stage":"认购通告","title":"...","date":"2026-09-28"}]` |
+
+#### 2.1 `batch_projects`：批次内每个楼盘的房源（多对多 + 房源明细）
+一个批次可推售多个楼盘，套数/户型/均价都按楼盘各自登记（如 076 批次：宝翠雅苑 65 套 18586.32、
+宝澜雅苑 1 套 18554.94、宝锦华庭 18 套 19230.92）。公告原文也是按项目分段写的，没有批次级"主项目"。
+
+| 字段名 | 类型 | 说明 |
+| :--- | :--- | :--- |
+| `batch_id` | TEXT | 外键 `batches.batch_id`，联合主键 |
+| `project_id` | INTEGER | 外键 `projects.id`，联合主键 |
+| `batch_seq` | INTEGER | 该楼盘第几次推售（同一批次里各盘可能不同） |
+| `units` | INTEGER | 该项目在本批次的套数 |
+| `one_bedroom_units` | INTEGER | 一房套数 |
+| `two_bedroom_units` | INTEGER | 两房套数 |
+| `three_bedroom_units` | INTEGER | 三房套数 |
+| `four_bedroom_units` | INTEGER | 四房套数 |
+| `other_units` | INTEGER | 其他户型套数 |
+| `average_price` | REAL | 该项目在本批次的配售均价（元/㎡） |
+
+*约束*: `PRIMARY KEY(batch_id, project_id)`；一个批次可挂 0~N 个楼盘
+
+> 写入：`upsert-batch --project-id` 先建批次并登记一条关联；`link-batch-project` 追加其余楼盘，
+> 同时用 `--units / --two-bedroom-units / --average-price / --batch-seq` 登记该盘房源；
+> `unlink-batch-project` 解除关联。
+>
+> 批次总套数用汇总查询：`SELECT SUM(units) FROM batch_projects WHERE batch_id = ?`；
+> 多项目混价时没有单一均价，逐项目取 `batch_projects.average_price`。
 
 ---
 

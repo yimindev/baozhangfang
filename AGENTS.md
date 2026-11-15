@@ -28,8 +28,11 @@
 
 ## 数据模型要点
 
-`schema.py` 定义 5 张表：`projects`（物理楼盘，按 `(city, project_name)` 唯一，`aliases` 存官方异名 JSON 数组）、`batches`（推售批次，主键 `batch_id`）、`notices`（公文流水，`url` 唯一）、`policies`（政策法规）、`applications`（申购家庭，含 PII）。
+`schema.py` 定义 6 张表：`projects`（物理楼盘，按 `(city, project_name)` 唯一，`aliases` 存官方异名 JSON 数组）、`batches`（推售批次过程：公告链、认购窗口、销售方式、阶段，主键 `batch_id`）、`batch_projects`（批次内每个楼盘的房源：套数、户型、均价、该盘第几次推售）、`notices`（公文流水，`url` 唯一）、`policies`（政策法规）、`applications`（申购家庭，含 PII）。
 `seed.sql` 另带历史表 `households` / `members`（PII，仅保留结构）与 `projects_pipeline`（历史管线数据，`schema.py` 未定义，改动前先确认影响面）。
+
+项目来源有两条路：计划表（`projects_pipeline` → `projects`）与公告抽建。配售型楼盘不在公共住房建设筹集口径，
+计划表不可能覆盖全；公告里出现、库里没有的盘直接建行，地址/开发商/规划套数可空，后续再补。
 
 批次阶段单向推进、不降级：
 

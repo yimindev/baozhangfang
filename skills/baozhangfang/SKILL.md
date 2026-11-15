@@ -57,24 +57,31 @@ skills/baozhangfang/
 常用查询：
 
 ```sql
--- 某项目所有批次
-SELECT p.project_name, p.district, b.batch_id, b.total_units, b.two_bedroom_units,
-       b.three_bedroom_units, b.average_price, b.current_stage, b.sales_mode, b.consultation_phone
-FROM projects p LEFT JOIN batches b ON p.id = b.project_id
+-- 某项目所有批次（多项目批次也能命中）
+SELECT p.project_name, p.district, b.batch_id, bp.units, bp.two_bedroom_units,
+       bp.three_bedroom_units, bp.average_price AS price,
+       b.current_stage, b.sales_mode, b.consultation_phone
+FROM projects p
+JOIN batch_projects bp ON bp.project_id = p.id
+JOIN batches b ON b.batch_id = bp.batch_id
 WHERE p.project_name LIKE '%华越龙苑%' ORDER BY b.batch_id DESC;
 
 -- 常态化即时配售（可现场交定金）
-SELECT p.project_name, p.district, b.batch_id, b.total_units, b.average_price,
+SELECT p.project_name, p.district, b.batch_id, bp.units, bp.average_price,
        b.current_stage, b.reception_location, b.consultation_phone
-FROM batches b JOIN projects p ON b.project_id = p.id
+FROM batches b
+JOIN batch_projects bp ON bp.batch_id = b.batch_id
+JOIN projects p ON p.id = bp.project_id
 WHERE b.has_regular_sales_exit = 1 OR b.current_stage = '常态化配售中'
-ORDER BY p.district, b.average_price;
+ORDER BY p.district, bp.average_price;
 
 -- 户型与预算筛选
-SELECT p.project_name, p.district, b.three_bedroom_units, b.average_price, b.current_stage, p.address
-FROM batches b JOIN projects p ON b.project_id = p.id
-WHERE p.district IN ('南山区','宝安区') AND b.three_bedroom_units > 0 AND b.average_price <= 40000
-ORDER BY b.average_price;
+SELECT p.project_name, p.district, bp.three_bedroom_units, bp.average_price, b.current_stage, p.address
+FROM batch_projects bp
+JOIN batches b ON b.batch_id = bp.batch_id
+JOIN projects p ON p.id = bp.project_id
+WHERE p.district IN ('南山区','宝安区') AND bp.three_bedroom_units > 0 AND bp.average_price <= 40000
+ORDER BY bp.average_price;
 ```
 
 回答规范：区分「公证集中摇号」与「常态化现场即时选房」；给全项目名、批次文号、阶段、户型套数、
@@ -104,7 +111,13 @@ python3 <SKILL_DIR>/scripts/fetch_detail.py --url-file /tmp/todo_urls.txt --save
 # 6) Agent 读正文抽要素，按 project → batch → notice → timeline 顺序写入
 python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name <项目名> --district <区> \
         --aliases "<官方异名>"   # 可选；写入前先按项目名/别名查重
-python3 <SKILL_DIR>/scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕083号批次" --project-id <id> --current-stage 认购中
+python3 <SKILL_DIR>/scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕083号批次" --project-id <id> \
+        --current-stage 认购中 --sub-start-date 2026-09-28 --sub-end-date 2026-10-08
+# 一批次多楼盘时，逐个挂上并登记该盘在本批次的房源
+python3 <SKILL_DIR>/scripts/db_io.py link-batch-project --batch-id "住保售〔2026〕076号批次" \
+        --project-id 244 --batch-seq 3 --units 65 --three-bedroom-units 65 --average-price 18586.32
+python3 <SKILL_DIR>/scripts/db_io.py link-batch-project --batch-id "住保售〔2026〕076号批次" \
+        --project-id 245 --batch-seq 3 --units 1 --three-bedroom-units 1 --average-price 18554.94
 python3 <SKILL_DIR>/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-09 \
         --district 市住建局 --category 初审名单 --batch-id "住保售〔2026〕083号批次" --content-file /tmp/b1.txt
 python3 <SKILL_DIR>/scripts/db_io.py append-timeline --batch-id "住保售〔2026〕083号批次" --stage 初审名单 \
@@ -121,6 +134,7 @@ python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳
 
 - **列表不做关键词过滤**：脚本抓全，Agent 判相关性；模糊标题先抓正文再定。
 - **套数/价格/电话以正文为准**，附件表格可用 `--tables` 辅助核对；找不到就留空，不凑数。
+- **多项目批次**：一个批次可推售多个楼盘，套数/户型/均价按楼盘记在 `batch_projects`；`batches` 只存批次过程信息（公告链、认购窗口、阶段）。
 - **批次文号规范化** `住保售〔YYYY〕NNN号批次`（序号补零三位）；`住保租〔…〕` 是配租，不进 `batches`。
 - **状态机单向不降级**：新通告权重 ≤ 当前权重时只追加时间线事件，不改 `current_stage`。
 - **全部写入幂等**：通知按 `district + 归一化标题 + publish_date` → `url` 两级去重，批次按 `batch_id`、项目按 `(city, project_name)`，可放心重跑。

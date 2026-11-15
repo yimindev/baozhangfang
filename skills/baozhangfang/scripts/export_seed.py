@@ -44,7 +44,7 @@ def export_seed() -> None:
             f.write(line + "\n")
 
     stats = []
-    for tbl in ["projects", "batches", "notices", "policies"]:
+    for tbl in ["projects", "batches", "batch_projects", "notices", "policies"]:
         if tbl in existing:
             stats.append(f"{tbl}={cur.execute(f'SELECT COUNT(*) FROM {tbl}').fetchone()[0]}")
     mem.close()

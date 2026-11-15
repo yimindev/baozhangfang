@@ -20,10 +20,10 @@ SEED_PATH = DATA_DIR / "seed.sql"
 
 
 def _migrate(conn: sqlite3.Connection) -> None:
-    """为旧库补齐结构（清单在 schema.py，幂等且只 ADD COLUMN）。"""
-    from schema import ensure_columns  # 延迟导入，避免与 schema.py 循环依赖
+    """为旧库补齐结构（清单在 schema.py，幂等）：新增表建表、主项目回填、缺失列补齐。"""
+    from schema import ensure_schema  # 延迟导入，避免与 schema.py 循环依赖
 
-    ensure_columns(conn)
+    ensure_schema(conn)
 
 
 def bootstrap(force: bool = False) -> Path:

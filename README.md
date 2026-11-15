@@ -6,10 +6,11 @@
 
 | 数据 | 规模 | 内容 |
 | :-- | :-- | :-- |
-| `projects` 项目 | 84 | 楼盘基础信息：区域、地址、户型、规划套数 |
-| `batches` 批次 | 40 | 每次推售的套数与户型、配售均价、当前阶段、接待点与咨询电话 |
-| `notices` 公文 | 3000+ | 认购、初审/终审公示、摇号、选房等公告原文与官方链接 |
-| `policies` 政策 | 35 | 保障性住房条例、配售型保障房管理办法等全文 |
+| `projects` 项目 | 101 | 楼盘基础信息：区域、地址、户型、规划套数 |
+| `batches` 批次 | 101 | 每次推售的认购窗口、销售方式、当前阶段、接待点与咨询电话 |
+| `batch_projects` 批次房源 | 117 | 一个批次可含多个楼盘，逐项目记套数、户型与均价 |
+| `notices` 公文 | 3500+ | 认购、初审/终审公示、摇号、选房等公告原文与官方链接 |
+| `policies` 政策 | 37 | 保障性住房条例、配售型保障房管理办法等全文 |
 
 覆盖房源类型：人才配售房、安居型商品房、共有产权住房、配售型保障房、公共租赁住房。
 
@@ -28,8 +29,10 @@ python3 skills/baozhangfang/scripts/db.py     # 由 seed.sql 生成 data/housing
 
 # 查某个楼盘的批次、套数、均价、阶段
 sqlite3 -header -column skills/baozhangfang/data/housing.db "
-SELECT p.project_name, p.district, b.batch_id, b.total_units, b.average_price, b.current_stage
-FROM projects p JOIN batches b ON p.id = b.project_id
+SELECT p.project_name, p.district, b.batch_id, bp.units, bp.average_price, b.current_stage
+FROM projects p
+JOIN batch_projects bp ON bp.project_id = p.id
+JOIN batches b ON b.batch_id = bp.batch_id
 WHERE p.project_name LIKE '%华越龙苑%';"
 ```
 
