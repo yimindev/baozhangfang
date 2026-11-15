@@ -57,7 +57,7 @@ SELECT
     b.consultation_phone AS 咨询电话
 FROM projects p
 LEFT JOIN batches b ON p.id = b.project_id
-WHERE p.project_name LIKE '%华越龙苑%'
+WHERE p.project_name LIKE '%华越龙苑%' OR p.aliases LIKE '%华越龙苑%'
 ORDER BY b.batch_id DESC;
 ```
 
@@ -77,6 +77,16 @@ JOIN projects p ON b.project_id = p.id
 WHERE b.current_stage IN ('认购中', '选房签约中', '常态化配售中', '公证摇号')
 ORDER BY b.sub_start_date DESC;
 ```
+
+### 2.3 按别名/异名找项目（如公告写“家园”、项目库写“花园”）
+```sql
+SELECT id, project_name, district, aliases, developer
+FROM projects
+WHERE project_name LIKE '%小梅沙%' OR aliases LIKE '%小梅沙%';
+```
+
+> `aliases` 是 JSON 数组文本，查询用 `LIKE '%关键词%'` 即可；写入用
+> `db_io.py upsert-project --name 标准名 --aliases "异名1,异名2"`。
 
 ---
 
@@ -261,7 +271,50 @@ HAVING c > 1
 ORDER BY c DESC;
 ```
 
-### 8.4 同一公告的多个 URL（UI / gkmlpt 并存）
+同名但日期不同：可能是多源重复（日期漂移），也可能是轮候公示、补贴名单、季度退出表这类周期性新一期，需看正文判断。
+经验：间隔 1–2 天的几乎都是重复，间隔 ≥10 天的多为新一期。
+
+```sql
+SELECT district, title, COUNT(*) AS c, GROUP_CONCAT(publish_date) AS dates
+FROM notices
+GROUP BY district, title
+HAVING COUNT(DISTINCT publish_date) > 1
+ORDER BY c DESC;
+```
+
+> 入库时不设天数容差：`publish_date` 一律取列表日期，`diff` 与 `upsert-notice` 均按「同区 + 同一化标题 + 同日」精确比对。
+
+### 8.4 项目与批次脏数据巡检（结果应为空或已解释）
+```sql
+-- ① 项目名像正文片段（被正则吞了前缀）
+SELECT id, project_name FROM projects
+WHERE project_name GLOB '现*' OR project_name GLOB '关于*' OR project_name GLOB '决定*'
+   OR project_name LIKE '%通知%' OR project_name LIKE '%通告%'
+   OR LENGTH(project_name) > 25;
+
+-- ② 去掉“项目/（...）”后重名，疑似同一实体两行
+SELECT REPLACE(project_name, '项目', '') AS 归一化名, COUNT(*) AS c,
+       GROUP_CONCAT(id || ':' || project_name, ' | ') AS 行
+FROM projects
+GROUP BY 归一化名
+HAVING c > 1;
+
+-- ③ 批次挂到了别的区的项目（市级/保障署除外）
+SELECT b.batch_id, b.district AS 批次主管, p.id, p.project_name, p.district AS 项目所在区
+FROM batches b JOIN projects p ON b.project_id = p.id
+WHERE b.district NOT IN ('市住建局', '市住房保障署') AND b.district <> p.district;
+
+-- ④ 公文引用了不存在的批次（历史缺口）
+SELECT n.batch_id, COUNT(*) AS c
+FROM notices n LEFT JOIN batches b ON n.batch_id = b.batch_id
+WHERE n.batch_id IS NOT NULL AND n.batch_id <> '' AND b.batch_id IS NULL
+GROUP BY n.batch_id ORDER BY c DESC;
+```
+
+> 处理原则：能确定的（文号格式、区划）按规则修；归属有歧义的先查正文与近似项目，
+> 仍不确定就停下来报给用户，不要凭猜测 UPDATE。
+
+### 8.5 同一公告的多个 URL（UI / gkmlpt 并存）
 ```sql
 SELECT title, publish_date, COUNT(*) AS c, GROUP_CONCAT(url, ' | ') AS urls
 FROM notices
@@ -269,7 +322,7 @@ GROUP BY title, publish_date
 HAVING c > 1;
 ```
 
-### 8.5 无归属批次的公文占比（孤儿检查）
+### 8.6 无归属批次的公文占比（孤儿检查）
 ```sql
 SELECT
   SUM(CASE WHEN batch_id IS NULL OR batch_id = '' THEN 1 ELSE 0 END) AS 无批次,

@@ -22,9 +22,14 @@
 | `planned_area` | REAL | 规划总建筑面积（万㎡） | `15.0` |
 | `address` | TEXT | 物理具体地址 | `'龙华区民治街道新牛社区'` |
 | `status` | TEXT | 工程/大盘状态 | `'配售中'`, `'计划竣工/在建'` |
+| `aliases` | TEXT | 官方异名/历史名（JSON 字符串数组），用于同一实体匹配 | `["小梅沙湾畔家园"]` |
 | `notices_json` | TEXT | 物理项目关联宏观公文（如规划审批） | `JSON 数组` |
 
 *约束*: `UNIQUE(city, project_name)`
+
+> `aliases` 只记录**官方来源确实使用过**的异名（不同年份公告、项目库与年度计划用字不同），
+> 不收录错字或推测名。`upsert-project` 先按 `project_name` 精确匹配，再按 `aliases` 精确匹配；
+> 一个名字命中多个项目时直接报错，由 Agent 判断归属，不静默选取。
 
 ---
 
@@ -141,9 +146,11 @@
 
 ---
 
-> `notices` 去重口径：优先 `district + title + publish_date`，其次 `url` 兜底。
+> `notices` 去重口径：优先 `district + 归一化标题 + publish_date`，其次 `url` 兜底。
+> 标题同一化仅用于比对（全半角 / 括号 / 空白），库内保留原文；`publish_date` 一律取列表日期。
 > 同一公告在 UI 与 gkmlpt 的 URL 不同时只保留一条，`upsert-notice` 会把旧的非 gkmlpt URL
-> 升级为 gkmlpt 直链。历史数据中的重复可用 `query_cheatsheet.md` 的巡检 SQL 排查。
+> 升级为 gkmlpt 直链。历史数据中的重复、以及同名不同日期（日期漂移）的候选，
+> 用 `query_cheatsheet.md` 8.3 的巡检 SQL 排查。
 
 ---
 

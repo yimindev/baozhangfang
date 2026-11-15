@@ -30,7 +30,7 @@ python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --pages 1-3 --since 2026
 python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --channel policies --summary
 python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --source sz_longgang --summary   # 显式指定可抓旧源
 
-# ③ 差集（按 URL 或 district+title+publish_date 判定已入库）
+# ③ 差集（按 URL 或 district+归一化标题+publish_date 判定已入库）
 python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json
 python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json --format lines   # 只列 new
 python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --input /tmp/policies.json
@@ -40,8 +40,9 @@ python3 <SKILL_DIR>/scripts/db_io.py known-urls --city 深圳 --since 2026-10-01
 python3 <SKILL_DIR>/scripts/fetch_detail.py --url-file /tmp/todo_urls.txt --save-dir /tmp/bf_html
 python3 <SKILL_DIR>/scripts/fetch_detail.py <url> --tables
 
-# ⑤ 写库（全部参数化；通知按 district+title+publish_date → url 两级去重）
-python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name 星河开市客环球商业中心 --district 龙华区
+# ⑤ 写库（全部参数化；通知按 district+归一化标题+publish_date → url 两级去重）
+python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name 星河开市客环球商业中心 --district 龙华区 \
+        --aliases "星河开市客"   # 可选：记录官方异名，避免下次同实体再建一行
 python3 <SKILL_DIR>/scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕054号批次" --project-id 84 \
         --total-units 300 --three-bedroom-units 300 --average-price 28000 --current-stage 选房签约中
 python3 <SKILL_DIR>/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-10 \
@@ -76,9 +77,17 @@ python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳
 ### Step 3 差集
 用 `db_io.py diff --input /tmp/todo.json` 直接分为 `new` / `known`：
 
-1. 通知：按 `district + title + publish_date` 判定；政策：按 `city + title + publish_date` 判定（政策表无 district）；
+1. 通知：按 `district + 归一化标题 + publish_date` 判定；政策：按 `city + 归一化标题 + publish_date` 判定（政策表无 district）；
 2. 再按 `url` 兜底；
 3. 只有 `new` 才需要抓正文与写库。
+
+**比对字段的口径（不要自行发挥）：**
+
+- `publish_date` **一律取 `fetch_list` 返回的列表日期**，不要用 `fetch_detail` 的正文/页面日期覆盖；两者不一致时以列表为准。
+- 标题只做机械同一化（全半角、中英文括号、空白），不做模糊匹配、不做文号映射、不设天数容差；同一化只在比对时生效，库内标题保持原文。
+- `--date` 是 `upsert-notice` 的必填参数，入库前统一规范为 `YYYY-MM-DD`（接受 `2026/11/13`、`2026年11月13日` 等常见写法）；缺失或无法解析会直接报错，不会静默写入。
+- `diff` 遇到缺 `url/title/date/district` 的条目会在 stderr 给 `[warn]`，并保守地按 `new` 处理；先补抓或跳过，不要直接写库。
+- 因此同名但日期不同的公告会被判为 `new`：如果是多源重复，靠巡检 SQL（见 `query_cheatsheet.md` 8.3）发现后人工处理，不要为此放宽比对规则。
 
 同一条公告/政策在 UI 与 gkmlpt 的 URL 不同时，只保留一条；`upsert-notice` / `upsert-policy`
 会自动把旧的非 gkmlpt URL 升级为 gkmlpt URL，并返回 `matched_by` 与 `url_replaced`，便于核对。
@@ -111,6 +120,8 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 ### Step 6 从正文抽要素
 按 `batches` 表字段清单逐项找，**找不到就留空，不要凑数**：
 
+> `notices.publish_date` 不从这里抽：一律用 `fetch_list` 的列表日期；`fetch_detail` 返回的页面/正文日期仅作参考，不写库。
+
 | 要素 | 常见表述 | 坑 |
 | :--- | :--- | :--- |
 | 总套数 | 房源合计/共提供房源 N 套 | 注意区分"本批次"与"项目累计" |
@@ -123,8 +134,17 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 | 常态化出口 | "剩余房源实行常态化配售"/"现场认购、即时选房" | 命中则 `has_regular_sales_exit=1` |
 
 ### Step 7 判断归属：项目 → 批次
-- **项目**：取正文里的标准项目名（"XX 项目""XX 花园/苑/府/城/大厦"）。库里已有则复用，
-  没有就先 `upsert-project` 建档（district 必填）。**不要**把区住建局、保障署当项目名。
+- **项目**：取正文里的标准项目名（"XX 项目""XX 花园/苑/府/城/大厦"）。写入前先查库：
+  ```sql
+  SELECT id, project_name, district, aliases FROM projects
+  WHERE project_name LIKE '%关键词%' OR aliases LIKE '%关键词%';
+  ```
+  命中唯一实体就复用（`--project-name` 也会匹配 `aliases`）；公告用字与标准名不同时，
+  把异名登记进 `--aliases`，不要为它新建一行。**不要**把区住建局、保障署当项目名。
+- **歧义就停**：一条公告出现多个候选项目、或一个异名命中多行时，记下候选与依据并向用户确认，
+  不要按"看起来最像"写入。`upsert-project` / `upsert-batch` 遇到多重命中会直接报错退出。
+- **不要猜**：抽不出项目名时，`notices.project_id` 留空、批次暂挂主项目或不建，
+  等人工确认后补；禁止用 `project_id=1` 之类的默认值占位。
 - **批次**：以官方文号为准，规范化为 `住保售〔YYYY〕NNN号批次`（序号**补零三位**）。
   - `住保租〔YYYY〕NNN号` 属于**配租**，不进 `batches`（配售台账），只记 `notices`。
   - 同一项目多次推售（如 043 → 073 → 083）是**不同批次**，不要合并。
@@ -138,8 +158,9 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 4. `append-timeline`（把该公文事件的 stage/title/date/url 追加到批次时间线）
 5. 若为政策法规，则直接执行 `upsert-policy`
 
-`upsert-notice` 按 `district + title + publish_date` 优先去重，再按 URL 兜底，重复执行不会新增记录；
-命中标题+日期时，会更新正文/附件，并在旧 URL 不是 gkmlpt 时升级为 gkmlpt 直链。
+`upsert-notice` 按 `district + 归一化标题 + publish_date` 优先去重，再按 URL 兜底，重复执行不会新增记录；
+命中同区同标题同日时，会更新正文/附件，并在旧 URL 不是 gkmlpt 时升级为 gkmlpt 直链；
+`--date` 必填，入库前统一规范为 `YYYY-MM-DD`。
 
 ### Step 9 状态机推进（单向不降级）
 ```
@@ -188,6 +209,8 @@ python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳 --include-disabled   
 - ❌ 在脚本里加 `HOUSING_KEYWORDS` 之类的关键词白名单来决定抓什么——关键词会漏掉新表述，判断权属于 Agent。
 - ❌ 用正则硬猜批次号/项目名后直接入库——猜错会污染台账（历史事故：`住保租` 被当成配售批次、
   `星河开市客` 被挂到"文化创意园"、`光盘2套` 被当成三房套数）。
+- ❌ 给不确定的值设默认兜底（`project_id` 默认 1、项目名取最近似、阶段取最高权重）——
+  宁可报错/留空让 Agent 决策，也不要静默写一个看起来合理的错值。
 - ❌ 一条公文挂多个批次，或把派生通知单独建批次。
 - ❌ 因为“今天没抓到”就断言“官方没发”——先排查空源与页面改版。
 - ❌ 只靠城市级 `MAX(publish_date)` 判断所有区都同步完成——按源看 `fetch_list --summary` 与 `diff`，定期用 `audit_sources` 复核。

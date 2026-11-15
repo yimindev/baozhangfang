@@ -93,7 +93,7 @@ python3 <SKILL_DIR>/scripts/db_io.py latest --city 深圳
 # 2) 宽松抓列表：所有启用源第1页，不过滤关键词；--summary 先看源健康度
 python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --pages 1 --out /tmp/todo.json --summary
 
-# 3) 与库内做差集：district+title+publish_date 优先，url 兜底
+# 3) 与库内做差集：district+归一化标题+publish_date 优先，url 兜底
 python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json --format lines
 
 # 4) Agent 判断：哪些相关 / 哪些需要全文 → 列出待抓 URL
@@ -102,7 +102,8 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json -
 python3 <SKILL_DIR>/scripts/fetch_detail.py --url-file /tmp/todo_urls.txt --save-dir /tmp/bf_html
 
 # 6) Agent 读正文抽要素，按 project → batch → notice → timeline 顺序写入
-python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name <项目名> --district <区>
+python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name <项目名> --district <区> \
+        --aliases "<官方异名>"   # 可选；写入前先按项目名/别名查重
 python3 <SKILL_DIR>/scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕083号批次" --project-id <id> --current-stage 认购中
 python3 <SKILL_DIR>/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-09 \
         --district 市住建局 --category 初审名单 --batch-id "住保售〔2026〕083号批次" --content-file /tmp/b1.txt
@@ -122,7 +123,9 @@ python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳
 - **套数/价格/电话以正文为准**，附件表格可用 `--tables` 辅助核对；找不到就留空，不凑数。
 - **批次文号规范化** `住保售〔YYYY〕NNN号批次`（序号补零三位）；`住保租〔…〕` 是配租，不进 `batches`。
 - **状态机单向不降级**：新通告权重 ≤ 当前权重时只追加时间线事件，不改 `current_stage`。
-- **全部写入幂等**：通知按 `district + title + publish_date` → `url` 两级去重，批次按 `batch_id`、项目按 `(city, project_name)`，可放心重跑。
+- **全部写入幂等**：通知按 `district + 归一化标题 + publish_date` → `url` 两级去重，批次按 `batch_id`、项目按 `(city, project_name)`，可放心重跑。
+- **项目别名**：同一实体的官方异名（如「小梅沙湾畔花园 / 家园」）写进 `projects.aliases`（JSON 数组），`upsert-project`/`upsert-batch` 会先比标准名、再比别名；命中多个项目直接报错，由 Agent 确认，不猜。
+- **日期只取列表日期**：`publish_date` 一律用 `fetch_list` 返回的 `date`，不用正文页面日期覆盖；`upsert-notice --date` 必填，入库前统一规范为 `YYYY-MM-DD`。标题比对只做全半角/括号/空白同一化，不做模糊匹配与天数容差。
 - **diff 驱动**：不维护独立水位线；每次抓最近 1–2 页，用 `diff` 判定 new/known，回填也不会被游标跳过。
 - **旧源先禁用、验证后再定**：默认 `role: legacy` + `enabled: false`；若对比发现旧源仍有独有住房公告，改为 `role: auxiliary` + `enabled: true` 长期补充。
 
