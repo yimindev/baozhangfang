@@ -138,6 +138,24 @@ https://{站点}/gkmlpt/api/all/{cat_id}?page={page}&m=5
    不要为了“配置干净”牺牲数据覆盖。
 7. **记录结论**：把源映射、cat_id、切换日期、验证批次写进 `SOURCE_REVIEW.md` 或任务记录。
 
+### 全站对照法（找“堂兄弟”栏目的漏配）
+
+只检查父/兄弟栏目会漏掉相邻分支（如宝安 `5445` 与 `22387` 同属住建局但父节点不同）。
+用 `api/all/0` 做站点级对照：它等于前端 `index` 无 hash 时的“全部”视图，
+返回体没有 `classify` 字段，`total` 是该站点公开目录总数，100 条/页（`m` 参数被忽略）。
+
+```bash
+# 取站点最近 300 条 → 按住房关键词筛 → 尚未入库的条目按 classify_main_name 归类
+curl -s '<站点前缀>/gkmlpt/api/all/0?page=1' | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d["total"]); print(d["articles"][0]["title"])'
+```
+
+判据：缺失条目集中在某个 `classify_main`，且该 cat_id 既不是当前源的祖先也不是后代 → 该栏目需要新增或启用源。
+注意 `api/all/0` 混有工作动态、机构领导、财政预决算等噪声，只看住房相关条目。
+
+**父聚合只覆盖自己的子树**：宝安 `22353` 严格包含 `22387`（457 ⊆ 470，多出的 13 条是燃气/造价公告），
+但住建局的综合公告在另一棵树 `22362 → 5445`，与两者交集为 0。
+判断某部门是否配全，按「站点 + 发布部门」算，而不是只看一个父节点。
+
 ```bash
 # 新源与旧源并排抓取对比（显式指定 --source 时包含已禁用源）
 python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --source sz_nanshan_zf --source sz_nanshan \

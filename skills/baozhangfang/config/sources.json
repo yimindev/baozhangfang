@@ -92,7 +92,7 @@
           "cat_id": 22387,
           "entry_url": "https://www.baoan.gov.cn/bajshej/gkmlpt/index#22353",
           "api": "https://www.baoan.gov.cn/bajshej/gkmlpt/api/all/22387?page={page}&m=5",
-          "description": "住建局住房保障父聚合（覆盖 22388~22394），配售全流程公告主源"
+          "description": "住建局住房保障父聚合（覆盖 22388~22394），配售全流程公告主源；22353 政务服务是它的上级且严格包含它（仅多 13 条燃气/造价公告），故不入库 22353"
         },
         {
           "source_id": "sz_baoan_zfbz",
@@ -114,11 +114,11 @@
           "name": "宝安区住房和建设局（通知公告·补充）",
           "type": "gkmlpt",
           "role": "auxiliary",
-          "enabled": false,
+          "enabled": true,
           "cat_id": 5445,
           "entry_url": "https://www.baoan.gov.cn/bajshej/gkmlpt/index#5445",
           "api": "https://www.baoan.gov.cn/bajshej/gkmlpt/api/all/5445?page={page}&m=5",
-          "description": "与 22387 大量重叠，仅保留少量保租房原始阶段；默认关闭，按需开启"
+          "description": "住建局综合通知公告（挂在「其他法定公开内容」下），与 22387 交集为 0；独有逐月廉租补贴、公租房轮候核查、住保租〔2026〕023 系列选房/认租等 104 条住房公告"
         },
         {
           "source_id": "sz_baoan",
@@ -138,14 +138,28 @@
           "source_id": "sz_longgang_zfbz",
           "level": "district",
           "district": "龙岗区",
-          "name": "龙岗区住房和建设局（住房保障信息）",
+          "name": "龙岗区住房和建设局（重点领域·住房保障父聚合）",
           "type": "gkmlpt",
           "role": "primary",
           "enabled": true,
+          "cat_id": 23897,
+          "entry_url": "https://www.lg.gov.cn/lgzjj/gkmlpt/index#23897",
+          "api": "https://www.lg.gov.cn/lgzjj/gkmlpt/api/all/23897?page={page}&m=5",
+          "description": "重点领域父聚合（23898 住房保障政策 + 23900 分配和退出 + 23901 网上申请 + 23902 住房保障信息），子栏目 total 合计与父栏目一致；替代原先只配 23902 导致的公租房/保租房/补贴公告漏抓"
+        },
+        {
+          "source_id": "sz_longgang_zfbz_info",
+          "level": "district",
+          "district": "龙岗区",
+          "name": "龙岗区住房和建设局（住房保障信息·旧）",
+          "type": "gkmlpt",
+          "role": "legacy",
+          "enabled": false,
+          "replaced_by": "sz_longgang_zfbz",
           "cat_id": 23902,
           "entry_url": "https://www.lg.gov.cn/lgzjj/gkmlpt/index#23902",
           "api": "https://www.lg.gov.cn/lgzjj/gkmlpt/api/all/23902?page={page}&m=5",
-          "description": "龙岗区住房保障信息专栏目，配售批次与保障房公告主源"
+          "description": "原主源，仅覆盖安居型商品房配售系列；已被 23897 父聚合完全覆盖，保留用于回滚与差异对比"
         },
         {
           "source_id": "sz_longgang",
@@ -158,7 +172,7 @@
           "cat_id": 6622,
           "entry_url": "https://www.lg.gov.cn/lgzjj/gkmlpt/index#6622",
           "api": "https://www.lg.gov.cn/lgzjj/gkmlpt/api/all/6622?page={page}&m=5",
-          "description": "补充 23902 未覆盖的季度廉租补贴公示、廉租住房补贴标准等；与主源按标题+日期去重"
+          "description": "补充 23897 父聚合未覆盖的季度廉租补贴公示、廉租住房补贴标准等；与主源按标题+日期去重"
         },
         {
           "source_id": "sz_longhua",
