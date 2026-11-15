@@ -304,7 +304,7 @@ SELECT b.batch_id, b.district AS 批次主管, p.id, p.project_name, p.district 
 FROM batches b JOIN projects p ON b.project_id = p.id
 WHERE b.district NOT IN ('市住建局', '市住房保障署') AND b.district <> p.district;
 
--- ④ 公文引用了不存在的批次（历史缺口）
+-- ④ 公文引用了不存在的批次（应为空）
 SELECT n.batch_id, COUNT(*) AS c
 FROM notices n LEFT JOIN batches b ON n.batch_id = b.batch_id
 WHERE n.batch_id IS NOT NULL AND n.batch_id <> '' AND b.batch_id IS NULL
