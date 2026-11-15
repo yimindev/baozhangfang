@@ -7,6 +7,7 @@ schema.py - 自包含保障房 SQLite 数据库 DDL 建表与重置脚本
 
 import sqlite3
 import argparse
+import sys
 from pathlib import Path
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
@@ -27,6 +28,7 @@ SQL_TABLES = [
         planned_area REAL,
         address TEXT,
         status TEXT,
+        aliases TEXT,
         notices_json TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -130,6 +132,27 @@ SQL_TABLES = [
     """,
 ]
 
+# 旧库补列（幂等，仅 ADD COLUMN，不改写数据）；新增字段时在此登记
+COLUMN_MIGRATIONS = [
+    ("projects", "aliases", "TEXT"),
+]
+
+
+def ensure_columns(conn: sqlite3.Connection) -> list[str]:
+    """为旧版本运行库补齐缺失列；表不存在时跳过（建表由 init_db 负责）。"""
+    added = []
+    for table, column, decl in COLUMN_MIGRATIONS:
+        existing = {row[1] for row in conn.execute(f"PRAGMA table_info({table})")}
+        if not existing or column in existing:
+            continue
+        conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {decl}")
+        added.append(f"{table}.{column}")
+    if added:
+        conn.commit()
+        print(f"[*] 已迁移表结构: {', '.join(added)}", file=sys.stderr)
+    return added
+
+
 INDEXES = [
     "CREATE INDEX IF NOT EXISTS idx_proj_city_dist ON projects (city, district);",
     "CREATE INDEX IF NOT EXISTS idx_batch_proj_id ON batches (project_id);",
@@ -155,6 +178,7 @@ def init_db(reset: bool = False):
         cur.execute(sql)
     for idx_sql in INDEXES:
         cur.execute(idx_sql)
+    ensure_columns(conn)
 
     conn.commit()
     conn.close()

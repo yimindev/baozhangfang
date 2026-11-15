@@ -19,9 +19,21 @@ DB_PATH = DATA_DIR / "housing.db"
 SEED_PATH = DATA_DIR / "seed.sql"
 
 
+def _migrate(conn: sqlite3.Connection) -> None:
+    """为旧库补齐结构（清单在 schema.py，幂等且只 ADD COLUMN）。"""
+    from schema import ensure_columns  # 延迟导入，避免与 schema.py 循环依赖
+
+    ensure_columns(conn)
+
+
 def bootstrap(force: bool = False) -> Path:
     """确保运行库存在；不存在（或 force=True）时由种子 SQL 导入重建。"""
     if DB_PATH.exists() and not force:
+        conn = sqlite3.connect(DB_PATH)
+        try:
+            _migrate(conn)
+        finally:
+            conn.close()
         return DB_PATH
     if not SEED_PATH.exists():
         # 无种子时交由调用方（如 schema.py）建空表
@@ -35,6 +47,7 @@ def bootstrap(force: bool = False) -> Path:
     conn = sqlite3.connect(tmp_path)
     try:
         conn.executescript(SEED_PATH.read_text(encoding="utf-8"))
+        _migrate(conn)
         conn.commit()
     finally:
         conn.close()

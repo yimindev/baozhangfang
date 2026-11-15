@@ -14,8 +14,8 @@ db_io.py - 数据库读写原子操作（原子工具）
   diff            fetch_list 结果与库内记录做差集（new/known，支持 notices/policies）
   upsert-project  建/改项目（按 city + project_name 唯一）
   upsert-batch    建/改推售批次（按 batch_id 唯一）
-  upsert-notice   建/改公文（按 district+title+publish_date → url 两级去重）
-  upsert-policy   建/改政策法规规约（按 city+title+date → url 两级去重）
+  upsert-notice   建/改公文（按 district+归一化标题+publish_date → url 两级去重）
+  upsert-policy   建/改政策法规规约（按 city+归一化标题+date → url 两级去重）
   append-timeline 给批次的 notices_json 追加一条事件
 
 示例：
@@ -35,9 +35,12 @@ db_io.py - 数据库读写原子操作（原子工具）
 
 import argparse
 import json
+import re
 import signal
 import sqlite3
 import sys
+import unicodedata
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -51,7 +54,8 @@ BATCH_FIELDS = ["project_id", "district", "batch_seq", "housing_type", "total_un
                 "sub_end_date", "current_stage", "notices_json"]
 
 PROJECT_FIELDS = ["district", "subdistrict", "developer", "housing_type",
-                  "total_planned_units", "planned_area", "address", "status"]
+                  "total_planned_units", "planned_area", "address", "status",
+                  "aliases"]
 
 NOTICE_FIELDS = ["district", "project_id", "batch_id", "category", "title",
                  "publish_date", "summary", "content_text", "attachments_json"]
@@ -69,6 +73,90 @@ def connect(read_only: bool = False) -> sqlite3.Connection:
         conn = sqlite3.connect(db_p)
     conn.row_factory = sqlite3.Row
     return conn
+
+
+def normalize_title(title: str) -> str:
+    """标题同一化：全半角统一、中英文括号统一、去掉全部空白。
+
+    仅用于去重比对，不改写库内保存的原始标题；不做模糊匹配或同义词映射。
+    """
+    s = unicodedata.normalize("NFKC", title or "")
+    s = s.replace("[", "〔").replace("]", "〕")
+    return re.sub(r"\s+", "", s)
+
+
+def normalize_aliases(raw: str) -> str:
+    """把逗号分隔或 JSON 数组的别名规范为 JSON 数组文本。"""
+    s = (raw or "").strip()
+    if not s:
+        return "[]"
+    if s.startswith("["):
+        try:
+            items = json.loads(s)
+        except json.JSONDecodeError:
+            raise ValueError(f"别名 JSON 非法：{raw!r}") from None
+        if not isinstance(items, list):
+            raise ValueError(f"别名 JSON 必须是数组：{raw!r}")
+    else:
+        items = re.split(r"[,，;；]", s)
+    result: List[str] = []
+    for item in items:
+        if not isinstance(item, str):
+            raise ValueError(f"别名必须为字符串：{item!r}")
+        v = item.strip()
+        if v and v not in result:
+            result.append(v)
+    return json.dumps(result, ensure_ascii=False)
+
+
+def alias_list(text: str) -> List[str]:
+    """读取库内别名 JSON；非法内容按空列表处理，不让脏数据中断主流程。"""
+    try:
+        arr = json.loads(text or "[]")
+    except (json.JSONDecodeError, TypeError):
+        return []
+    if not isinstance(arr, list):
+        return []
+    return [str(a).strip() for a in arr if str(a).strip()]
+
+
+def find_project(conn: sqlite3.Connection, city: str, name: str):
+    """先按标准名精确匹配，再按别名精确匹配。
+
+    返回 (row, "name"|"alias")；未命中返回 (None, None)；
+    同名别名命中多个项目时抛 LookupError，由 Agent 决策，不做静默选取。
+    """
+    name = (name or "").strip()
+    row = conn.execute(
+        "SELECT id, project_name, aliases FROM projects WHERE city = ? AND project_name = ?",
+        (city, name)).fetchone()
+    if row:
+        return row, "name"
+
+    hits = []
+    for r in conn.execute(
+            "SELECT id, project_name, aliases FROM projects WHERE city = ? AND aliases IS NOT NULL AND aliases <> ''",
+            (city,)):
+        if name in alias_list(r["aliases"]):
+            hits.append(r)
+    if len(hits) == 1:
+        return hits[0], "alias"
+    if len(hits) > 1:
+        detail = ", ".join(f"{r['id']}:{r['project_name']}" for r in hits)
+        raise LookupError(f"名称 {name!r} 同时命中多个项目（{detail}），请确认归属后重试")
+    return None, None
+
+
+def normalize_date(value: str) -> str:
+    """校验日期并规范为 YYYY-MM-DD；非法时抛 ValueError。"""
+    v = (value or "").strip().replace("/", "-").replace(".", "-")
+    m = re.fullmatch(r"(\d{4})年(\d{1,2})月(\d{1,2})日?", v)
+    if m:
+        v = f"{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
+    try:
+        return datetime.strptime(v, "%Y-%m-%d").strftime("%Y-%m-%d")
+    except ValueError:
+        raise ValueError(f"日期格式非法：{value!r}，应为 YYYY-MM-DD") from None
 
 
 def dump(rows, fmt: str = "table") -> None:
@@ -204,8 +292,9 @@ def cmd_known_urls(args) -> int:
 def cmd_diff(args) -> int:
     """把 fetch_list 的 JSON 与库内记录做差集。
 
-    notices：按 URL 或 district+title+date 判定；
-    policies：按 URL 或 city+title+date 判定（政策表没有 district）。
+    notices：按 URL 或 city+district+归一化标题+publish_date 判定；
+    policies：按 URL 或 city+归一化标题+publish_date 判定（政策表无 district）。
+    标题只做全半角/括号/空白同一化，日期按原始字符串精确比对，不做天数容差。
     """
     if args.input in (None, "-"):
         raw = sys.stdin.read()
@@ -221,23 +310,36 @@ def cmd_diff(args) -> int:
 
     conn = connect(read_only=True)
     try:
+        if channel == "policies":
+            urls = {r["url"] for r in conn.execute(
+                "SELECT url FROM policies WHERE city = ?", (args.city,))}
+            keys = {(normalize_title(r["title"]), r["publish_date"] or "") for r in conn.execute(
+                "SELECT title, publish_date FROM policies WHERE city = ?", (args.city,))}
+        else:
+            urls = {r["url"] for r in conn.execute(
+                "SELECT url FROM notices WHERE city = ?", (args.city,))}
+            keys = {(r["district"] or "", normalize_title(r["title"]), r["publish_date"] or "")
+                    for r in conn.execute(
+                        "SELECT district, title, publish_date FROM notices WHERE city = ?", (args.city,))}
+
         new_items, known_items = [], []
+        invalid = []
         for it in items:
             url = it.get("url") or ""
-            title = it.get("title") or ""
             date = it.get("date") or it.get("publish_date") or ""
+            title = it.get("title") or ""
+            district = it.get("district") or ""
+            if not (url and title and date and (channel == "policies" or district)):
+                invalid.append(it)
+            title_key = normalize_title(title)
             if channel == "policies":
-                hit = conn.execute(
-                    "SELECT 1 FROM policies WHERE url = ? OR "
-                    "(city = ? AND title = ? AND publish_date = ?)",
-                    (url, args.city, title, date)).fetchone()
+                hit = url in urls or (title_key, date) in keys
             else:
-                district = it.get("district") or ""
-                hit = conn.execute(
-                    "SELECT 1 FROM notices WHERE url = ? OR "
-                    "(city = ? AND district = ? AND title = ? AND publish_date = ?)",
-                    (url, args.city, district, title, date)).fetchone()
+                hit = url in urls or (district, title_key, date) in keys
             (known_items if hit else new_items).append(it)
+        if invalid:
+            print(f"[warn] {len(invalid)} 条缺少 url/title/date/district，无法稳定判重，已按 new 处理",
+                  file=sys.stderr)
     finally:
         conn.close()
 
@@ -258,15 +360,30 @@ def cmd_upsert_project(args) -> int:
     conn = connect()
     try:
         values = {k: getattr(args, k) for k in PROJECT_FIELDS if getattr(args, k, None) is not None}
-        row = conn.execute("SELECT id FROM projects WHERE city = ? AND project_name = ?",
-                           (args.city, args.name)).fetchone()
+        try:
+            if "aliases" in values:
+                values["aliases"] = normalize_aliases(values["aliases"])
+            row, matched_by = find_project(conn, args.city, args.name)
+        except (ValueError, LookupError) as exc:
+            print(f"[错误] {exc}", file=sys.stderr)
+            return 2
+
         if row:
-            pid = row[0]
+            pid = row["id"]
+            if matched_by == "alias":
+                # 命中别名时把本次名称并入别名，避免同一实体再被建一次
+                merged = alias_list(row["aliases"])
+                if args.name.strip() not in merged:
+                    merged.append(args.name.strip())
+                if "aliases" in values:
+                    merged += [a for a in alias_list(values["aliases"]) if a not in merged]
+                values["aliases"] = json.dumps(merged, ensure_ascii=False)
             if values:
                 sets = ", ".join(f"{k} = ?" for k in values)
                 conn.execute(f"UPDATE projects SET {sets}, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
                              [*values.values(), pid])
-            action = "updated"
+            action = "updated" if matched_by == "name" else "matched-alias"
+            project_name = row["project_name"]
         else:
             cols = ["city", "project_name", *values.keys()]
             conn.execute(f"INSERT INTO projects ({', '.join(cols)}) VALUES ({', '.join('?' * len(cols))})",
@@ -274,8 +391,10 @@ def cmd_upsert_project(args) -> int:
             pid = conn.execute("SELECT id FROM projects WHERE city = ? AND project_name = ?",
                                (args.city, args.name)).fetchone()[0]
             action = "created"
+            project_name = args.name
         conn.commit()
-        print(json.dumps({"project_id": pid, "project_name": args.name, "action": action}, ensure_ascii=False))
+        print(json.dumps({"project_id": pid, "project_name": project_name,
+                          "matched_by": matched_by, "action": action}, ensure_ascii=False))
     finally:
         conn.close()
     return 0
@@ -286,12 +405,15 @@ def cmd_upsert_batch(args) -> int:
     try:
         pid = args.project_id
         if not pid and args.project_name:
-            row = conn.execute("SELECT id FROM projects WHERE city = ? AND project_name = ?",
-                               (args.city, args.project_name)).fetchone()
+            try:
+                row, _ = find_project(conn, args.city, args.project_name)
+            except LookupError as exc:
+                print(f"[错误] {exc}", file=sys.stderr)
+                return 2
             if not row:
                 print(f"[错误] 项目不存在：{args.project_name}，请先用 upsert-project 建档", file=sys.stderr)
                 return 2
-            pid = row[0]
+            pid = row["id"]
 
         values = {}
         for f in BATCH_FIELDS:
@@ -326,7 +448,7 @@ def cmd_upsert_batch(args) -> int:
                          [args.batch_id, args.city, *values.values()])
             action = "created"
         conn.commit()
-        print(json.dumps({"batch_id": args.batch_id, "action": action,
+        print(json.dumps({"batch_id": args.batch_id, "project_id": pid, "action": action,
                           "fields": sorted(values)}, ensure_ascii=False))
     finally:
         conn.close()
@@ -334,6 +456,12 @@ def cmd_upsert_batch(args) -> int:
 
 
 def cmd_upsert_notice(args) -> int:
+    try:
+        date = normalize_date(args.date)
+    except ValueError as exc:
+        print(f"[错误] {exc}", file=sys.stderr)
+        return 2
+
     conn = connect()
     try:
         pid = args.project_id
@@ -353,8 +481,7 @@ def cmd_upsert_notice(args) -> int:
             updatable["title"] = args.title
         if args.district is not None:
             updatable["district"] = args.district
-        if args.date is not None:
-            updatable["publish_date"] = args.date
+        updatable["publish_date"] = date
         if args.category is not None:
             updatable["category"] = args.category
         if args.batch_id is not None:
@@ -370,13 +497,19 @@ def cmd_upsert_notice(args) -> int:
         if args.attachments_json is not None:
             updatable["attachments_json"] = args.attachments_json.strip() if args.attachments_json.strip() else None
 
-        exists = conn.execute(
-            "SELECT id, url FROM notices WHERE city = ? AND district = ? AND title = ? AND publish_date = ?",
-            (args.city, args.district, args.title, args.date)).fetchone() if (
-                args.district and args.title and args.date) else None
+        title_key = normalize_title(args.title)
+        exists = None
+        if args.district:
+            for row in conn.execute(
+                    "SELECT id, url, title FROM notices "
+                    "WHERE city = ? AND district = ? AND publish_date = ?",
+                    (args.city, args.district, date)):
+                if normalize_title(row["title"]) == title_key:
+                    exists = row
+                    break
         matched_by = "district+title+date" if exists else None
         if not exists:
-            exists = conn.execute("SELECT id, url FROM notices WHERE url = ?", (args.url,)).fetchone()
+            exists = conn.execute("SELECT id, url, title FROM notices WHERE url = ?", (args.url,)).fetchone()
             if exists:
                 matched_by = "url"
 
@@ -400,7 +533,7 @@ def cmd_upsert_notice(args) -> int:
                 "url": args.url,
                 "title": args.title,
                 "district": args.district,
-                "publish_date": args.date,
+                "publish_date": date,
                 "category": args.category,
                 "batch_id": args.batch_id.strip() if (args.batch_id and args.batch_id.strip()) else None,
                 "project_id": pid,
@@ -431,6 +564,12 @@ def cmd_upsert_policy(args) -> int:
 
         doc_no = args.doc_no if args.doc_no is not None else args.document_number
         pub_date = args.date if args.date is not None else args.publish_date
+        if pub_date is not None:
+            try:
+                pub_date = normalize_date(pub_date)
+            except ValueError as exc:
+                print(f"[错误] {exc}", file=sys.stderr)
+                return 2
 
         updatable = {}
         if args.title is not None:
@@ -456,12 +595,18 @@ def cmd_upsert_policy(args) -> int:
         if args.attachments_json is not None:
             updatable["attachments_json"] = args.attachments_json.strip() if args.attachments_json.strip() else None
 
-        exists = conn.execute(
-            "SELECT id, url FROM policies WHERE city = ? AND title = ? AND publish_date = ?",
-            (args.city, args.title, pub_date)).fetchone() if (args.title and pub_date) else None
+        exists = None
+        if pub_date:
+            title_key = normalize_title(args.title)
+            for row in conn.execute(
+                    "SELECT id, url, title FROM policies WHERE city = ? AND publish_date = ?",
+                    (args.city, pub_date)):
+                if normalize_title(row["title"]) == title_key:
+                    exists = row
+                    break
         matched_by = "city+title+date" if exists else None
         if not exists:
-            exists = conn.execute("SELECT id, url FROM policies WHERE url = ?", (args.url,)).fetchone()
+            exists = conn.execute("SELECT id, url, title FROM policies WHERE url = ?", (args.url,)).fetchone()
             if exists:
                 matched_by = "url"
 
@@ -581,6 +726,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--name", required=True)
     for f in PROJECT_FIELDS:
         p.add_argument(f"--{f.replace('_', '-')}", dest=f, default=None,
+                       help="项目别名：逗号分隔或 JSON 数组，存为 JSON" if f == "aliases" else None,
                        type=int if f in ("total_planned_units",) else (
                            float if f == "planned_area" else str))
     p.set_defaults(func=cmd_upsert_project)
@@ -605,12 +751,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_upsert_batch)
 
     # 7. upsert-notice
-    p = sub.add_parser("upsert-notice", help="建/改公文（按 district+title+publish_date → url 去重）")
+    p = sub.add_parser("upsert-notice", help="建/改公文（按 district+归一化标题+publish_date → url 去重）")
     p.add_argument("--url", required=True)
     p.add_argument("--title", required=True)
     p.add_argument("--city", default="深圳")
     p.add_argument("--district", default=None)
-    p.add_argument("--date", default=None, help="YYYY-MM-DD")
+    p.add_argument("--date", required=True, help="发布日期 YYYY-MM-DD，一律取 fetch_list 返回的列表日期")
     p.add_argument("--category", default=None)
     p.add_argument("--batch-id", default=None, help="传空串表示清空归属批次")
     p.add_argument("--project-id", type=int, default=None)
@@ -622,7 +768,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_upsert_notice)
 
     # 8. upsert-policy
-    p = sub.add_parser("upsert-policy", help="建/改政策法规（按 title+date → url 两级去重）")
+    p = sub.add_parser("upsert-policy", help="建/改政策法规（按 title+date → url 两级去重，标题做同一化）")
     p.add_argument("--url", required=True)
     p.add_argument("--title", required=True)
     p.add_argument("--city", default="深圳")
