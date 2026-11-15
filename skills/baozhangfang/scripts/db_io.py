@@ -9,16 +9,19 @@ db_io.py - 数据库读写原子操作（原子工具）
 子命令：
   query           执行只读 SQL（SELECT/WITH/PRAGMA），输出 table/json/tsv
   stats           各表行数与最新公文日期
-  watermark       某城市最新公文日期（增量抓取的起点）
-  known-urls      导出已入库 URL（用于与列表做差集）
+  latest          库内最新公文日期（派生查询，可按 --district 过滤）
+  known-urls      导出已入库 URL（lines/json，支持 notices/policies）
+  diff            fetch_list 结果与库内记录做差集（new/known，支持 notices/policies）
   upsert-project  建/改项目（按 city + project_name 唯一）
   upsert-batch    建/改推售批次（按 batch_id 唯一）
-  upsert-notice   建/改公文（按 url 唯一）
-  upsert-policy   建/改政策法规规约（按 url 唯一）
+  upsert-notice   建/改公文（按 district+title+publish_date → url 两级去重）
+  upsert-policy   建/改政策法规规约（按 city+title+date → url 两级去重）
   append-timeline 给批次的 notices_json 追加一条事件
 
 示例：
   python3 scripts/db_io.py stats
+  python3 scripts/db_io.py latest --city 深圳
+  python3 scripts/db_io.py latest --city 深圳 --district 盐田区
   python3 scripts/db_io.py query "SELECT project_name, district FROM projects LIMIT 5"
   python3 scripts/db_io.py known-urls --since 2026-10-01
   python3 scripts/db_io.py upsert-project --name 星河开市客环球商业中心 --district 龙华区
@@ -32,6 +35,7 @@ db_io.py - 数据库读写原子操作（原子工具）
 
 import argparse
 import json
+import signal
 import sqlite3
 import sys
 from pathlib import Path
@@ -159,10 +163,16 @@ def cmd_stats(args) -> int:
     return 0
 
 
-def cmd_watermark(args) -> int:
+def cmd_latest(args) -> int:
+    """库内最新公文日期（派生查询）。不是同步游标，增量判断以 diff 为准。"""
     conn = connect(read_only=True)
     try:
-        row = conn.execute("SELECT MAX(publish_date) FROM notices WHERE city = ?", (args.city,)).fetchone()
+        sql = "SELECT MAX(publish_date) FROM notices WHERE city = ?"
+        params = [args.city]
+        if getattr(args, "district", None):
+            sql += " AND district = ?"
+            params.append(args.district)
+        row = conn.execute(sql, params).fetchone()
         print(row[0] or "")
     finally:
         conn.close()
@@ -172,15 +182,73 @@ def cmd_watermark(args) -> int:
 def cmd_known_urls(args) -> int:
     conn = connect(read_only=True)
     try:
-        sql = "SELECT url FROM notices WHERE city = ?"
+        if args.channel == "policies":
+            sql = "SELECT url, title, publish_date FROM policies WHERE city = ?"
+        else:
+            sql = "SELECT url, title, publish_date, district FROM notices WHERE city = ?"
         params = [args.city]
         if args.since:
             sql += " AND publish_date >= ?"
             params.append(args.since)
-        for r in conn.execute(sql, params):
-            print(r[0])
+        rows = conn.execute(sql, params).fetchall()
+        if args.format == "json":
+            print(json.dumps([dict(r) for r in rows], ensure_ascii=False, indent=2))
+        else:
+            for r in rows:
+                print(r["url"])
     finally:
         conn.close()
+    return 0
+
+
+def cmd_diff(args) -> int:
+    """把 fetch_list 的 JSON 与库内记录做差集。
+
+    notices：按 URL 或 district+title+date 判定；
+    policies：按 URL 或 city+title+date 判定（政策表没有 district）。
+    """
+    if args.input in (None, "-"):
+        raw = sys.stdin.read()
+    else:
+        raw = Path(args.input).read_text(encoding="utf-8")
+    try:
+        data = json.loads(raw)
+    except Exception as exc:
+        print(f"[错误] 无法解析输入 JSON：{exc}", file=sys.stderr)
+        return 2
+    items = data.get("items", []) if isinstance(data, dict) else data
+    channel = getattr(args, "channel", "notices")
+
+    conn = connect(read_only=True)
+    try:
+        new_items, known_items = [], []
+        for it in items:
+            url = it.get("url") or ""
+            title = it.get("title") or ""
+            date = it.get("date") or it.get("publish_date") or ""
+            if channel == "policies":
+                hit = conn.execute(
+                    "SELECT 1 FROM policies WHERE url = ? OR "
+                    "(city = ? AND title = ? AND publish_date = ?)",
+                    (url, args.city, title, date)).fetchone()
+            else:
+                district = it.get("district") or ""
+                hit = conn.execute(
+                    "SELECT 1 FROM notices WHERE url = ? OR "
+                    "(city = ? AND district = ? AND title = ? AND publish_date = ?)",
+                    (url, args.city, district, title, date)).fetchone()
+            (known_items if hit else new_items).append(it)
+    finally:
+        conn.close()
+
+    if args.format == "lines":
+        for it in new_items:
+            print(f"{it.get('date', '')}\t{it.get('district', '')}\t{it.get('title', '')}\t{it.get('url', '')}")
+        return 0
+    print(json.dumps({"city": args.city, "channel": channel, "total": len(items),
+                      "new_count": len(new_items), "known_count": len(known_items),
+                      "new": new_items, "known": known_items},
+                     ensure_ascii=False, indent=2))
     return 0
 
 
@@ -302,11 +370,29 @@ def cmd_upsert_notice(args) -> int:
         if args.attachments_json is not None:
             updatable["attachments_json"] = args.attachments_json.strip() if args.attachments_json.strip() else None
 
-        exists = conn.execute("SELECT 1 FROM notices WHERE url = ?", (args.url,)).fetchone()
+        exists = conn.execute(
+            "SELECT id, url FROM notices WHERE city = ? AND district = ? AND title = ? AND publish_date = ?",
+            (args.city, args.district, args.title, args.date)).fetchone() if (
+                args.district and args.title and args.date) else None
+        matched_by = "district+title+date" if exists else None
+        if not exists:
+            exists = conn.execute("SELECT id, url FROM notices WHERE url = ?", (args.url,)).fetchone()
+            if exists:
+                matched_by = "url"
+
+        url_replaced = False
         if exists:
+            nid, old_url = exists["id"], exists["url"]
+            # 同一公告换了 gkmlpt 直链（专题页 URL → gkmlpt URL）时，把旧 URL 升级为 gkmlpt URL
+            if old_url != args.url and "gkmlpt" in args.url and "gkmlpt" not in old_url:
+                clash = conn.execute("SELECT 1 FROM notices WHERE url = ? AND id <> ?",
+                                     (args.url, nid)).fetchone()
+                if not clash:
+                    updatable["url"] = args.url
+                    url_replaced = True
             if updatable:
                 sets = ", ".join(f"{k} = ?" for k in updatable)
-                conn.execute(f"UPDATE notices SET {sets} WHERE url = ?", [*updatable.values(), args.url])
+                conn.execute(f"UPDATE notices SET {sets} WHERE id = ?", [*updatable.values(), nid])
             action = "updated"
         else:
             insert_data = {
@@ -322,12 +408,13 @@ def cmd_upsert_notice(args) -> int:
                 "content_text": content or None,
                 "attachments_json": args.attachments_json or None,
             }
-            conn.execute(f"INSERT INTO notices ({', '.join(insert_data)}) VALUES ({', '.join('?' * len(insert_data))})",
-                         list(insert_data.values()))
+            cur = conn.execute(f"INSERT INTO notices ({', '.join(insert_data)}) VALUES ({', '.join('?' * len(insert_data))})",
+                               list(insert_data.values()))
+            nid = cur.lastrowid
             action = "created"
         conn.commit()
-        nid = conn.execute("SELECT id FROM notices WHERE url = ?", (args.url,)).fetchone()[0]
-        print(json.dumps({"notice_id": nid, "action": action}, ensure_ascii=False))
+        print(json.dumps({"notice_id": nid, "action": action, "matched_by": matched_by,
+                          "url_replaced": url_replaced}, ensure_ascii=False))
     finally:
         conn.close()
     return 0
@@ -369,12 +456,28 @@ def cmd_upsert_policy(args) -> int:
         if args.attachments_json is not None:
             updatable["attachments_json"] = args.attachments_json.strip() if args.attachments_json.strip() else None
 
-        exists = conn.execute("SELECT 1 FROM policies WHERE url = ?", (args.url,)).fetchone()
+        exists = conn.execute(
+            "SELECT id, url FROM policies WHERE city = ? AND title = ? AND publish_date = ?",
+            (args.city, args.title, pub_date)).fetchone() if (args.title and pub_date) else None
+        matched_by = "city+title+date" if exists else None
+        if not exists:
+            exists = conn.execute("SELECT id, url FROM policies WHERE url = ?", (args.url,)).fetchone()
+            if exists:
+                matched_by = "url"
+
+        url_replaced = False
         if exists:
+            pid, old_url = exists["id"], exists["url"]
+            if old_url != args.url and "gkmlpt" in args.url and "gkmlpt" not in old_url:
+                clash = conn.execute("SELECT 1 FROM policies WHERE url = ? AND id <> ?",
+                                     (args.url, pid)).fetchone()
+                if not clash:
+                    updatable["url"] = args.url
+                    url_replaced = True
             if updatable:
                 sets = ", ".join(f"{k} = ?" for k in updatable)
-                conn.execute(f"UPDATE policies SET {sets}, updated_at = CURRENT_TIMESTAMP WHERE url = ?",
-                             [*updatable.values(), args.url])
+                conn.execute(f"UPDATE policies SET {sets}, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+                             [*updatable.values(), pid])
             action = "updated"
         else:
             insert_data = {
@@ -391,12 +494,13 @@ def cmd_upsert_policy(args) -> int:
                 "content_text": content or None,
                 "attachments_json": args.attachments_json or None,
             }
-            conn.execute(f"INSERT INTO policies ({', '.join(insert_data)}) VALUES ({', '.join('?' * len(insert_data))})",
-                         list(insert_data.values()))
+            cur = conn.execute(f"INSERT INTO policies ({', '.join(insert_data)}) VALUES ({', '.join('?' * len(insert_data))})",
+                               list(insert_data.values()))
+            pid = cur.lastrowid
             action = "created"
         conn.commit()
-        pid = conn.execute("SELECT id FROM policies WHERE url = ?", (args.url,)).fetchone()[0]
-        print(json.dumps({"policy_id": pid, "action": action}, ensure_ascii=False))
+        print(json.dumps({"policy_id": pid, "action": action, "matched_by": matched_by,
+                          "url_replaced": url_replaced}, ensure_ascii=False))
     finally:
         conn.close()
     return 0
@@ -445,16 +549,31 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--city", default=None)
     p.set_defaults(func=cmd_stats)
 
-    # 3. watermark
-    p = sub.add_parser("watermark", help="最新公文日期")
+    # 3. latest（库内最新日期；watermark 为兼容别名）
+    p = sub.add_parser("latest", help="库内最新公文日期（派生查询）")
     p.add_argument("--city", default="深圳")
-    p.set_defaults(func=cmd_watermark)
+    p.add_argument("--district", default=None)
+    p.set_defaults(func=cmd_latest)
+
+    p = sub.add_parser("watermark", help="已弃用：等同 latest（库内最新日期，无状态）")
+    p.add_argument("--city", default="深圳")
+    p.add_argument("--district", default=None)
+    p.set_defaults(func=cmd_latest)
 
     # 4. known-urls
-    p = sub.add_parser("known-urls", help="导出已入库 URL")
+    p = sub.add_parser("known-urls", help="导出已入库 URL（notices/policies）")
     p.add_argument("--city", default="深圳")
+    p.add_argument("--channel", default="notices", choices=["notices", "policies"])
     p.add_argument("--since", default=None)
+    p.add_argument("--format", default="lines", choices=["lines", "json"])
     p.set_defaults(func=cmd_known_urls)
+
+    p = sub.add_parser("diff", help="fetch_list 结果与库内做差集（new/known）")
+    p.add_argument("--city", default="深圳")
+    p.add_argument("--channel", default="notices", choices=["notices", "policies"])
+    p.add_argument("--input", default="-", help="fetch_list 的 JSON 文件，默认从标准输入读取")
+    p.add_argument("--format", default="json", choices=["json", "lines"])
+    p.set_defaults(func=cmd_diff)
 
     # 5. upsert-project
     p = sub.add_parser("upsert-project", help="建/改项目（按 city + project_name 唯一）")
@@ -486,7 +605,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_upsert_batch)
 
     # 7. upsert-notice
-    p = sub.add_parser("upsert-notice", help="建/改公文（按 url 唯一）")
+    p = sub.add_parser("upsert-notice", help="建/改公文（按 district+title+publish_date → url 去重）")
     p.add_argument("--url", required=True)
     p.add_argument("--title", required=True)
     p.add_argument("--city", default="深圳")
@@ -503,7 +622,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_upsert_notice)
 
     # 8. upsert-policy
-    p = sub.add_parser("upsert-policy", help="建/改政策法规（按 url 唯一）")
+    p = sub.add_parser("upsert-policy", help="建/改政策法规（按 title+date → url 两级去重）")
     p.add_argument("--url", required=True)
     p.add_argument("--title", required=True)
     p.add_argument("--city", default="深圳")
@@ -534,5 +653,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 if __name__ == "__main__":
+    if hasattr(signal, "SIGPIPE"):
+        signal.signal(signal.SIGPIPE, signal.SIG_DFL)
     args = build_parser().parse_args()
     sys.exit(args.func(args))

@@ -127,7 +127,7 @@ SQL_TABLES = [
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
-    """
+    """,
 ]
 
 INDEXES = [

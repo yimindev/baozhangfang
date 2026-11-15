@@ -1,133 +1,54 @@
-# 保障房数据同步与分析助手 (Baozhangfang)
+# 保障房助手（baozhangfang）
 
-深圳市保障性住房数据同步、生命周期状态追踪、政策法规库管理与 AI 交互查询助手。
+把深圳市、区两级住建局的保障性住房公告，整理成一份可直接查询的 SQLite 数据集：楼盘、推售批次、公告原文、政策法规都在里面，写 SQL 或用自然语言提问都能查。
 
-本项目提供了一整套保障性住房公告数据的抓取、解析、状态机流转维护机制，并封装了符合 Antigravity 规范的独立 Agent Skill (`skills/baozhangfang`)，支持纯 SQLite 离线运行与多城市数据源扩展。
+## 里面有什么
 
----
+| 数据 | 规模 | 内容 |
+| :-- | :-- | :-- |
+| `projects` 项目 | 84 | 楼盘基础信息：区域、地址、户型、规划套数 |
+| `batches` 批次 | 21 | 每次推售的套数与户型、配售均价、当前阶段、接待点与咨询电话 |
+| `notices` 公文 | 1200+ | 认购、初审/终审公示、摇号、选房等公告原文与官方链接 |
+| `policies` 政策 | 35 | 保障性住房条例、配售型保障房管理办法等全文 |
 
-## 核心特性
+覆盖房源类型：人才配售房、安居型商品房、共有产权住房、配售型保障房、公共租赁住房。
 
-- 🏛️ **多级公告增量抓取**：覆盖深圳市住建局及福田、南山、罗湖、宝安、龙岗、龙华、光明、坪山、盐田、大鹏等全区住建局公告源。
-- 🔄 **生命周期状态机追踪**：自动追踪认购批次从「认购通告 -> 认购名单 -> 选房通告 -> 选房结果」的全生命周期流转。
-- 📚 **政策法规库管理**：结构化抓取并归档配租配售、申请门槛、补贴标准等核心政策文件。
-- 🔍 **开箱即用 SQLite 数据集**：内置纯 SQLite 嵌入式数据库，免外部数据库依赖，包含 83+ 房源项目、19+ 认购批次、1200+ 公告索引与最新政策法规。
-- 🤖 **自包含 Antigravity Skill**：位于 `skills/baozhangfang/`，具备独立的配置、数据、脚本与参考文档，支持作为大模型工具即插即用。
+能做的事：
 
----
-
-## 目录结构
-
-```text
-baozhangfang/
-├── skills/
-│   └── baozhangfang/             # 自包含 Antigravity Skill
-│       ├── SKILL.md              # Skill 规范说明与大模型指引
-│       ├── config/
-│       │   └── sources.json      # 多城市数据源与抓取规则配置
-│       ├── data/
-│       │   ├── seed.sql          # 脱敏种子基线 (SQL 文本，纳入版本管理)
-│       │   └── housing.db        # 运行时工作库 (由 seed.sql 自举，Git 忽略)
-│       ├── scripts/
-│       │   ├── fetch_list.py     # 列表抓取（原子工具）
-│       │   ├── fetch_detail.py   # 正文与附件抽取（原子工具）
-│       │   ├── db_io.py          # 数据库单记录读写原语（原子工具）
-│       │   ├── db.py             # 运行库路径解析与种子自举
-│       │   ├── export_seed.py    # 导出脱敏种子 (发版时使用)
-│       │   └── schema.py         # SQLite 数据库表结构初始化
-│       └── references/           # 同步作业手册、数据库设计、数据源与查询速查
-├── config/                       # 项目级全局配置
-│   └── database.json.example     # 外部 MySQL 配置模版 (可选)
-├── scripts/                      # 开发者扩展工具 (统一读写 Skill 运行库)
-│   ├── build_dashboard.py        # 可视化大屏构建脚本
-│   ├── parse_pdf.py              # PDF 名单结构化提取
-│   └── sync_to_mysql.py          # 阿里云 RDS MySQL 同步工具 (可选)
-└── README.md
-```
-
----
+- **多源增量同步**：市级住建局 + 福田、南山、罗湖、宝安、龙岗、龙华、光明、坪山、盐田、大鹏等区级公告源。
+- **批次生命周期追踪**：认购中 → 名单公示 → 选房 → 常态化配售 / 已完结。
+- **开箱即用**：纯 SQLite、零外部服务；数据以脱敏 SQL 种子随仓库分发。
+- **多城市扩展**：新增城市只改配置，不动代码。
 
 ## 快速上手
 
-### 1. 安装依赖
-
 ```bash
 pip install requests beautifulsoup4
-```
+python3 skills/baozhangfang/scripts/db.py     # 由 seed.sql 生成 data/housing.db
 
-*(如需使用 PDF 名单解析功能，可按需安装 `pypdf` 或 `pdfplumber`)*
-
-### 2. 初始化运行库
-
-```bash
-# 由脱敏种子 seed.sql 生成 skills/baozhangfang/data/housing.db（同步脚本首次运行时也会自动执行）
-python3 skills/baozhangfang/scripts/db.py
-```
-
-> 种子库不含 `households` / `members` / `applications` 的数据行（含个人信息），需要时请用 `scripts/parse_pdf.py --sqlite skills/baozhangfang/data/housing.db` 在本地导入。
-
-### 3. 数据库检索与查询
-
-数据库采用纯 SQLite 存储，结构简洁透明。Agent 或开发者可直接执行 SQL，无固定参数约束（详细 SQL 模板见 `skills/baozhangfang/references/query_cheatsheet.md`）：
-
-```bash
-# 查看数据库整体统计看板
-sqlite3 -header -column skills/baozhangfang/data/housing.db "
-SELECT 'projects', count(*) FROM projects UNION ALL
-SELECT 'batches', count(*) FROM batches UNION ALL
-SELECT 'notices', count(*) FROM notices UNION ALL
-SELECT 'policies', count(*) FROM policies;
-"
-
-# 按项目名称模糊搜索（如：华越龙苑）
+# 查某个楼盘的批次、套数、均价、阶段
 sqlite3 -header -column skills/baozhangfang/data/housing.db "
 SELECT p.project_name, p.district, b.batch_id, b.total_units, b.average_price, b.current_stage
-FROM projects p LEFT JOIN batches b ON p.id = b.project_id
-WHERE p.project_name LIKE '%华越龙苑%';
-"
-
-# 查询常态化申购（现场即时配售）项目
-sqlite3 -header -column skills/baozhangfang/data/housing.db "
-SELECT p.project_name, p.district, b.total_units, b.average_price, b.current_stage, b.reception_location
-FROM batches b JOIN projects p ON b.project_id = p.id
-WHERE b.has_regular_sales_exit = 1 OR b.current_stage = '常态化配售中';
-"
+FROM projects p JOIN batches b ON p.id = b.project_id
+WHERE p.project_name LIKE '%华越龙苑%';"
 ```
 
-### 4. 数据同步（Agent 作业手册驱动）
+刷新数据走「原子脚本 + Agent 作业手册」流程：`fetch_list.py` 抓列表 → `db_io.py diff` 挑出新公文 → `fetch_detail.py` 抓正文 → Agent 判断后写库 `db_io.py upsert-*`，详见 `skills/baozhangfang/references/sync_playbook.md`。
 
-系统采用**原子工具 + Agent 作业手册**架构（详见 `skills/baozhangfang/references/sync_playbook.md`），不依赖僵化的关键词白名单或硬编码正则：
+## 目录
 
-```bash
-# 1. 查询目标城市最新公文日期
-python3 skills/baozhangfang/scripts/db_io.py watermark --city 深圳
-
-# 2. 抓取政务公开列表
-python3 skills/baozhangfang/scripts/fetch_list.py --city 深圳 --pages 1 --format table
-
-# 3. 抓取正文及附件
-python3 skills/baozhangfang/scripts/fetch_detail.py <url> --text-only
-
-# 4. Agent 解析后参数化写入
-python3 skills/baozhangfang/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-10
+```text
+skills/baozhangfang/   # 自包含技能：配置、脱敏种子、原子脚本、参考文档
+scripts/               # 可选扩展：数据看板、PDF 名单解析、MySQL 同步
+config/                # 外部 MySQL 配置模版（可选）
 ```
 
-增量写入只修改 `housing.db`（Git 忽略），工作区保持干净。需要发布新数据基线时执行：
+常用查询模板见 `skills/baozhangfang/references/query_cheatsheet.md`，表结构见 `database_schema.md`。
 
-```bash
-python3 skills/baozhangfang/scripts/export_seed.py   # 刷新 seed.sql（自动剔除个人信息）后提交
-```
+## 作为 AI 技能使用
 
----
+`skills/baozhangfang` 是一个自包含 Agent Skill，拷到技能目录即可让 AI 直接查库答题、执行数据同步。
 
-## 作为 Skill 使用
+## 许可
 
-本项目的 `skills/baozhangfang` 符合标准 Agent Skill 协议，可通过 Antigravity 或大模型框架加载：
-1. 拷贝或链接 `skills/baozhangfang` 到 Agent 技能目录。
-2. 技能内置纯 SQLite 数据与查询工具，无需配置数据库账号即可回答用户关于保障房批次、项目进度、政策要求的各种提问。
-
----
-
-## 开源协议
-
-MIT 协议
+基于 [Apache License 2.0](LICENSE) 开源。

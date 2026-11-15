@@ -31,8 +31,9 @@ skills/baozhangfang/
 ├── scripts/                     # 全部为原子工具
 │   ├── fetch_list.py            # 抓列表 → JSON（不做任何判断）
 │   ├── fetch_detail.py          # 抓正文 → 文本/附件/表格（不抽业务字段）
-│   ├── db_io.py                 # 单记录读写：query/stats/watermark/known-urls/
+│   ├── db_io.py                 # 单记录读写：query/stats/latest/known-urls/diff/
 │   │                            #   upsert-project/upsert-batch/upsert-notice/upsert-policy/append-timeline
+│   ├── audit_sources.py         # 定期巡检：API / 库内 / 重复 / UI 四向对照（非每日）
 │   ├── db.py                    # 运行库路径解析与种子自举
 │   ├── schema.py                # DDL 建表与重置
 │   └── export_seed.py           # 由运行库导出脱敏 seed.sql（发版用）
@@ -86,14 +87,14 @@ ORDER BY b.average_price;
 **完整规程见 [references/sync_playbook.md](references/sync_playbook.md)，执行前必读。** 核心骨架：
 
 ```bash
-# 1) 水位线（参考起点，不是硬边界）
-python3 <SKILL_DIR>/scripts/db_io.py watermark --city 深圳
+# 1) 看库内最新日期（仅作参考，不是同步游标）
+python3 <SKILL_DIR>/scripts/db_io.py latest --city 深圳
 
-# 2) 宽松抓列表：所有源第1页，不过滤关键词
-python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --pages 1 --format json
+# 2) 宽松抓列表：所有启用源第1页，不过滤关键词；--summary 先看源健康度
+python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --pages 1 --out /tmp/todo.json --summary
 
-# 3) 与库内做差集
-python3 <SKILL_DIR>/scripts/db_io.py known-urls --city 深圳 --since 2026-10-01
+# 3) 与库内做差集：district+title+publish_date 优先，url 兜底
+python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json --format lines
 
 # 4) Agent 判断：哪些相关 / 哪些需要全文 → 列出待抓 URL
 
@@ -104,12 +105,15 @@ python3 <SKILL_DIR>/scripts/fetch_detail.py --url-file /tmp/todo_urls.txt --save
 python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name <项目名> --district <区>
 python3 <SKILL_DIR>/scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕083号批次" --project-id <id> --current-stage 认购中
 python3 <SKILL_DIR>/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-09 \
-        --district 市直属 --category 初审名单 --batch-id "住保售〔2026〕083号批次" --content-file /tmp/b1.txt
+        --district 市住建局 --category 初审名单 --batch-id "住保售〔2026〕083号批次" --content-file /tmp/b1.txt
 python3 <SKILL_DIR>/scripts/db_io.py append-timeline --batch-id "住保售〔2026〕083号批次" --stage 初审名单 \
         --title "<标题>" --date 2026-11-09 --url <url>
 
-# 7) 自检
+# 7) 自检：行数 + 重复检查
 python3 <SKILL_DIR>/scripts/db_io.py stats --city 深圳
+
+# 定期巡检（非每日必跑）：源切换/回填验收/每周体检时执行
+python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳
 ```
 
 关键约定（细节见手册）：
@@ -118,7 +122,9 @@ python3 <SKILL_DIR>/scripts/db_io.py stats --city 深圳
 - **套数/价格/电话以正文为准**，附件表格可用 `--tables` 辅助核对；找不到就留空，不凑数。
 - **批次文号规范化** `住保售〔YYYY〕NNN号批次`（序号补零三位）；`住保租〔…〕` 是配租，不进 `batches`。
 - **状态机单向不降级**：新通告权重 ≤ 当前权重时只追加时间线事件，不改 `current_stage`。
-- **全部写入幂等**：按 URL / batch_id / (city, project_name) 去重，可放心重跑。
+- **全部写入幂等**：通知按 `district + title + publish_date` → `url` 两级去重，批次按 `batch_id`、项目按 `(city, project_name)`，可放心重跑。
+- **diff 驱动**：不维护独立水位线；每次抓最近 1–2 页，用 `diff` 判定 new/known，回填也不会被游标跳过。
+- **旧源先禁用、验证后再定**：默认 `role: legacy` + `enabled: false`；若对比发现旧源仍有独有住房公告，改为 `role: auxiliary` + `enabled: true` 长期补充。
 
 增量同步只写 `data/housing.db`，不改版本管理的 `seed.sql`；需要发布新基线时才跑
 `python3 <SKILL_DIR>/scripts/export_seed.py`。
@@ -128,13 +134,16 @@ python3 <SKILL_DIR>/scripts/db_io.py stats --city 深圳
 ## 工作流 3：政策法规同步与查询
 
 ```bash
-# 1) 抓取政策列表
-python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --channel policies --format table
+# 1) 抓取政策列表（规范性文件 2020 + 其他文件 25157）
+python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --channel policies --pages 1 --out /tmp/policies.json --summary
 
-# 2) 抓取政策正文
+# 2) 与政策库做差集，只处理 new
+python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --input /tmp/policies.json --format lines
+
+# 3) 抓取政策正文
 python3 <SKILL_DIR>/scripts/fetch_detail.py <url> --text-only
 
-# 3) 写入政策法规库
+# 4) 写入政策法规库（按 title+date → url 两级去重）
 python3 <SKILL_DIR>/scripts/db_io.py upsert-policy --url <url> --title "<政策标题>" \
         --category 地方性法规 --publisher 深圳市住房和建设局 --date 2026-08-01 --content-file /tmp/p1.txt
 ```

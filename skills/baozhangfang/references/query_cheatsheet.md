@@ -228,3 +228,55 @@ FROM households
 WHERE main_applicant LIKE '张%'
 LIMIT 10;
 ```
+
+---
+
+## 8. 数据源健康巡检
+
+### 8.1 各区最新公文日期与条数（看空档）
+```sql
+SELECT district, COUNT(*) AS 条数, MAX(publish_date) AS 最新日期, MIN(publish_date) AS 最早日期
+FROM notices
+GROUP BY district
+ORDER BY 最新日期 DESC;
+```
+
+### 8.2 入库覆盖按月统计（看历史空档）
+```sql
+SELECT substr(publish_date, 1, 7) AS 月份, COUNT(*) AS 条数
+FROM notices
+WHERE publish_date >= '2025-01-01'
+GROUP BY 月份
+ORDER BY 月份;
+```
+
+> 同步不维护独立水位线表；增量以 `fetch_list` + `db_io diff` 的 new/known 判定为准。
+
+### 8.3 重复公告检查（应为空）
+```sql
+SELECT district, title, publish_date, COUNT(*) AS c
+FROM notices
+GROUP BY district, title, publish_date
+HAVING c > 1
+ORDER BY c DESC;
+```
+
+### 8.4 同一公告的多个 URL（UI / gkmlpt 并存）
+```sql
+SELECT title, publish_date, COUNT(*) AS c, GROUP_CONCAT(url, ' | ') AS urls
+FROM notices
+GROUP BY title, publish_date
+HAVING c > 1;
+```
+
+### 8.5 无归属批次的公文占比（孤儿检查）
+```sql
+SELECT
+  SUM(CASE WHEN batch_id IS NULL OR batch_id = '' THEN 1 ELSE 0 END) AS 无批次,
+  COUNT(*) AS 总数,
+  ROUND(100.0 * SUM(CASE WHEN batch_id IS NULL OR batch_id = '' THEN 1 ELSE 0 END) / COUNT(*), 1) AS 占比
+FROM notices;
+```
+
+> 结构性巡检优先用脚本：`python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳`，
+> 会同时核对 API、库内最新日期、重复记录与 UI 独有公告。

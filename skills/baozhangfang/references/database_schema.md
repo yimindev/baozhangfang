@@ -77,6 +77,9 @@
 | `content_text` | TEXT | 正文纯文本（支撑全文检索与要素抽取） |
 | `attachments_json` | TEXT | 附件列表 JSON（含 PDF/表格直链与文件名） |
 
+> 同步不维护独立水位线表。库内最新日期由 `notices.MAX(publish_date)` 派生；
+> 增量以 `fetch_list` + `db_io diff` 的 new/known 判定为准。
+
 ---
 
 ### 4. `policies`：政策法规规约台账
@@ -95,6 +98,9 @@
 | `status` | TEXT | 现行状态（现行有效 / 已废止） |
 | `url` | TEXT NOT NULL UNIQUE | 官方正文直链 |
 | `content_text` | TEXT | 政策正文全文 |
+
+> 政策去重口径：`city + title + publish_date` 优先，`url` 兜底；
+> `upsert-policy` 命中时会更新正文/附件，并把旧的非 gkmlpt URL 升级为 gkmlpt 直链。
 
 ---
 
@@ -132,6 +138,12 @@
 | `selected_unit` | TEXT | 选定房号 |
 
 *约束*: `UNIQUE(batch_id, applicant_code)`
+
+---
+
+> `notices` 去重口径：优先 `district + title + publish_date`，其次 `url` 兜底。
+> 同一公告在 UI 与 gkmlpt 的 URL 不同时只保留一条，`upsert-notice` 会把旧的非 gkmlpt URL
+> 升级为 gkmlpt 直链。历史数据中的重复可用 `query_cheatsheet.md` 的巡检 SQL 排查。
 
 ---
 

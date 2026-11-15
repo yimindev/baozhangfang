@@ -20,22 +20,27 @@
 ## 1. 工具契约
 
 ```bash
-# ① 水位线：本次从哪天开始看
-python3 <SKILL_DIR>/scripts/db_io.py watermark --city 深圳          # -> 2026-11-10
+# ① 库内最新日期（仅作参考，不是同步游标）
+python3 <SKILL_DIR>/scripts/db_io.py latest --city 深圳
+python3 <SKILL_DIR>/scripts/db_io.py latest --city 深圳 --district 盐田区
 
-# ② 列表（宽松抓取，12 个源并集，默认不过滤任何关键词）
-python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --pages 1 --format table
-python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --pages 1-3 --since 2026-11-01 --format json
-python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --channel policies      # 政策法规专栏
+# ② 列表（宽松抓取，默认只用 enabled 源，不做任何关键词过滤）
+python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --pages 1 --summary
+python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --pages 1-3 --since 2026-11-01 --out /tmp/todo.json
+python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --channel policies --summary
+python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --source sz_longgang --summary   # 显式指定可抓旧源
 
-# ③ 已入库 URL（用来做差集，避免重复抓正文）
-python3 <SKILL_DIR>/scripts/db_io.py known-urls --city 深圳 --since 2026-10-01
+# ③ 差集（按 URL 或 district+title+publish_date 判定已入库）
+python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json
+python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json --format lines   # 只列 new
+python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --input /tmp/policies.json
+python3 <SKILL_DIR>/scripts/db_io.py known-urls --city 深圳 --since 2026-10-01 --format json
 
 # ④ 正文（可一次传多个 URL；--tables 抽表格；--save-dir 落盘原始文件）
 python3 <SKILL_DIR>/scripts/fetch_detail.py --url-file /tmp/todo_urls.txt --save-dir /tmp/bf_html
 python3 <SKILL_DIR>/scripts/fetch_detail.py <url> --tables
 
-# ⑤ 写库（全部按 URL / batch_id / (city, project_name) 幂等）
+# ⑤ 写库（全部参数化；通知按 district+title+publish_date → url 两级去重）
 python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name 星河开市客环球商业中心 --district 龙华区
 python3 <SKILL_DIR>/scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕054号批次" --project-id 84 \
         --total-units 300 --three-bedroom-units 300 --average-price 28000 --current-stage 选房签约中
@@ -45,24 +50,45 @@ python3 <SKILL_DIR>/scripts/db_io.py upsert-policy --url <url> --title "<法规�
         --publisher 深圳市住房和建设局 --date 2026-08-01 --content-file /tmp/policy.txt
 python3 <SKILL_DIR>/scripts/db_io.py append-timeline --batch-id "<批次>" --stage 初审名单 \
         --title "<标题>" --date 2026-11-09 --url <url>
+
+# ⑥ 定期巡检（非每日必跑；源切换/回填验收/每周体检时用）
+python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳
 ```
 
 ---
 
 ## 2. 标准流程
 
-### Step 1 取水位线
-`<SKILL_DIR>/scripts/db_io.py watermark` 拿到最新已入库日期。它只是**参考起点**，不是硬边界——
-若怀疑历史漏采，直接把 `--since` 往前推（例如推到上季度），宁可多抓不要漏抓。
+### Step 1 看库内最新（仅参考）
+`db_io.py latest --city 深圳` 返回库内已入库的最新日期，用于判断大概缺口，**不是抓取起点**。
+增量判断不依赖“上次同步到哪”，而是每次抓最近 1–2 页后做 `diff`：
+
+> 本技能不维护独立水位线表。库内 `notices` 就是唯一真相；`diff` 负责回答
+> “这条公告是否已入库”。因此停更几天、补发旧日期公告、历史回填，都不会被游标跳过。
+> 需要补深历史时，显式加 `fetch_list --pages` 或 `--since`，不需要更新任何状态。
 
 ### Step 2 抓列表（宽松）
-一次抓完所有源的第 1 页；若某源第 1 页有大量条目晚于水位线，再加 `--pages 1-2` 补看第 2 页。
+一次抓完所有启用源的第 1 页；若某源第 1 页条数明显偏少、最新日期异常，或需要补历史，再加 `--pages 1-2`（或更多页）。
+`--summary` 会输出每源条数、最新/最旧日期、栏目名与前 3 条，先看这一屏再决定抓哪些正文。
 脚本会在 JSON 的 `empty_sources` 里告诉你哪些源颗粒无收——**空源要单独排查**（改版？反爬？页面结构变了？），
-不要默默当成"今天没公告"。
+不要默默当成“今天没公告”。
 
 ### Step 3 差集
-用 `known-urls` 的输出对 URL 去重。注意同一条公文在不同栏目可能有两个 URL（正文页 vs 附件页），
-去重时同时比对 `标题+日期`，别只看 URL。
+用 `db_io.py diff --input /tmp/todo.json` 直接分为 `new` / `known`：
+
+1. 通知：按 `district + title + publish_date` 判定；政策：按 `city + title + publish_date` 判定（政策表无 district）；
+2. 再按 `url` 兜底；
+3. 只有 `new` 才需要抓正文与写库。
+
+同一条公告/政策在 UI 与 gkmlpt 的 URL 不同时，只保留一条；`upsert-notice` / `upsert-policy`
+会自动把旧的非 gkmlpt URL 升级为 gkmlpt URL，并返回 `matched_by` 与 `url_replaced`，便于核对。
+
+政策源同样走 `--channel policies`：
+
+```bash
+python3 <SKILL_DIR>/scripts/fetch_list.py --city 深圳 --channel policies --pages 1 --out /tmp/policies.json --summary
+python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --input /tmp/policies.json --format lines
+```
 
 ### Step 4 相关性判断（保留 or 跳过）
 **保留**：凡涉及——配售/配租/轮候/认租/认购/名单公示/摇号/选房/签约/退房/房源信息/价格/补贴/需求库/政策法规/计划与规划。
@@ -112,7 +138,8 @@ python3 <SKILL_DIR>/scripts/db_io.py append-timeline --batch-id "<批次>" --sta
 4. `append-timeline`（把该公文事件的 stage/title/date/url 追加到批次时间线）
 5. 若为政策法规，则直接执行 `upsert-policy`
 
-全部按 URL / batch_id / (city, project_name) 幂等，重复执行不会产生脏数据，可放心重跑。
+`upsert-notice` 按 `district + title + publish_date` 优先去重，再按 URL 兜底，重复执行不会新增记录；
+命中标题+日期时，会更新正文/附件，并在旧 URL 不是 gkmlpt 时升级为 gkmlpt 直链。
 
 ### Step 9 状态机推进（单向不降级）
 ```
@@ -129,10 +156,30 @@ python3 <SKILL_DIR>/scripts/db_io.py append-timeline --batch-id "<批次>" --sta
 python3 <SKILL_DIR>/scripts/db_io.py stats --city 深圳
 python3 <SKILL_DIR>/scripts/db_io.py query "SELECT publish_date, district, substr(title,1,40) FROM notices ORDER BY publish_date DESC LIMIT 10"
 python3 <SKILL_DIR>/scripts/db_io.py query "SELECT batch_id, current_stage, total_units, average_price FROM batches ORDER BY batch_id DESC LIMIT 10"
-python3 <SKILL_DIR>/scripts/db_io.py query "SELECT url, COUNT(*) c FROM notices GROUP BY url HAVING c>1"
+python3 <SKILL_DIR>/scripts/db_io.py query "SELECT district, title, publish_date, COUNT(*) c FROM notices GROUP BY district, title, publish_date HAVING c > 1"
 ```
-逐项确认：① 新公文都进了库；② 没有重复 URL；③ 批次套数/价格没有明显离谱值；
-④ 阶段只前进没后退；⑤ 空源已排查。最后向用户汇报"新增几条、涉及哪些批次、哪些跳过及原因"。
+逐项确认：① 新公文都进了库；② 没有重复 `title + publish_date`；③ 批次套数/价格没有明显离谱值；
+④ 阶段只前进没后退；⑤ `fetch_list --summary` 里的 `empty_sources` 已排查。
+最后向用户汇报“新增几条、涉及哪些批次、哪些跳过及原因”。
+
+### 定期巡检（非每日必跑）
+
+`audit_sources.py` 是只读体检工具，**不参与每日同步主流程**。它在同步链路之外，适合在以下时机运行：
+
+- 新增或切换数据源后；
+- 历史回填完成后的验收；
+- 每周/每月定期体检；
+- `fetch_list --summary` 出现空源、最新日期异常，或怀疑某区长期没更新时。
+
+```bash
+python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳
+python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳 --channel policies
+python3 <SKILL_DIR>/scripts/audit_sources.py --city 深圳 --include-disabled   # 确认旧源已无新增
+```
+
+出现 `FAIL`（API 无返回）或连续 `WARN`（库内落后、UI 有独有公告）时，
+按 `references/sources_guide.md` 第 5、6 节排查；必要时回滚：新源 `enabled: false`、
+旧源（`replaced_by` 指向的源）`enabled: true`，再重跑一次并检查重复。
 
 ---
 
@@ -142,7 +189,9 @@ python3 <SKILL_DIR>/scripts/db_io.py query "SELECT url, COUNT(*) c FROM notices 
 - ❌ 用正则硬猜批次号/项目名后直接入库——猜错会污染台账（历史事故：`住保租` 被当成配售批次、
   `星河开市客` 被挂到"文化创意园"、`光盘2套` 被当成三房套数）。
 - ❌ 一条公文挂多个批次，或把派生通知单独建批次。
-- ❌ 因为"今天没抓到"就断言"官方没发"——先排查空源与页面改版。
+- ❌ 因为“今天没抓到”就断言“官方没发”——先排查空源与页面改版。
+- ❌ 只靠城市级 `MAX(publish_date)` 判断所有区都同步完成——按源看 `fetch_list --summary` 与 `diff`，定期用 `audit_sources` 复核。
+- ❌ 只按 URL 去重——同一公告在 UI 与 gkmlpt 的 URL 不同，必须先比 `district + title + publish_date`。
 
 ---
 
