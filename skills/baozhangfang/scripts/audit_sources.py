@@ -27,7 +27,7 @@ import signal
 import sqlite3
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -82,6 +82,18 @@ def date_lag(newer: str, older: str) -> int:
         return -1
 
 
+def _ui_title_covered(title: str, api_titles: Set[str]) -> bool:
+    """判断 UI 标题是否已被 API 覆盖；兼容官网前端将长标题截断为 `...`/`…` 的情况。"""
+    t = (title or "").strip()
+    if t in api_titles:
+        return True
+    if t.endswith(("...", "…")):
+        prefix = t.rstrip(".…").strip()
+        if len(prefix) >= 10:
+            return any(at.startswith(prefix) for at in api_titles)
+    return False
+
+
 def audit_one(src: Dict[str, Any], city: str, channel: str, pages: int,
               conn: sqlite3.Connection, max_lag: int) -> Dict[str, Any]:
     sid = src.get("source_id", "")
@@ -123,7 +135,7 @@ def audit_one(src: Dict[str, Any], city: str, channel: str, pages: int,
         else:
             api_titles = {(it.get("title") or "").strip() for it in items}
             ui_only = [{"date": it["date"], "title": it["title"]}
-                       for it in ui_items if (it.get("title") or "").strip() not in api_titles][:10]
+                       for it in ui_items if not _ui_title_covered(it.get("title") or "", api_titles)][:10]
             if ui_only:
                 warnings.append(f"UI 最新 {len(ui_items)} 条中有 {len(ui_only)} 条 API 未覆盖")
     elif channel == "policies":
