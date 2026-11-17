@@ -9,13 +9,14 @@ db.py - 运行库路径解析与种子库自举工具
 首次使用时若 housing.db 不存在，则自动由 seed.sql 导入生成，实现开箱即用。
 """
 
+import os
 import sqlite3
 import sys
 from pathlib import Path
 
 SKILL_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = SKILL_ROOT / "data"
-DB_PATH = DATA_DIR / "housing.db"
+DB_PATH = Path(os.environ["BAOZHANGFANG_DB"]) if os.environ.get("BAOZHANGFANG_DB") else (DATA_DIR / "housing.db")
 SEED_PATH = DATA_DIR / "seed.sql"
 
 

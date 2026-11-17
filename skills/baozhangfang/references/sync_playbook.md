@@ -11,9 +11,9 @@
 | 角色 | 职责 | 不该做的事 |
 | :--- | :--- | :--- |
 | `fetch_list.py` | 把配置里所有源的第 1~N 页条目**原样**抓成 JSON | 不判断相关性、不分类、不查库 |
-| `fetch_detail.py` | 给 URL，返回正文纯文本 + 附件直链 +（可选）表格 | 不抽业务字段、不判归属 |
-| `db_io.py` | 参数化的单记录读写：项目/批次/公文/政策 upsert、时间线追加、只读查询 | 不替你做匹配和阶段推断 |
-| **Agent（你）** | 读列表 → 判相关性 → 决定抓哪些全文 → 读正文抽要素 → 决定归属 → 逐条写入 → 自检 | 不要指望脚本替你判断 |
+| `fetch_detail.py` | 给 URL（HTML/PDF/XLSX/DOCX），返回纯文本 + 附件直链 +（可选）表格 | 不决定抓哪个附件、不抽业务字段、不判归属 |
+| `db_io.py` | 参数化的单记录/批量原子读写：项目/批次/公文/政策/申购家庭 upsert、时间线追加、只读查询 | 不替你做匹配、映射和阶段推断 |
+| **Agent（你）** | 读列表 → 判相关性 → 决定抓哪些正文与附件 → 读正文/表格抽要素 → 决定归属与流转状态 → 逐项写入 → 自检 | 不要指望脚本替你判断 |
 
 ---
 
@@ -36,9 +36,9 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json -
 python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --input /tmp/policies.json
 python3 <SKILL_DIR>/scripts/db_io.py known-urls --city 深圳 --since 2026-10-01 --format json
 
-# ④ 正文（可一次传多个 URL；--tables 抽表格；--save-dir 落盘原始文件）
+# ④ 正文与附件（支持 HTML/PDF/XLSX/DOCX；--tables 抽页面/PDF/Excel/Word 表格；--save-dir 落盘原始文件）
 python3 <SKILL_DIR>/scripts/fetch_detail.py --url-file /tmp/todo_urls.txt --save-dir /tmp/bf_html
-python3 <SKILL_DIR>/scripts/fetch_detail.py <url> --tables
+python3 <SKILL_DIR>/scripts/fetch_detail.py <url_or_attachment_url> --tables
 
 # ⑤ 写库（全部参数化；通知按 district+归一化标题+publish_date → url 两级去重）
 python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name 星河开市客环球商业中心 --district 龙华区 \
@@ -49,6 +49,8 @@ python3 <SKILL_DIR>/scripts/db_io.py link-batch-project --batch-id "住保售〔
         --batch-seq 1 --units 300 --three-bedroom-units 300 --average-price 28000
 python3 <SKILL_DIR>/scripts/db_io.py upsert-notice --url <url> --title "<标题>" --date 2026-11-10 \
         --district 光明区 --category 综合公告 --content-file /tmp/body.txt
+python3 <SKILL_DIR>/scripts/db_io.py upsert-applications --batch-id "住保售〔2026〕079号批次" \
+        --input /tmp/apps.json --notice-url <附件或公文url> --notice-stage 初审名单 --notice-date 2026-10-28
 python3 <SKILL_DIR>/scripts/db_io.py upsert-policy --url <url> --title "<法规标题>" --category 地方性法规 \
         --publisher 深圳市住房和建设局 --date 2026-08-01 --content-file /tmp/policy.txt
 python3 <SKILL_DIR>/scripts/db_io.py append-timeline --batch-id "<批次>" --stage 初审名单 \
@@ -108,8 +110,8 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 
 判断时看**标题 + 摘要**即可；标题模糊（如"关于……有关事项的通知"）时，先抓正文再定，不要靠猜。
 
-### Step 5 决定要不要抓全文
-**必须抓全文**：
+### Step 5 决定要不要抓全文与附件
+**必须抓正文**：
 - 认购/配租通告（含套数、户型、价格、认购条件、时间、电话、接待点）
 - 初审/终审/核查名单公示（含户数、队列、合格/不合格数、公示期）
 - 摇号通告/结果（含顺序号规则、时间地点）
@@ -119,10 +121,16 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 
 **可以只存列表信息（不抓正文）**：轮候合格家庭公示、需求库名单、纯流程性通知——除非用户明确要看细节。
 
-### Step 6 从正文抽要素
+**按需抓附件（由 Agent 根据 `attachments` 列表的标题与格式判断）**：
+- **纳入主流程的申购人流转附件**（关联已入库批次 `batch_id` 的初审名单、终审名单、摇号结果、选房排位/选房结果，常见 `.pdf` / `.xlsx`）：使用 `fetch_detail.py <附件URL> --tables` 抽取原文与表格行，解析为结构化 JSON 后更新 `applications` 表（记录各阶段状态 `verify_status` / `ballot_seq` / `selection_result` / `selected_unit`）。
+- **按需抓取的 Excel/PDF 业务附件**：当正文缺失套数、户型、均价或选房排期，而附件中有「房源价格表 / 房源明细表 / 选房时间安排表」（常见 `.xlsx` / `.pdf`）时，再调用 `fetch_detail.py <附件URL> --tables` 抽取核对。
+- **建议跳过**：数十 MB 的销售说明书、看房二维码、交通指引、操作指引，以及超大体量与批次流转无关的轮候库名单——除非用户明确要求查看。
+
+### Step 6 从正文与附件抽要素
 按目标表字段逐项找，**找不到就留空，不要凑数**。先分清层级：
 套数/户型/均价/交付标准属于「批次 × 楼盘」→ `batch_projects`；
-认购窗口/销售方式/订金/咨询电话/阶段属于批次 → `batches`。
+认购窗口/销售方式/订金/咨询电话/阶段属于批次 → `batches`；
+申购家庭明细及各阶段流转状态（初审/终审/摇号序号/选房结果）→ `applications`（按 `(batch_id, applicant_code)` 增量更新，后阶段只填本阶段新增字段，不覆盖前序阶段已有字段）。
 
 > `notices.publish_date` 不从这里抽：一律用 `fetch_list` 的列表日期；`fetch_detail` 返回的页面/正文日期仅作参考，不写库。
 
@@ -165,7 +173,8 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --channel policies --inp
 3. `link-batch-project`（登记该盘在本批次的套数/户型/均价；多楼盘批次逐个调用）
 4. `upsert-notice`（`--batch-id` 可为空串表示不挂批次）
 5. `append-timeline`（把该公文事件的 stage/title/date/url 追加到批次时间线）
-6. 若为政策法规，则直接执行 `upsert-policy`
+6. `upsert-applications` / `upsert-application`（当该批公文含初审/终审/摇号/选房申购名单附件时，由 Agent 从抽取结果整理为 JSON 后按 `(batch_id, applicant_code)` 幂等写入或局部更新，并可用 `--notice-url` / `--notice-stage` / `--notice-date` 追加溯源）
+7. 若为政策法规，则直接执行 `upsert-policy`
 
 `upsert-notice` 按 `district + 归一化标题 + publish_date` 优先去重，再按 URL 兜底，重复执行不会新增记录；
 命中同区同标题同日时，会更新正文/附件，并在旧 URL 不是 gkmlpt 时升级为 gkmlpt 直链；

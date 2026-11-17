@@ -18,6 +18,8 @@ db_io.py - 数据库读写原子操作（原子工具）
   unlink-batch-project 解除批次与项目的关联
   upsert-notice   建/改公文（按 district+归一化标题+publish_date → url 两级去重）
   upsert-policy   建/改政策法规规约（按 city+归一化标题+date → url 两级去重）
+  upsert-application   建/改单条申购记录（按 batch_id+applicant_code 唯一，增量更新流转字段）
+  upsert-applications  批量建/改申购记录（从 JSON 数组读取，单事务幂等写入）
   append-timeline 给批次的 notices_json 追加一条事件
 
 示例：
@@ -68,6 +70,11 @@ NOTICE_FIELDS = ["district", "project_id", "batch_id", "category", "title",
 
 POLICY_FIELDS = ["category", "title", "document_number", "publisher", "publish_date",
                  "effective_date", "status", "summary", "content_text", "attachments_json"]
+
+APPLICATION_FIELDS = ["main_applicant", "id_card", "house_type", "queue", "talent_type",
+                      "family_size", "member_names", "verify_status", "ballot_seq",
+                      "selection_result", "selected_unit", "notices_json"]
+APPLICATION_INT_FIELDS = {"family_size", "ballot_seq"}
 
 
 def connect(read_only: bool = False) -> sqlite3.Connection:
@@ -749,6 +756,211 @@ def cmd_append_timeline(args) -> int:
     return 0
 
 
+def _build_notice_event(args) -> Optional[Dict[str, str]]:
+    """从可选 CLI 参数构造申购流转的公文溯源事件。"""
+    url = (getattr(args, "notice_url", None) or "").strip()
+    stage = (getattr(args, "notice_stage", None) or "").strip()
+    date = (getattr(args, "notice_date", None) or "").strip()
+    if not (url or stage or date):
+        return None
+    if not url:
+        raise ValueError("记录公文溯源时必须提供 --notice-url")
+    ev: Dict[str, str] = {"url": url}
+    if stage:
+        ev["stage"] = stage
+    if date:
+        ev["date"] = normalize_date(date)
+    return ev
+
+
+def _merge_app_notices(existing_json: Optional[str], explicit_json: Optional[str],
+                       notice_event: Optional[Dict[str, str]]) -> Optional[str]:
+    """合并申购记录的 notices_json；返回 None 表示无需改写。"""
+    if explicit_json is None and notice_event is None:
+        return None
+    if explicit_json is not None:
+        raw = explicit_json.strip()
+        if not raw:
+            events: List[Dict[str, Any]] = []
+        else:
+            parsed = json.loads(raw)
+            if not isinstance(parsed, list):
+                raise ValueError("notices_json 必须为 JSON 数组")
+            events = parsed
+    else:
+        try:
+            events = json.loads(existing_json) if existing_json else []
+            if not isinstance(events, list):
+                events = []
+        except Exception:
+            events = []
+
+    if notice_event is not None:
+        key = (notice_event.get("url"), notice_event.get("stage", ""))
+        if not any((e.get("url"), e.get("stage", "")) == key for e in events if isinstance(e, dict)):
+            events.append(notice_event)
+            events.sort(key=lambda e: e.get("date", "") if isinstance(e, dict) else "")
+    return json.dumps(events, ensure_ascii=False)
+
+
+def _normalize_app_item(item: Any) -> Dict[str, Any]:
+    """校验并规范化单条申购记录载荷（仅做类型与字段白名单校验，不做业务推断）。"""
+    if not isinstance(item, dict):
+        raise ValueError(f"申购记录必须为 JSON 对象：{item!r}")
+    allowed = {"applicant_code", *APPLICATION_FIELDS}
+    unknown = set(item) - allowed
+    if unknown:
+        raise ValueError(f"申购记录存在未知字段：{sorted(unknown)}")
+
+    code = str(item.get("applicant_code") or "").strip()
+    if not code:
+        raise ValueError("申购记录缺少必填字段 applicant_code")
+
+    cleaned: Dict[str, Any] = {"applicant_code": code}
+    for f in APPLICATION_FIELDS:
+        if f not in item:
+            continue
+        val = item[f]
+        if val is None:
+            continue
+        if f in APPLICATION_INT_FIELDS:
+            if isinstance(val, bool):
+                raise ValueError(f"{code} 的字段 {f} 不能为布尔值")
+            if isinstance(val, str):
+                val = val.strip()
+                if not val:
+                    continue
+            try:
+                cleaned[f] = int(val)
+            except (TypeError, ValueError):
+                raise ValueError(f"{code} 的整数字段 {f} 非法：{val!r}") from None
+        elif f == "notices_json":
+            if isinstance(val, list):
+                cleaned[f] = json.dumps(val, ensure_ascii=False)
+            else:
+                cleaned[f] = str(val).strip()
+        else:
+            s = str(val).strip()
+            if s:
+                cleaned[f] = s
+    return cleaned
+
+
+def _upsert_one_application(conn: sqlite3.Connection, batch_id: str, city: str,
+                            item: Dict[str, Any],
+                            notice_event: Optional[Dict[str, str]] = None) -> str:
+    """按 (batch_id, applicant_code) 幂等写入或局部更新申购记录。"""
+    data = _normalize_app_item(item)
+    code = data.pop("applicant_code")
+    explicit_notices = data.pop("notices_json", None)
+
+    exists = conn.execute(
+        "SELECT * FROM applications WHERE batch_id = ? AND applicant_code = ?",
+        (batch_id, code),
+    ).fetchone()
+
+    if exists:
+        updates: Dict[str, Any] = {}
+        for k, v in data.items():
+            if exists[k] != v:
+                updates[k] = v
+        merged_notices = _merge_app_notices(exists["notices_json"], explicit_notices, notice_event)
+        if merged_notices is not None and merged_notices != (exists["notices_json"] or ""):
+            updates["notices_json"] = merged_notices
+        if not updates:
+            return "unchanged"
+        sets = ", ".join(f"{k} = ?" for k in updates)
+        conn.execute(
+            f"UPDATE applications SET {sets}, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
+            [*updates.values(), exists["id"]],
+        )
+        return "updated"
+
+    if not data.get("main_applicant"):
+        raise ValueError(f"新建申购记录 {code} 必须提供 main_applicant")
+    merged_notices = _merge_app_notices(None, explicit_notices, notice_event)
+    if merged_notices is not None:
+        data["notices_json"] = merged_notices
+
+    cols = ["batch_id", "applicant_code", "city", *data.keys()]
+    conn.execute(
+        f"INSERT INTO applications ({', '.join(cols)}) VALUES ({', '.join('?' * len(cols))})",
+        [batch_id, code, city, *data.values()],
+    )
+    return "created"
+
+
+def cmd_upsert_application(args) -> int:
+    try:
+        notice_event = _build_notice_event(args)
+    except ValueError as exc:
+        print(f"[错误] {exc}", file=sys.stderr)
+        return 2
+
+    item: Dict[str, Any] = {"applicant_code": args.applicant_code}
+    for f in APPLICATION_FIELDS:
+        v = getattr(args, f, None)
+        if v is not None:
+            item[f] = v
+
+    conn = connect()
+    try:
+        if not conn.execute("SELECT 1 FROM batches WHERE batch_id = ?", (args.batch_id,)).fetchone():
+            print(f"[错误] 批次不存在：{args.batch_id}，请先执行 upsert-batch", file=sys.stderr)
+            return 2
+        action = _upsert_one_application(conn, args.batch_id, args.city, item, notice_event)
+        conn.commit()
+        print(json.dumps({"batch_id": args.batch_id, "applicant_code": args.applicant_code,
+                          "action": action}, ensure_ascii=False))
+    except ValueError as exc:
+        conn.rollback()
+        print(f"[错误] {exc}", file=sys.stderr)
+        return 2
+    finally:
+        conn.close()
+    return 0
+
+
+def cmd_upsert_applications(args) -> int:
+    try:
+        notice_event = _build_notice_event(args)
+    except ValueError as exc:
+        print(f"[错误] {exc}", file=sys.stderr)
+        return 2
+
+    raw = sys.stdin.read() if args.input in (None, "-") else Path(args.input).read_text(encoding="utf-8")
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        print(f"[错误] 无法解析输入 JSON：{exc}", file=sys.stderr)
+        return 2
+    if isinstance(payload, dict) and "records" in payload:
+        payload = payload["records"]
+    if not isinstance(payload, list):
+        print("[错误] 输入 JSON 必须是数组，或包含 records 数组的对象", file=sys.stderr)
+        return 2
+
+    conn = connect()
+    counts = {"created": 0, "updated": 0, "unchanged": 0}
+    try:
+        if not conn.execute("SELECT 1 FROM batches WHERE batch_id = ?", (args.batch_id,)).fetchone():
+            print(f"[错误] 批次不存在：{args.batch_id}，请先执行 upsert-batch", file=sys.stderr)
+            return 2
+        for item in payload:
+            action = _upsert_one_application(conn, args.batch_id, args.city, item, notice_event)
+            counts[action] += 1
+        conn.commit()
+        print(json.dumps({"batch_id": args.batch_id, "total": len(payload), **counts},
+                         ensure_ascii=False))
+    except ValueError as exc:
+        conn.rollback()
+        print(f"[错误] {exc}", file=sys.stderr)
+        return 2
+    finally:
+        conn.close()
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description="保障房数据库读写原子操作")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -882,6 +1094,28 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--batch-id", required=True)
     p.add_argument("--project-id", type=int, required=True)
     p.set_defaults(func=cmd_unlink_batch_project)
+
+    # 11. upsert-application / upsert-applications
+    p = sub.add_parser("upsert-application", help="建/改单条申购记录（按 batch_id+applicant_code 唯一）")
+    p.add_argument("--batch-id", required=True)
+    p.add_argument("--applicant-code", required=True)
+    p.add_argument("--city", default="深圳")
+    for f in APPLICATION_FIELDS:
+        p.add_argument(f"--{f.replace('_', '-')}", dest=f, default=None,
+                       type=int if f in APPLICATION_INT_FIELDS else str)
+    p.add_argument("--notice-url", default=None, help="可选：追加来源附件/公文 URL 到 notices_json")
+    p.add_argument("--notice-stage", default=None, help="可选：对应阶段名称（如 初审名单/终审名单/摇号结果/选房结果）")
+    p.add_argument("--notice-date", default=None, help="可选：公文发布日期 YYYY-MM-DD")
+    p.set_defaults(func=cmd_upsert_application)
+
+    p = sub.add_parser("upsert-applications", help="批量建/改申购记录（JSON 数组，单事务幂等）")
+    p.add_argument("--batch-id", required=True)
+    p.add_argument("--city", default="深圳")
+    p.add_argument("--input", default="-", help="JSON 数组文件，默认从 stdin 读取")
+    p.add_argument("--notice-url", default=None, help="可选：为本批写入的记录追加来源附件/公文 URL")
+    p.add_argument("--notice-stage", default=None, help="可选：对应阶段名称")
+    p.add_argument("--notice-date", default=None, help="可选：公文发布日期 YYYY-MM-DD")
+    p.set_defaults(func=cmd_upsert_applications)
 
     return ap
 

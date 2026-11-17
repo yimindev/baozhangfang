@@ -30,9 +30,9 @@ skills/baozhangfang/
 │   └── housing.db               # 运行时工作库（由 seed.sql 自举，不入库）
 ├── scripts/                     # 全部为原子工具
 │   ├── fetch_list.py            # 抓列表 → JSON（不做任何判断）
-│   ├── fetch_detail.py          # 抓正文 → 文本/附件/表格（不抽业务字段）
-│   ├── db_io.py                 # 单记录读写：query/stats/latest/known-urls/diff/
-│   │                            #   upsert-project/upsert-batch/upsert-notice/upsert-policy/append-timeline
+│   ├── fetch_detail.py          # 抓正文/附件（HTML/PDF/XLSX/DOCX）→ 文本/附件/表格（不抽业务字段）
+│   ├── db_io.py                 # 原子读写：query/stats/latest/known-urls/diff/
+│   │                            #   upsert-project/upsert-batch/upsert-notice/upsert-policy/upsert-application(s)/append-timeline
 │   ├── audit_sources.py         # 定期巡检：API / 库内 / 重复 / UI 四向对照（非每日）
 │   ├── db.py                    # 运行库路径解析与种子自举
 │   ├── schema.py                # DDL 建表与重置
@@ -105,10 +105,11 @@ python3 <SKILL_DIR>/scripts/db_io.py diff --city 深圳 --input /tmp/todo.json -
 
 # 4) Agent 判断：哪些相关 / 哪些需要全文 → 列出待抓 URL
 
-# 5) 抓正文（批量）
+# 5) 抓正文与按需抓附件（PDF/XLSX/DOCX 支持 --tables 抽表格）
 python3 <SKILL_DIR>/scripts/fetch_detail.py --url-file /tmp/todo_urls.txt --save-dir /tmp/bf_html
+python3 <SKILL_DIR>/scripts/fetch_detail.py <附件URL> --tables   # Agent 按需抽取名单/价格表/排期附件
 
-# 6) Agent 读正文抽要素，按 project → batch → notice → timeline 顺序写入
+# 6) Agent 读正文/附件抽要素，按 project → batch → notice → timeline → applications 顺序写入
 python3 <SKILL_DIR>/scripts/db_io.py upsert-project --name <项目名> --district <区> \
         --aliases "<官方异名>"   # 可选；写入前先按项目名/别名查重
 python3 <SKILL_DIR>/scripts/db_io.py upsert-batch --batch-id "住保售〔2026〕083号批次" --project-id <id> \
@@ -122,6 +123,9 @@ python3 <SKILL_DIR>/scripts/db_io.py upsert-notice --url <url> --title "<标题>
         --district 市住建局 --category 初审名单 --batch-id "住保售〔2026〕083号批次" --content-file /tmp/b1.txt
 python3 <SKILL_DIR>/scripts/db_io.py append-timeline --batch-id "住保售〔2026〕083号批次" --stage 初审名单 \
         --title "<标题>" --date 2026-11-09 --url <url>
+# 若含申购人名单/摇号/选房结果附件，由 Agent 解析为 JSON 后按 (batch_id, applicant_code) 增量更新
+python3 <SKILL_DIR>/scripts/db_io.py upsert-applications --batch-id "住保售〔2026〕083号批次" \
+        --input /tmp/apps.json --notice-url <附件URL> --notice-stage 初审名单 --notice-date 2026-11-09
 
 # 7) 自检：行数 + 重复检查
 python3 <SKILL_DIR>/scripts/db_io.py stats --city 深圳
