@@ -1,0 +1,12 @@
+# baozhangfang Skill 运行依赖
+# 说明：仅查库/写库（db.py / db_io.py / schema.py / export_seed.py）完全基于 Python 标准库，无需安装下列包。
+#       执行联网抓取（fetch_list.py / fetch_detail.py / audit_sources.py）需系统命令 curl 及 beautifulsoup4。
+
+# 抓取必需
+beautifulsoup4>=4.12.0
+
+# 附件解析（按需取消注释安装）
+# pdfplumber>=0.11.0   # 优先：PDF 文本与 --tables 表格抽取
+# pypdf>=4.0.0         # 兜底：仅 PDF 文本抽取
+# openpyxl>=3.1.0      # 优先：.xlsx 读取（未安装时 fetch_detail.py 会自动走标准库兜底）
+# xlrd>=2.0.1          # 可选：老式二进制 .xls 表格读取

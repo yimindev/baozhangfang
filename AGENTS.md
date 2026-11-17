@@ -22,7 +22,7 @@
 3. **只固化确定规则，不确定就报错**：文号格式、去重键、外键顺序这类能由官方格式或数据库约束验证的规则才写进脚本；需要判断的一律不做默认值、模糊匹配或静默兜底（如 `project_id` 默认 1、正则猜项目名、关键词白名单）。脚本遇到歧义应报错退出，字段拿不准就留空，由 Agent 依据正文和历史数据决定如何处理。
 4. **唯一事实来源**：数据源只配 `config/sources.json`；同步脚本只在 `skills/baozhangfang/scripts/`；全项目只有一个数据库 `data/housing.db`。不得在根目录新增重复实现、配置或数据库副本。文档同理——细节只写在一处，其他位置用链接。
 5. **多城市、无硬编码**：架构与表结构中禁止把深圳写死；`city` / `district` 为必备分区字段；新城市只加声明式配置。
-6. **标准库优先、最小依赖**：优先 `sqlite3` / `json` / `pathlib` / `re` / `argparse` / `datetime`；抓取只用 `requests` + `beautifulsoup4`；PDF 解析按需用 `pypdf` / `pdfplumber`。拒绝过度封装。
+6. **标准库优先、最小依赖**：优先 `sqlite3` / `json` / `pathlib` / `re` / `argparse` / `datetime`；抓取只用系统 `curl` + `beautifulsoup4`；PDF/Excel 附件解析按需用 `pdfplumber` / `pypdf` / `openpyxl` / `xlrd`（XLSX/DOCX 内置标准库兜底）。拒绝过度封装。
 7. **隐私与凭据红线**：不提交 `config/database.json`、任何密钥或 Token；不提交 `housing.db`；`seed.sql` 只能由 `export_seed.py` 生成（自动剔除 `households` / `members` / `applications` 数据行）；提交前用 `git status`、`git check-ignore` 复核。
 8. **中文与提交规范**：文档、注释、提示一律中文；提交遵循 Conventional Commits（`feat:` / `fix:` / `docs:` / `refactor:`）。
 
